@@ -42,8 +42,8 @@
 <div data-options="region:'west',title:'导航菜单',split:true"
      style="width:150px;">
 
-    <div id="aa" class="easyui-accordion"
-         style="width:300px;height:200px;">
+        <div id="aa" class="easyui-accordion"
+            style="width:300px;height:200px;">
 
         <div title="用户管理">
 
@@ -72,14 +72,14 @@
 
 </div>
 
-<!-- 主体内容 -->
-<div data-options="region:'center',title:'主要信息'"
-     style="padding:5px;background:#eee;">
-    <div id="tt" class="easyui-tabs" data-options="fit:true"
-         style="width:500px;height:250px;">
-        <div title="系统介绍" style="padding:20px;">这里可以写系统或公司的相关介绍等等 </div>
+    <!-- 主体内容 -->
+    <div data-options="region:'center',title:'主要信息'"
+         style="padding:5px;background:#eee;">
+        <div id="tt" class="easyui-tabs" data-options="fit:true"
+             style="width:500px;height:250px;">
+            <div title="系统介绍" style="padding:20px;">这里可以写系统或公司的相关介绍等等 </div>
 
-    </div>
+        </div>
 
 </div>
 <div id="win" ></div>
