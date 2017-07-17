@@ -30,9 +30,7 @@
             });
         });
     </script>
-
 </head>
-
 <body class="easyui-layout">
 <!-- 头部 -->
 <div data-options="region:'north',title:'自提柜后台管理系统',split:true"
