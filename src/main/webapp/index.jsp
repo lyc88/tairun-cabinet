@@ -47,8 +47,10 @@
 
             <!-- list-style: none去左边的点；text-decoration: none：去超链接下划线,title用来区分后继定位这里的超链接 -->
             <ul style="list-style: none;padding: 0px;margin:0px;">
-                <li style="padding: 6px;"><a href="${proPath}/base/goURL/supplier/supplierlist.action" title="管理员"
+                <li style="padding: 6px;"><a href="${proPath}/index" title="管理员"
                                              style="text-decoration: none;display: block;font-weight:bold;">管理员管理</a>
+
+
                 </li>
                 <li style="padding: 6px;"><a href="${proPath}/base/goURL/goods/goodslist.action" title="快递员"
                                              style="text-decoration: none;display: block;font-weight:bold;">快递员管理</a>
