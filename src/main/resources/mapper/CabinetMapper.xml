@@ -76,7 +76,7 @@
 
 
   <!--查询所有柜子信息-->
-  <select id="selectAll"  resultMap="BaseResultMap">
+  <select id="selectAll"  resultType="BaseResultMap">
     select * from cabinet
   </select>
 

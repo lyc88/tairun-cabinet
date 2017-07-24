@@ -337,7 +337,7 @@
     update account
     <set>
       <if test="record.id != null">
-        id = #{record.id,jdbcType=INTEGER},
+      id = #{record.id,jdbcType=INTEGER},
       </if>
       <if test="record.telephone != null">
         telephone = #{record.telephone,jdbcType=VARCHAR},

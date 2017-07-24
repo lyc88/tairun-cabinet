@@ -42,12 +42,13 @@
         <!-- mybatis全局配置文件 -->
         <property name="configLocation" value="classpath:mybatis/mybatis-config.xml"></property>
         <!-- 加载mapper.xml -->
-       <!--  <property name="mapperLocations" value="classpath:mapper/*.xml"></property>-->
+        <property name="mapperLocations" value="classpath:mapper/*.xml"></property>
 
     </bean>
 
     <!-- 扫描Mapper -->
-<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-<property name="basePackage" value="com.tairun.dao"></property>
-</bean>
-        </beans>
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+       <!-- <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />-->
+        <property name="basePackage" value="com.tairun.dao"></property>
+    </bean>
+</beans>

@@ -5,8 +5,9 @@ import com.tairun.model.CabinetExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-@Component("cabinetMapper")
+@Repository("cabinetMapper")
 public interface CabinetMapper {
      //查询所有柜子信息
     List<Cabinet> selectAll();
