@@ -15,14 +15,9 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Resource
     private UserMapper userMapper;
+
     public List<Cabinet> selectByAccount(String tele) {
-        return userMapper.selectByAccount(tele);
+        return  null;//userMapper.selectByAccount(tele);
     }
 
-    public UserMapper getUserMapper() {
-        return userMapper;
-    }
-    public void setUserMapper(UserMapper userMapper) {
-        this.userMapper = userMapper;
-    }
 }

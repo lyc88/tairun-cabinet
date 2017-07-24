@@ -1,7 +1,6 @@
 package com.tairun.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tairun.model.Cabinet;
 import com.tairun.service.CabinetService;
 
 import org.springframework.stereotype.Controller;
@@ -9,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.List;
 import javax.annotation.Resource;
 
 /**
@@ -27,8 +25,8 @@ public class CabinetController {
         String jsonList = "";
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            List<Cabinet> list = cabinetService.selectAll();
-            jsonList = objectMapper.writeValueAsString(list);
+           // List<Cabinet> list = cabinetService.selectAll();
+            //jsonList = objectMapper.writeValueAsString(list);
         } catch (Exception e) {
             e.printStackTrace();
         }

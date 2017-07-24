@@ -1,37 +1,37 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tairun.dao.SelfcabinetMapper">
-  <resultMap id="BaseResultMap" type="com.tairun.model.Selfcabinet">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="code" jdbcType="VARCHAR" property="code" />
-    <result column="info" jdbcType="VARCHAR" property="info" />
-    <result column="status" jdbcType="TINYINT" property="status" />
-    <result column="update" jdbcType="TINYINT" property="update" />
-    <result column="img_id" jdbcType="INTEGER" property="imgId" />
-    <result column="img_update" jdbcType="INTEGER" property="imgUpdate" />
-    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
-    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tairun.dao.SelfcabinetMapper" >
+  <resultMap id="BaseResultMap" type="com.tairun.model.Selfcabinet" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="info" property="info" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="update" property="update" jdbcType="TINYINT" />
+    <result column="img_id" property="imgId" jdbcType="INTEGER" />
+    <result column="img_update" property="imgUpdate" jdbcType="INTEGER" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
   </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue">
+                <when test="criterion.singleValue" >
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue">
+                <when test="criterion.betweenValue" >
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue">
+                <when test="criterion.listValue" >
                   and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
                     #{listItem}
                   </foreach>
                 </when>
@@ -42,25 +42,25 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue">
+                <when test="criterion.singleValue" >
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue">
+                <when test="criterion.betweenValue" >
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue">
+                <when test="criterion.listValue" >
                   and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
                     #{listItem}
                   </foreach>
                 </when>
@@ -71,40 +71,40 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Base_Column_List">
+  <sql id="Base_Column_List" >
     id, code, info, status, update, img_id, img_update, create_date, update_date, name
   </sql>
-  <select id="selectByExample" parameterType="com.tairun.model.SelfcabinetExample" resultMap="BaseResultMap">
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tairun.model.SelfcabinetExample" >
     select
-    <if test="distinct">
+    <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
     from selfcabinet
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
-    <if test="orderByClause != null">
+    <if test="orderByClause != null" >
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from selfcabinet
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from selfcabinet
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.tairun.model.SelfcabinetExample">
+  <delete id="deleteByExample" parameterType="com.tairun.model.SelfcabinetExample" >
     delete from selfcabinet
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.tairun.model.Selfcabinet">
+  <insert id="insert" parameterType="com.tairun.model.Selfcabinet" >
     insert into selfcabinet (id, code, info, 
       status, update, img_id, 
       img_update, create_date, update_date, 
@@ -114,118 +114,118 @@
       #{imgUpdate,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, 
       #{name,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.tairun.model.Selfcabinet">
+  <insert id="insertSelective" parameterType="com.tairun.model.Selfcabinet" >
     insert into selfcabinet
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
         id,
       </if>
-      <if test="code != null">
+      <if test="code != null" >
         code,
       </if>
-      <if test="info != null">
+      <if test="info != null" >
         info,
       </if>
-      <if test="status != null">
+      <if test="status != null" >
         status,
       </if>
-      <if test="update != null">
+      <if test="update != null" >
         update,
       </if>
-      <if test="imgId != null">
+      <if test="imgId != null" >
         img_id,
       </if>
-      <if test="imgUpdate != null">
+      <if test="imgUpdate != null" >
         img_update,
       </if>
-      <if test="createDate != null">
+      <if test="createDate != null" >
         create_date,
       </if>
-      <if test="updateDate != null">
+      <if test="updateDate != null" >
         update_date,
       </if>
-      <if test="name != null">
+      <if test="name != null" >
         name,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="code != null">
+      <if test="code != null" >
         #{code,jdbcType=VARCHAR},
       </if>
-      <if test="info != null">
+      <if test="info != null" >
         #{info,jdbcType=VARCHAR},
       </if>
-      <if test="status != null">
+      <if test="status != null" >
         #{status,jdbcType=TINYINT},
       </if>
-      <if test="update != null">
+      <if test="update != null" >
         #{update,jdbcType=TINYINT},
       </if>
-      <if test="imgId != null">
+      <if test="imgId != null" >
         #{imgId,jdbcType=INTEGER},
       </if>
-      <if test="imgUpdate != null">
+      <if test="imgUpdate != null" >
         #{imgUpdate,jdbcType=INTEGER},
       </if>
-      <if test="createDate != null">
+      <if test="createDate != null" >
         #{createDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="updateDate != null">
+      <if test="updateDate != null" >
         #{updateDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="name != null">
+      <if test="name != null" >
         #{name,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.tairun.model.SelfcabinetExample" resultType="java.lang.Integer">
+  <select id="countByExample" parameterType="com.tairun.model.SelfcabinetExample" resultType="java.lang.Integer" >
     select count(*) from selfcabinet
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map">
+  <update id="updateByExampleSelective" parameterType="map" >
     update selfcabinet
-    <set>
-      <if test="record.id != null">
+    <set >
+      <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.code != null">
+      <if test="record.code != null" >
         code = #{record.code,jdbcType=VARCHAR},
       </if>
-      <if test="record.info != null">
+      <if test="record.info != null" >
         info = #{record.info,jdbcType=VARCHAR},
       </if>
-      <if test="record.status != null">
+      <if test="record.status != null" >
         status = #{record.status,jdbcType=TINYINT},
       </if>
-      <if test="record.update != null">
+      <if test="record.update != null" >
         update = #{record.update,jdbcType=TINYINT},
       </if>
-      <if test="record.imgId != null">
+      <if test="record.imgId != null" >
         img_id = #{record.imgId,jdbcType=INTEGER},
       </if>
-      <if test="record.imgUpdate != null">
+      <if test="record.imgUpdate != null" >
         img_update = #{record.imgUpdate,jdbcType=INTEGER},
       </if>
-      <if test="record.createDate != null">
+      <if test="record.createDate != null" >
         create_date = #{record.createDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.updateDate != null">
+      <if test="record.updateDate != null" >
         update_date = #{record.updateDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.name != null">
+      <if test="record.name != null" >
         name = #{record.name,jdbcType=VARCHAR},
       </if>
     </set>
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExample" parameterType="map">
+  <update id="updateByExample" parameterType="map" >
     update selfcabinet
     set id = #{record.id,jdbcType=INTEGER},
       code = #{record.code,jdbcType=VARCHAR},
@@ -237,330 +237,44 @@
       create_date = #{record.createDate,jdbcType=TIMESTAMP},
       update_date = #{record.updateDate,jdbcType=TIMESTAMP},
       name = #{record.name,jdbcType=VARCHAR}
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tairun.model.Selfcabinet">
+  <update id="updateByPrimaryKeySelective" parameterType="com.tairun.model.Selfcabinet" >
     update selfcabinet
-    <set>
-      <if test="code != null">
+    <set >
+      <if test="code != null" >
         code = #{code,jdbcType=VARCHAR},
       </if>
-      <if test="info != null">
+      <if test="info != null" >
         info = #{info,jdbcType=VARCHAR},
       </if>
-      <if test="status != null">
+      <if test="status != null" >
         status = #{status,jdbcType=TINYINT},
       </if>
-      <if test="update != null">
+      <if test="update != null" >
         update = #{update,jdbcType=TINYINT},
       </if>
-      <if test="imgId != null">
+      <if test="imgId != null" >
         img_id = #{imgId,jdbcType=INTEGER},
       </if>
-      <if test="imgUpdate != null">
+      <if test="imgUpdate != null" >
         img_update = #{imgUpdate,jdbcType=INTEGER},
       </if>
-      <if test="createDate != null">
+      <if test="createDate != null" >
         create_date = #{createDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="updateDate != null">
+      <if test="updateDate != null" >
         update_date = #{updateDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="name != null">
+      <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.tairun.model.Selfcabinet">
-    update selfcabinet
-    set code = #{code,jdbcType=VARCHAR},
-      info = #{info,jdbcType=VARCHAR},
-      status = #{status,jdbcType=TINYINT},
-      update = #{update,jdbcType=TINYINT},
-      img_id = #{imgId,jdbcType=INTEGER},
-      img_update = #{imgUpdate,jdbcType=INTEGER},
-      create_date = #{createDate,jdbcType=TIMESTAMP},
-      update_date = #{updateDate,jdbcType=TIMESTAMP},
-      name = #{name,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <resultMap id="BaseResultMap" type="com.tairun.model.Selfcabinet">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="code" jdbcType="VARCHAR" property="code" />
-    <result column="info" jdbcType="VARCHAR" property="info" />
-    <result column="status" jdbcType="TINYINT" property="status" />
-    <result column="update" jdbcType="TINYINT" property="update" />
-    <result column="img_id" jdbcType="INTEGER" property="imgId" />
-    <result column="img_update" jdbcType="INTEGER" property="imgUpdate" />
-    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
-    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-  </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List">
-    id, code, info, status, update, img_id, img_update, create_date, update_date, name
-  </sql>
-  <select id="selectByExample" parameterType="com.tairun.model.SelfcabinetExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from selfcabinet
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from selfcabinet
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from selfcabinet
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.tairun.model.SelfcabinetExample">
-    delete from selfcabinet
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.tairun.model.Selfcabinet">
-    insert into selfcabinet (id, code, info, 
-      status, update, img_id, 
-      img_update, create_date, update_date, 
-      name)
-    values (#{id,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, #{info,jdbcType=VARCHAR}, 
-      #{status,jdbcType=TINYINT}, #{update,jdbcType=TINYINT}, #{imgId,jdbcType=INTEGER}, 
-      #{imgUpdate,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, 
-      #{name,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.tairun.model.Selfcabinet">
-    insert into selfcabinet
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="code != null">
-        code,
-      </if>
-      <if test="info != null">
-        info,
-      </if>
-      <if test="status != null">
-        status,
-      </if>
-      <if test="update != null">
-        update,
-      </if>
-      <if test="imgId != null">
-        img_id,
-      </if>
-      <if test="imgUpdate != null">
-        img_update,
-      </if>
-      <if test="createDate != null">
-        create_date,
-      </if>
-      <if test="updateDate != null">
-        update_date,
-      </if>
-      <if test="name != null">
-        name,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="code != null">
-        #{code,jdbcType=VARCHAR},
-      </if>
-      <if test="info != null">
-        #{info,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=TINYINT},
-      </if>
-      <if test="update != null">
-        #{update,jdbcType=TINYINT},
-      </if>
-      <if test="imgId != null">
-        #{imgId,jdbcType=INTEGER},
-      </if>
-      <if test="imgUpdate != null">
-        #{imgUpdate,jdbcType=INTEGER},
-      </if>
-      <if test="createDate != null">
-        #{createDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateDate != null">
-        #{updateDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.tairun.model.SelfcabinetExample" resultType="java.lang.Integer">
-    select count(*) from selfcabinet
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    update selfcabinet
-    <set>
-      <if test="record.id != null">
-        id = #{record.id,jdbcType=INTEGER},
-      </if>
-      <if test="record.code != null">
-        code = #{record.code,jdbcType=VARCHAR},
-      </if>
-      <if test="record.info != null">
-        info = #{record.info,jdbcType=VARCHAR},
-      </if>
-      <if test="record.status != null">
-        status = #{record.status,jdbcType=TINYINT},
-      </if>
-      <if test="record.update != null">
-        update = #{record.update,jdbcType=TINYINT},
-      </if>
-      <if test="record.imgId != null">
-        img_id = #{record.imgId,jdbcType=INTEGER},
-      </if>
-      <if test="record.imgUpdate != null">
-        img_update = #{record.imgUpdate,jdbcType=INTEGER},
-      </if>
-      <if test="record.createDate != null">
-        create_date = #{record.createDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.updateDate != null">
-        update_date = #{record.updateDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.name != null">
-        name = #{record.name,jdbcType=VARCHAR},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    update selfcabinet
-    set id = #{record.id,jdbcType=INTEGER},
-      code = #{record.code,jdbcType=VARCHAR},
-      info = #{record.info,jdbcType=VARCHAR},
-      status = #{record.status,jdbcType=TINYINT},
-      update = #{record.update,jdbcType=TINYINT},
-      img_id = #{record.imgId,jdbcType=INTEGER},
-      img_update = #{record.imgUpdate,jdbcType=INTEGER},
-      create_date = #{record.createDate,jdbcType=TIMESTAMP},
-      update_date = #{record.updateDate,jdbcType=TIMESTAMP},
-      name = #{record.name,jdbcType=VARCHAR}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tairun.model.Selfcabinet">
-    update selfcabinet
-    <set>
-      <if test="code != null">
-        code = #{code,jdbcType=VARCHAR},
-      </if>
-      <if test="info != null">
-        info = #{info,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        status = #{status,jdbcType=TINYINT},
-      </if>
-      <if test="update != null">
-        update = #{update,jdbcType=TINYINT},
-      </if>
-      <if test="imgId != null">
-        img_id = #{imgId,jdbcType=INTEGER},
-      </if>
-      <if test="imgUpdate != null">
-        img_update = #{imgUpdate,jdbcType=INTEGER},
-      </if>
-      <if test="createDate != null">
-        create_date = #{createDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateDate != null">
-        update_date = #{updateDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.tairun.model.Selfcabinet">
+  <update id="updateByPrimaryKey" parameterType="com.tairun.model.Selfcabinet" >
     update selfcabinet
     set code = #{code,jdbcType=VARCHAR},
       info = #{info,jdbcType=VARCHAR},

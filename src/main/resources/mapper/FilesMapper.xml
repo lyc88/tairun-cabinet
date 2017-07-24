@@ -1,35 +1,35 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tairun.dao.FilesMapper">
-  <resultMap id="BaseResultMap" type="com.tairun.model.Files">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="file_name" jdbcType="VARCHAR" property="fileName" />
-    <result column="file_path" jdbcType="VARCHAR" property="filePath" />
-    <result column="file_alias" jdbcType="VARCHAR" property="fileAlias" />
-    <result column="sort" jdbcType="INTEGER" property="sort" />
-    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
-    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
-    <result column="img_id" jdbcType="INTEGER" property="imgId" />
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tairun.dao.FilesMapper" >
+  <resultMap id="BaseResultMap" type="com.tairun.model.Files" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="file_name" property="fileName" jdbcType="VARCHAR" />
+    <result column="file_path" property="filePath" jdbcType="VARCHAR" />
+    <result column="file_alias" property="fileAlias" jdbcType="VARCHAR" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="img_id" property="imgId" jdbcType="INTEGER" />
   </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue">
+                <when test="criterion.singleValue" >
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue">
+                <when test="criterion.betweenValue" >
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue">
+                <when test="criterion.listValue" >
                   and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
                     #{listItem}
                   </foreach>
                 </when>
@@ -40,25 +40,25 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue">
+                <when test="criterion.singleValue" >
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue">
+                <when test="criterion.betweenValue" >
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue">
+                <when test="criterion.listValue" >
                   and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
                     #{listItem}
                   </foreach>
                 </when>
@@ -69,40 +69,40 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Base_Column_List">
+  <sql id="Base_Column_List" >
     id, file_name, file_path, file_alias, sort, create_date, update_date, img_id
   </sql>
-  <select id="selectByExample" parameterType="com.tairun.model.FilesExample" resultMap="BaseResultMap">
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tairun.model.FilesExample" >
     select
-    <if test="distinct">
+    <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
     from files
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
-    <if test="orderByClause != null">
+    <if test="orderByClause != null" >
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from files
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from files
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.tairun.model.FilesExample">
+  <delete id="deleteByExample" parameterType="com.tairun.model.FilesExample" >
     delete from files
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.tairun.model.Files">
+  <insert id="insert" parameterType="com.tairun.model.Files" >
     insert into files (id, file_name, file_path, 
       file_alias, sort, create_date, 
       update_date, img_id)
@@ -110,100 +110,100 @@
       #{fileAlias,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, 
       #{updateDate,jdbcType=TIMESTAMP}, #{imgId,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.tairun.model.Files">
+  <insert id="insertSelective" parameterType="com.tairun.model.Files" >
     insert into files
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
         id,
       </if>
-      <if test="fileName != null">
+      <if test="fileName != null" >
         file_name,
       </if>
-      <if test="filePath != null">
+      <if test="filePath != null" >
         file_path,
       </if>
-      <if test="fileAlias != null">
+      <if test="fileAlias != null" >
         file_alias,
       </if>
-      <if test="sort != null">
+      <if test="sort != null" >
         sort,
       </if>
-      <if test="createDate != null">
+      <if test="createDate != null" >
         create_date,
       </if>
-      <if test="updateDate != null">
+      <if test="updateDate != null" >
         update_date,
       </if>
-      <if test="imgId != null">
+      <if test="imgId != null" >
         img_id,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="fileName != null">
+      <if test="fileName != null" >
         #{fileName,jdbcType=VARCHAR},
       </if>
-      <if test="filePath != null">
+      <if test="filePath != null" >
         #{filePath,jdbcType=VARCHAR},
       </if>
-      <if test="fileAlias != null">
+      <if test="fileAlias != null" >
         #{fileAlias,jdbcType=VARCHAR},
       </if>
-      <if test="sort != null">
+      <if test="sort != null" >
         #{sort,jdbcType=INTEGER},
       </if>
-      <if test="createDate != null">
+      <if test="createDate != null" >
         #{createDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="updateDate != null">
+      <if test="updateDate != null" >
         #{updateDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="imgId != null">
+      <if test="imgId != null" >
         #{imgId,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.tairun.model.FilesExample" resultType="java.lang.Integer">
+  <select id="countByExample" parameterType="com.tairun.model.FilesExample" resultType="java.lang.Integer" >
     select count(*) from files
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map">
+  <update id="updateByExampleSelective" parameterType="map" >
     update files
-    <set>
-      <if test="record.id != null">
+    <set >
+      <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.fileName != null">
+      <if test="record.fileName != null" >
         file_name = #{record.fileName,jdbcType=VARCHAR},
       </if>
-      <if test="record.filePath != null">
+      <if test="record.filePath != null" >
         file_path = #{record.filePath,jdbcType=VARCHAR},
       </if>
-      <if test="record.fileAlias != null">
+      <if test="record.fileAlias != null" >
         file_alias = #{record.fileAlias,jdbcType=VARCHAR},
       </if>
-      <if test="record.sort != null">
+      <if test="record.sort != null" >
         sort = #{record.sort,jdbcType=INTEGER},
       </if>
-      <if test="record.createDate != null">
+      <if test="record.createDate != null" >
         create_date = #{record.createDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.updateDate != null">
+      <if test="record.updateDate != null" >
         update_date = #{record.updateDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.imgId != null">
+      <if test="record.imgId != null" >
         img_id = #{record.imgId,jdbcType=INTEGER},
       </if>
     </set>
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExample" parameterType="map">
+  <update id="updateByExample" parameterType="map" >
     update files
     set id = #{record.id,jdbcType=INTEGER},
       file_name = #{record.fileName,jdbcType=VARCHAR},
@@ -213,292 +213,38 @@
       create_date = #{record.createDate,jdbcType=TIMESTAMP},
       update_date = #{record.updateDate,jdbcType=TIMESTAMP},
       img_id = #{record.imgId,jdbcType=INTEGER}
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tairun.model.Files">
+  <update id="updateByPrimaryKeySelective" parameterType="com.tairun.model.Files" >
     update files
-    <set>
-      <if test="fileName != null">
+    <set >
+      <if test="fileName != null" >
         file_name = #{fileName,jdbcType=VARCHAR},
       </if>
-      <if test="filePath != null">
+      <if test="filePath != null" >
         file_path = #{filePath,jdbcType=VARCHAR},
       </if>
-      <if test="fileAlias != null">
+      <if test="fileAlias != null" >
         file_alias = #{fileAlias,jdbcType=VARCHAR},
       </if>
-      <if test="sort != null">
+      <if test="sort != null" >
         sort = #{sort,jdbcType=INTEGER},
       </if>
-      <if test="createDate != null">
+      <if test="createDate != null" >
         create_date = #{createDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="updateDate != null">
+      <if test="updateDate != null" >
         update_date = #{updateDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="imgId != null">
+      <if test="imgId != null" >
         img_id = #{imgId,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.tairun.model.Files">
-    update files
-    set file_name = #{fileName,jdbcType=VARCHAR},
-      file_path = #{filePath,jdbcType=VARCHAR},
-      file_alias = #{fileAlias,jdbcType=VARCHAR},
-      sort = #{sort,jdbcType=INTEGER},
-      create_date = #{createDate,jdbcType=TIMESTAMP},
-      update_date = #{updateDate,jdbcType=TIMESTAMP},
-      img_id = #{imgId,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <resultMap id="BaseResultMap" type="com.tairun.model.Files">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="file_name" jdbcType="VARCHAR" property="fileName" />
-    <result column="file_path" jdbcType="VARCHAR" property="filePath" />
-    <result column="file_alias" jdbcType="VARCHAR" property="fileAlias" />
-    <result column="sort" jdbcType="INTEGER" property="sort" />
-    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
-    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
-    <result column="img_id" jdbcType="INTEGER" property="imgId" />
-  </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List">
-    id, file_name, file_path, file_alias, sort, create_date, update_date, img_id
-  </sql>
-  <select id="selectByExample" parameterType="com.tairun.model.FilesExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from files
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from files
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from files
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.tairun.model.FilesExample">
-    delete from files
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.tairun.model.Files">
-    insert into files (id, file_name, file_path, 
-      file_alias, sort, create_date, 
-      update_date, img_id)
-    values (#{id,jdbcType=INTEGER}, #{fileName,jdbcType=VARCHAR}, #{filePath,jdbcType=VARCHAR}, 
-      #{fileAlias,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, 
-      #{updateDate,jdbcType=TIMESTAMP}, #{imgId,jdbcType=INTEGER})
-  </insert>
-  <insert id="insertSelective" parameterType="com.tairun.model.Files">
-    insert into files
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="fileName != null">
-        file_name,
-      </if>
-      <if test="filePath != null">
-        file_path,
-      </if>
-      <if test="fileAlias != null">
-        file_alias,
-      </if>
-      <if test="sort != null">
-        sort,
-      </if>
-      <if test="createDate != null">
-        create_date,
-      </if>
-      <if test="updateDate != null">
-        update_date,
-      </if>
-      <if test="imgId != null">
-        img_id,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="fileName != null">
-        #{fileName,jdbcType=VARCHAR},
-      </if>
-      <if test="filePath != null">
-        #{filePath,jdbcType=VARCHAR},
-      </if>
-      <if test="fileAlias != null">
-        #{fileAlias,jdbcType=VARCHAR},
-      </if>
-      <if test="sort != null">
-        #{sort,jdbcType=INTEGER},
-      </if>
-      <if test="createDate != null">
-        #{createDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateDate != null">
-        #{updateDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="imgId != null">
-        #{imgId,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.tairun.model.FilesExample" resultType="java.lang.Integer">
-    select count(*) from files
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    update files
-    <set>
-      <if test="record.id != null">
-        id = #{record.id,jdbcType=INTEGER},
-      </if>
-      <if test="record.fileName != null">
-        file_name = #{record.fileName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.filePath != null">
-        file_path = #{record.filePath,jdbcType=VARCHAR},
-      </if>
-      <if test="record.fileAlias != null">
-        file_alias = #{record.fileAlias,jdbcType=VARCHAR},
-      </if>
-      <if test="record.sort != null">
-        sort = #{record.sort,jdbcType=INTEGER},
-      </if>
-      <if test="record.createDate != null">
-        create_date = #{record.createDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.updateDate != null">
-        update_date = #{record.updateDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.imgId != null">
-        img_id = #{record.imgId,jdbcType=INTEGER},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    update files
-    set id = #{record.id,jdbcType=INTEGER},
-      file_name = #{record.fileName,jdbcType=VARCHAR},
-      file_path = #{record.filePath,jdbcType=VARCHAR},
-      file_alias = #{record.fileAlias,jdbcType=VARCHAR},
-      sort = #{record.sort,jdbcType=INTEGER},
-      create_date = #{record.createDate,jdbcType=TIMESTAMP},
-      update_date = #{record.updateDate,jdbcType=TIMESTAMP},
-      img_id = #{record.imgId,jdbcType=INTEGER}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tairun.model.Files">
-    update files
-    <set>
-      <if test="fileName != null">
-        file_name = #{fileName,jdbcType=VARCHAR},
-      </if>
-      <if test="filePath != null">
-        file_path = #{filePath,jdbcType=VARCHAR},
-      </if>
-      <if test="fileAlias != null">
-        file_alias = #{fileAlias,jdbcType=VARCHAR},
-      </if>
-      <if test="sort != null">
-        sort = #{sort,jdbcType=INTEGER},
-      </if>
-      <if test="createDate != null">
-        create_date = #{createDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateDate != null">
-        update_date = #{updateDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="imgId != null">
-        img_id = #{imgId,jdbcType=INTEGER},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.tairun.model.Files">
+  <update id="updateByPrimaryKey" parameterType="com.tairun.model.Files" >
     update files
     set file_name = #{fileName,jdbcType=VARCHAR},
       file_path = #{filePath,jdbcType=VARCHAR},
