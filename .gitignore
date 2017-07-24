@@ -25,7 +25,7 @@ hs_err_pid*
 ### Maven template
 target/
 .idea/workspace.xml
-cabinet.iml
+*.iml
 .idea/workspace.xml.orig
 pom.xml.tag
 pom.xml.releaseBackup
