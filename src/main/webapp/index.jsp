@@ -2,20 +2,20 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="/common/common.jsp"%>
 <html>
-<head>
-    <title></title>
-    <script type="text/javascript">
-        $(function() {
-            $("a[title]").click(function() {
-                var text = this.href;
-                alert(text);
-                //判断是否存在
-                if($('#tt').tabs("exists",this.title)){
+                    <head>
+                    <title></title>
+                                <script type="text/javascript">
+                                    $(function() {
+                                        $("a[title]").click(function() {
+                                var text = this.href;
+                                alert(text);
+                                //判断是否存在
+                            if($('#tt').tabs("exists",this.title)){
                     //存在则选中
                     alert("存在了");
                     $('#tt').tabs("select",this.title);
                 }else{
-                    $('#tt').tabs('add', {
+                        $('#tt').tabs('add', {
                         title:this.title,
                         //面板有关闭按键
                         closable:true,
@@ -29,6 +29,8 @@
 
             });
         });
+
+
     </script>
 </head>
 <body class="easyui-layout">
@@ -40,17 +42,15 @@
      style="width:150px;">
 
         <div id="aa" class="easyui-accordion"
-            style="width:300px;height:200px;">
+                               style="width:300px;height:200px;">
 
-        <div title="用户管理">
+                <div title="用户管理">
 
 
-            <!-- list-style: none去左边的点；text-decoration: none：去超链接下划线,title用来区分后继定位这里的超链接 -->
-            <ul style="list-style: none;padding: 0px;margin:0px;">
-                <li style="padding: 6px;"><a href="${proPath}/index" title="管理员"
+                    <!-- list-style: none去左边的点；text-decoration: none：去超链接下划线,title用来区分后继定位这里的超链接 -->
+                    <ul style="list-style: none;padding: 0px;margin:0px;">
+                <li style="padding: 6px;"><a href="${proPath}/base/goURL/supplier/supplierlist.action" title="管理员"
                                              style="text-decoration: none;display: block;font-weight:bold;">管理员管理</a>
-
-
                 </li>
                 <li style="padding: 6px;"><a href="${proPath}/base/goURL/goods/goodslist.action" title="快递员"
                                              style="text-decoration: none;display: block;font-weight:bold;">快递员管理</a>
@@ -59,10 +59,13 @@
         </div>
 
 
-        <div title="自提柜管理">
+        </div>
+            <div title="自提柜管理">
+                <li style="padding: 6px;"><a href="${proPath}/show.jsp" title="自提柜"
+                                             style="text-decoration: none;display: block;font-weight:bold;">查看自提柜信息</a>
+                </li>
 
-
-            <!-- list-style: none去左边的点；text-decoration: none：去超链接下划线,title用来区分后继定位这里的超链接 -->
+                <!-- list-style: none去左边的点；text-decoration: none：去超链接下划线,title用来区分后继定位这里的超链接 -->
 
         </div>
     </div>
@@ -72,13 +75,13 @@
 </div>
 
     <!-- 主体内容 -->
-    <div data-options="region:'center',title:'主要信息'"
-         style="padding:5px;background:#eee;">
-        <div id="tt" class="easyui-tabs" data-options="fit:true"
-             style="width:500px;height:250px;">
+        <div data-options="region:'center',title:'主要信息'"
+             style="padding:5px;background:#eee;">
+            <div id="tt" class="easyui-tabs" data-options="fit:true"
+                       style="width:500px;height:250px;">
             <div title="系统介绍" style="padding:20px;">这里可以写系统或公司的相关介绍等等 </div>
-
         </div>
+
 
 </div>
 <div id="win" ></div>
