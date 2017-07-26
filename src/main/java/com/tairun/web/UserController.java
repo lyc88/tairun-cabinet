@@ -10,7 +10,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * Created by Administrator on 2017/7/20.
+ * Created by cyt on 2017/7/20.
  */
 @Controller
 public class UserController {

@@ -14,7 +14,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * Created by Administrator on 2017/7/18.
+ * Created by cyt on 2017/7/18.
  */
 @Service
 public class CabinetServiceImpl implements CabinetService {
@@ -40,8 +40,9 @@ public class CabinetServiceImpl implements CabinetService {
     }
 
     public int updateCabinet(int cabid) {
-
-
+        CabinetExample cabinetExample = new CabinetExample();
+        CabinetExample.Criteria criteria=cabinetExample.createCriteria();
+        // int num=criteria
         return 0;
     }
 

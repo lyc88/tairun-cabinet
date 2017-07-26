@@ -4,7 +4,7 @@ import com.tairun.model.Cabinet;
 
 import java.util.List;
 /**
- * Created by Administrator on 2017/7/18.
+ * Created by cyt on 2017/7/18.
  */
 public interface CabinetService {
    //查看自提柜信息
