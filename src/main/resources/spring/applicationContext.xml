@@ -1,10 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/c"
+       xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
-        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
   <context:component-scan base-package="com.tairun">
       <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
@@ -19,10 +20,6 @@
             </list>
         </property>
     </bean>
-
-
-       <!-- <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"></context:exclude-filter>
-    </context:component-scan>-->
 
 
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
@@ -45,6 +42,31 @@
         <property name="mapperLocations" value="classpath:mapper/*.xml"></property>
 
     </bean>
+
+
+    <!-- 配置事务管理器,管理数据源事务处理 -->
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    <!-- 配置事务通知 -->
+    <tx:advice id="advice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <!-- 默认只处理运行时异常，可加rollback-for="Exception/Throwable"等处理所有异常或包括错误 -->
+            <tx:method name="insert*" propagation="REQUIRED"
+                       rollback-for="Exception" />
+            <tx:method name="update*" propagation="REQUIRED"
+                       rollback-for="Exception" />
+            <tx:method name="delete*" propagation="REQUIRED"
+                       rollback-for="Exception" />
+            <tx:method name="*" propagation="SUPPORTS" />
+        </tx:attributes>
+    </tx:advice>
+    <!-- 配置切面织入的范围,后边要把事务边界定在service层 -->
+    <aop:config>
+        <aop:advisor advice-ref="advice"
+                     pointcut="execution(* com.tairun.serviceimpl.*.*(..))" />
+    </aop:config>
 
     <!-- 扫描Mapper -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
