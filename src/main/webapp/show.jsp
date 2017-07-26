@@ -1,6 +1,6 @@
 <%--
   Created by IntelliJ IDEA.
-  User: Administrator
+  User: cyt
   Date: 2017/7/19
   Time: 14:17
   To change this template use File | Settings | File Templates.
@@ -37,7 +37,7 @@
 <body>
 
 <div>
-    <form action="show" method="get">
+            <form action="show" method="get">
         <p>自提柜状态：<select name="status">
             <option value="-1" selected="selected">全部</option>
             <option value="0">未使用</option>
