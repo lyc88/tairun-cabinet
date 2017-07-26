@@ -4,11 +4,11 @@
 <html>
                     <head>
                     <title></title>
-                                <script type="text/javascript">
-                                    $(function() {
-                                        $("a[title]").click(function() {
+                                        <script type="text/javascript">
+                                            $(function() {
+                                                $("a[title]").click(function() {
                                 var text = this.href;
-                                alert(text);
+                                //alert(text);
                                 //判断是否存在
                             if($('#tt').tabs("exists",this.title)){
                     //存在则选中
@@ -62,7 +62,7 @@
         </div>
             <div title="自提柜管理">
                 <li style="padding: 6px;"><a href="${proPath}/show.jsp" title="自提柜"
-                                             style="text-decoration: none;display: block;font-weight:bold;">查看自提柜信息</a>
+                                                  style="text-decoration: none;display: block;font-weight:bold;">查看自提柜信息</a>
                 </li>
 
                 <!-- list-style: none去左边的点；text-decoration: none：去超链接下划线,title用来区分后继定位这里的超链接 -->
