@@ -39,11 +39,11 @@ public class CabinetServiceImpl implements CabinetService {
         return list;
     }
 
-    public int updateCabinet(int cabid) {
+    public int updateCabinet(Cabinet cabinet) {
         CabinetExample cabinetExample = new CabinetExample();
         CabinetExample.Criteria criteria=cabinetExample.createCriteria();
-        // int num=criteria
-        return 0;
+        int num=cabinetMapper.updateByPrimaryKey(cabinet);
+        return num;
     }
 
    /* public static void main(String[] args) {
