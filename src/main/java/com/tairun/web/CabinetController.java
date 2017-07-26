@@ -36,17 +36,11 @@ public class CabinetController {
     }
 
     /*清空柜子*/
-    @RequestMapping("/updatecab")
-    public String updateCab(@RequestParam int cid) {
-        int num = cabinetService.updateCabinet(cid);
+    @RequestMapping("/updateCab")
+    public String updateCab(@RequestParam int cid,@RequestParam Byte status,@RequestParam Cabinet cabinet) {
+        int num = cabinetService.updateCabinet(cabinet);
         return "index";
     }
 
-    public CabinetService getCabinetService() {
-        return cabinetService;
-    }
 
-    public void setCabinetService(CabinetService cabinetService) {
-        this.cabinetService = cabinetService;
-    }
 }
