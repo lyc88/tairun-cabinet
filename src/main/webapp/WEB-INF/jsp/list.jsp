@@ -18,9 +18,9 @@
             $('#dg').datagrid({
                 url:'json',
                 columns:[[
-                    {field:'productid',title:'productid',width:100},
-                    {field:'productname',title:'productname',width:100}
-                ]]
+            {field:'productid',title:'productid',width:100},
+            {field:'productname',title:'productname',width:100}
+            ]]
             });
         });
     </script>

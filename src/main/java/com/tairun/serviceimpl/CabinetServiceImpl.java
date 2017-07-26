@@ -25,14 +25,17 @@ public class CabinetServiceImpl implements CabinetService {
      * 查询自提柜信息
      * @return
      */
-    public List<Cabinet> selectAll() {
+    public List<Cabinet> selectAll(Byte status) {
         CabinetExample cabinetExample = new CabinetExample();
         CabinetExample.Criteria  criteria = cabinetExample.createCriteria();
-        //criteria.andCodeEqualTo("");
-        PageHelper.startPage(1,10);
+        if(status>=0){
+            criteria.andStatusEqualTo(status);
+        }else if(status<0){
+        List<Cabinet> list =  cabinetMapper.selectByExample(cabinetExample);
+    }
+        PageHelper.startPage(1,5);
         List<Cabinet> list =  cabinetMapper.selectByExample(cabinetExample);
         PageInfo pageInfo = new PageInfo(list);
-        System.out.println(pageInfo.getPages());
         return list;
     }
 
@@ -42,9 +45,9 @@ public class CabinetServiceImpl implements CabinetService {
         return 0;
     }
 
-    public static void main(String[] args) {
+   /* public static void main(String[] args) {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
         CabinetService cabinetService = (CabinetService) applicationContext.getBean("cabinetServiceImpl");
         System.out.println(cabinetService.selectAll().get(0).getBeginDate());
-    }
+    }*/
 }
