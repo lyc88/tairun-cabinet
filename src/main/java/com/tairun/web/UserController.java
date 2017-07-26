@@ -22,20 +22,10 @@ public class UserController {
      * @param tele
      * @return
      */
-    @RequestMapping("/selectAccount")
+    @RequestMapping("/findUserInfo")
     public String selectByAccount(@RequestParam String tele) {
-        List<Cabinet> list = userService.selectByAccount(tele);
+
         return "";
     }
-
-
-    public UserService getUserService() {
-        return userService;
-    }
-
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
-
 
 }

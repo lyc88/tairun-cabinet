@@ -19,7 +19,9 @@ public class CabinetController {
     private CabinetService cabinetService;
 
     /**
-     * 查看所有柜子信息*/
+     * 查看所有柜子信息
+     *
+     */
     @RequestMapping("/show")
     @ResponseBody
     public String selectAll(@RequestParam Byte status) {
