@@ -67,7 +67,6 @@
         <aop:advisor advice-ref="advice"
                      pointcut="execution(* com.tairun.serviceimpl.*.*(..))" />
     </aop:config>
-
     <!-- 扫描Mapper -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
        <!-- <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />-->
