@@ -27,14 +27,14 @@ public class CabinetServiceImpl implements CabinetService {
      */
     public List<Cabinet> selectAll(Byte status) {
         CabinetExample cabinetExample = new CabinetExample();
-        CabinetExample.Criteria  criteria = cabinetExample.createCriteria();
-        if(status>=0){
+        CabinetExample.Criteria criteria = cabinetExample.createCriteria();
+        if (status >= 0) {
             criteria.andStatusEqualTo(status);
-        }else if(status<0){
-        List<Cabinet> list =  cabinetMapper.selectByExample(cabinetExample);
-    }
-        PageHelper.startPage(1,5);
-        List<Cabinet> list =  cabinetMapper.selectByExample(cabinetExample);
+        } else if (status < 0) {
+            List<Cabinet> list = cabinetMapper.selectByExample(cabinetExample);
+        }
+        PageHelper.startPage(1, 5);
+        List<Cabinet> list = cabinetMapper.selectByExample(cabinetExample);
         PageInfo pageInfo = new PageInfo(list);
         return list;
     }
