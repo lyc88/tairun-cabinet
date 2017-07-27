@@ -14,11 +14,11 @@
     <script type="text/javascript">
         $(function () {
             $('#datagrid').datagrid({
-                url: '/show',
+                url: '/showList',
                 pagination: true,
                 pageNumber: 1,
-                pageSize: 15,
-                pageList: [10, 20, 30],
+                pageSize: 5,
+                pageList: [5, 10, 15],
                 columns: [[
                     {field: 'id', title: '自提柜编号', width: 100},
                     {field: 'code', title: '编号', width: 100},
@@ -31,20 +31,28 @@
                     {field: 'contactsTelephone', title: '收货人电话', width: 100}
                 ]]
              });
+
+
         });
+
+        function doSearch(){
+            $('#datagrid').datagrid('load', {
+                status: $('#zstatus').val()
+            });
+            //alert(status);
+        }
     </script>
 </head>
 <body>
 
-<div>
-            <form action="show" method="get">
-        <p>自提柜状态：<select name="status">
-            <option value="-1" selected="selected">全部</option>
-            <option value="0">未使用</option>
-            <option value="1">已使用</option>
-        </select>
-        <input type="submit" value="查询"/></p>
-    </form>
+
+    <div id="tb">
+        <span>自提柜状态：</span> <select  id="zstatus">
+        <option value="-1" selected="selected">全部</option>
+        <option value="0">未使用</option>
+        <option value="1">已使用</option>
+    </select>
+    <a href="#" plain="true" onclick="doSearch()">查询</a>
 </div>
 
 <div>

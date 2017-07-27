@@ -8,7 +8,7 @@ import java.util.List;
  */
 public interface CabinetService {
    //查看自提柜信息
-    List<Cabinet> selectAll(Byte status);
+    List<Cabinet> selectAll(Byte status,Integer page,Integer rows);
     //清空柜子
     int updateCabinet(Cabinet cabinet);
 }

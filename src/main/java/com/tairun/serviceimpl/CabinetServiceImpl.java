@@ -6,8 +6,6 @@ import com.tairun.dao.CabinetMapper;
 import com.tairun.model.Cabinet;
 import com.tairun.model.CabinetExample;
 import com.tairun.service.CabinetService;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -25,7 +23,7 @@ public class CabinetServiceImpl implements CabinetService {
      * 查询自提柜信息
      * @return
      */
-    public List<Cabinet> selectAll(Byte status) {
+    public List<Cabinet> selectAll(Byte status,Integer page,Integer rows) {
         CabinetExample cabinetExample = new CabinetExample();
         CabinetExample.Criteria criteria = cabinetExample.createCriteria();
         if (status >= 0) {
@@ -33,9 +31,14 @@ public class CabinetServiceImpl implements CabinetService {
         } else if (status < 0) {
             List<Cabinet> list = cabinetMapper.selectByExample(cabinetExample);
         }
-        PageHelper.startPage(1, 5);
+        PageHelper.startPage(page, rows);
         List<Cabinet> list = cabinetMapper.selectByExample(cabinetExample);
+        //PageUtil pageUtil=new PageUtil();
+        //pageUtil.setRows(list);
         PageInfo pageInfo = new PageInfo(list);
+        //pageUtil.setTotal(pageInfo.getTotal());
+        System.out.print(pageInfo.getTotal());
+        System.out.print(rows);
         return list;
     }
 

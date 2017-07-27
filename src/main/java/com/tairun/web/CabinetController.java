@@ -7,7 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.Resource;
 
 /**
@@ -20,18 +23,17 @@ public class CabinetController {
 
     /**
      * 查看所有柜子信息*/
-    @RequestMapping("/show")
+    @RequestMapping("/showList")
     @ResponseBody
-    public String selectAll(@RequestParam Byte status) {
-            String jsonList = "";
-            ObjectMapper objectMapper = new ObjectMapper();
-            try {
-                List<Cabinet> list = cabinetService.selectAll(status);
-                jsonList = objectMapper.writeValueAsString(list);
-                System.out.print(list.get(0).getBeginDate());
-            } catch (Exception e) {
-                e.printStackTrace();
-    }
+    public String selectAll(@RequestParam Byte status,Integer page,Integer rows) {
+        String jsonList = "";
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            List<Cabinet> list = cabinetService.selectAll(status,page,rows);
+            jsonList = objectMapper.writeValueAsString(list);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return jsonList;
     }
 
