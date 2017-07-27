@@ -79,7 +79,7 @@
     <listener-class>com.tairun.listener.AllResLoadListener</listener-class>
   </listener>
   <welcome-file-list>
-  <welcome-file>index.jsp</welcome-file>
+  <welcome-file>login.jsp</welcome-file>
 </welcome-file-list>
 
 </web-app>

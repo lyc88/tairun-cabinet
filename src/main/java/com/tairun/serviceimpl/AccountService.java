@@ -10,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -53,6 +54,25 @@ public class AccountService {
      * @return
      */
     public int save(Account account){
+        account.setCreateDate(new Date());
        return accountMapper.insert(account);
+    }
+
+    /**
+     * 根据电话 号码查询
+     * @param telephone
+     * @return
+     */
+    public Account findByTelephone(String telephone){
+        AccountExample accountExample = new AccountExample();
+        //查询条件
+        AccountExample.Criteria criteria = accountExample.createCriteria();
+        criteria.andTelephoneLike(telephone);
+        List<Account> list = accountMapper.selectByExample(accountExample);
+        if(null != list && list.size()>0){
+            return list.get(0);
+        }else{
+            return null;
+        }
     }
 }

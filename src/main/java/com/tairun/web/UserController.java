@@ -14,8 +14,8 @@ import java.util.List;
  */
 @Controller
 public class UserController {
-    @Resource
-    private UserService userService;
+   // @Resource
+    //private UserService userService;
 
     /**
      *
