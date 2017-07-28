@@ -1,5 +1,6 @@
 package com.tairun.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Cabinet {
@@ -18,6 +19,38 @@ public class Cabinet {
     private Date beginDate;
 
     private Date endDate;
+
+    private String createDateStr;
+
+    private String beginDateStr;
+
+    private String endDateStr;
+
+    public String getCreateDateStr() {
+        return createDateStr;
+    }
+
+    public void setCreateDateStr(String createDateStr) {
+        this.createDateStr = createDateStr;
+
+    }
+
+    public String getBeginDateStr() {
+        return beginDateStr;
+    }
+
+    public void setBeginDateStr(String beginDateStr) {
+        this.beginDateStr = beginDateStr;
+
+    }
+
+    public String getEndDateStr() {
+        return endDateStr;
+    }
+
+    public void setEndDateStr(String endDateStr) {
+        this.endDateStr = endDateStr;
+    }
 
     private String contactsTelephone;
 
@@ -67,6 +100,9 @@ public class Cabinet {
 
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+        if(null != this.createDate){
+            this.createDateStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(this.createDate);
+        }
     }
 
     public Date getBeginDate() {
@@ -75,6 +111,9 @@ public class Cabinet {
 
     public void setBeginDate(Date beginDate) {
         this.beginDate = beginDate;
+        if(null != this.beginDate){
+            this.beginDateStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(this.beginDate);
+        }
     }
 
     public Date getEndDate() {
@@ -83,6 +122,9 @@ public class Cabinet {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+        if(null != this.endDate){
+            this.endDateStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(this.endDate);
+        }
     }
 
     public String getContactsTelephone() {

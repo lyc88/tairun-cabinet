@@ -6,6 +6,13 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface CabinetMapper {
+    /**
+     * 根据id查询自提柜信息
+     * @param id
+     * @return
+     */
+    List<Cabinet> selectById(Integer id);
+
     int countByExample(CabinetExample example);
 
     int deleteByExample(CabinetExample example);

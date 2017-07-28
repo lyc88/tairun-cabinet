@@ -1,5 +1,6 @@
 package com.tairun.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Selfcabinet {
@@ -9,9 +10,17 @@ public class Selfcabinet {
 
     private String info;
 
-    private Byte status;
-
     private Byte update;
+
+    /*private String Isupdate;
+
+    public String getIsupdate() {
+        return Isupdate;
+    }
+
+    public void setIsupdate(String isupdate) {
+       this.Isupdate = isupdate;
+    }*/
 
     private Integer imgId;
 
@@ -20,6 +29,26 @@ public class Selfcabinet {
     private Date createDate;
 
     private Date updateDate;
+
+    private String createDateStr;
+
+    private String updateDateStr;
+
+    public String getCreateDateStr() {
+        return createDateStr;
+    }
+
+    public void setCreateDateStr(String createDateStr) {
+        this.createDateStr = createDateStr;
+    }
+
+    public String getUpdateDateStr() {
+        return updateDateStr;
+    }
+
+    public void setUpdateDateStr(String updateDateStr) {
+        this.updateDateStr = updateDateStr;
+    }
 
     private String name;
 
@@ -45,14 +74,6 @@ public class Selfcabinet {
 
     public void setInfo(String info) {
         this.info = info == null ? null : info.trim();
-    }
-
-    public Byte getStatus() {
-        return status;
-    }
-
-    public void setStatus(Byte status) {
-        this.status = status;
     }
 
     public Byte getUpdate() {
@@ -85,6 +106,9 @@ public class Selfcabinet {
 
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+        if(null != this.createDate){
+            this.createDateStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(this.createDate);
+        }
     }
 
     public Date getUpdateDate() {
@@ -93,6 +117,9 @@ public class Selfcabinet {
 
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
+        if(null != this.updateDate){
+            this.updateDateStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(this.updateDate);
+        }
     }
 
     public String getName() {

@@ -1,5 +1,6 @@
 package com.tairun.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Account {
@@ -10,6 +11,16 @@ public class Account {
     private Double account;
 
     private Date createDate;
+    /**
+     * 时间视图值
+     */
+    private String createDateStr;
+
+    public String getCreateDateStr() {
+        return createDateStr;
+    }
+
+    private String name;
 
     public Integer getId() {
         return id;
@@ -41,5 +52,17 @@ public class Account {
 
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+        if(null != this.createDate){
+            this.createDateStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(this.createDate);
+        }
+
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
     }
 }

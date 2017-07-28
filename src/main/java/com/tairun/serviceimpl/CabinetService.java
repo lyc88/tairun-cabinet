@@ -4,8 +4,9 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.tairun.dao.CabinetMapper;
 import com.tairun.model.Cabinet;
+import com.tairun.model.Selfcabinet;
 import com.tairun.model.CabinetExample;
-import com.tairun.service.CabinetService;
+import com.tairun.server.utils.EUDataGridResult;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -15,7 +16,7 @@ import java.util.List;
  * Created by cyt on 2017/7/18.
  */
 @Service
-public class CabinetServiceImpl implements CabinetService {
+public class CabinetService  {
     @Resource
     private CabinetMapper cabinetMapper;
 
@@ -23,30 +24,29 @@ public class CabinetServiceImpl implements CabinetService {
      * 查询自提柜信息
      * @return
      */
-    public List<Cabinet> selectAll(Byte status,Integer page,Integer rows) {
-        CabinetExample cabinetExample = new CabinetExample();
+    public EUDataGridResult selectAll(int pageNum,int pageSize,Byte status,int id) {
+        /*CabinetExample cabinetExample = new CabinetExample();
         CabinetExample.Criteria criteria = cabinetExample.createCriteria();
         if (status >= 0) {
             criteria.andStatusEqualTo(status);
         } else if (status < 0) {
-            List<Cabinet> list = cabinetMapper.selectByExample(cabinetExample);
-        }
-        PageHelper.startPage(page, rows);
         List<Cabinet> list = cabinetMapper.selectByExample(cabinetExample);
-        //PageUtil pageUtil=new PageUtil();
-        //pageUtil.setRows(list);
+    }*/
+        PageHelper.startPage(pageNum, pageSize);
+        List<Cabinet> list = cabinetMapper.selectById(id);
+        EUDataGridResult euDataGridResult = new EUDataGridResult();
+        euDataGridResult.setRows(list);
         PageInfo pageInfo = new PageInfo(list);
-        //pageUtil.setTotal(pageInfo.getTotal());
-        System.out.print(pageInfo.getTotal());
-        System.out.print(rows);
-        return list;
+        euDataGridResult.setTotal(pageInfo.getTotal());
+        return euDataGridResult;
     }
 
     public int updateCabinet(Cabinet cabinet) {
-        CabinetExample cabinetExample = new CabinetExample();
+        /*CabinetExample cabinetExample = new CabinetExample();
         CabinetExample.Criteria criteria=cabinetExample.createCriteria();
         int num=cabinetMapper.updateByPrimaryKey(cabinet);
-        return num;
+        return num;*/
+        return 0;
     }
 
    /* public static void main(String[] args) {

@@ -73,6 +73,12 @@
   <sql id="Base_Column_List" >
     id, code, number, status, courier_telephone, create_date, begin_date, end_date, contacts_telephone
   </sql>
+
+  <!--根据id查询自提柜信息-->
+  <select id="selectById" resultMap="BaseResultMap">
+     select * from cabinet where number=#{number}
+  </select>
+
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tairun.model.CabinetExample" >
     select
     <if test="distinct" >
