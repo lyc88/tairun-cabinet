@@ -61,7 +61,7 @@
 
     </div>
     <div title="自提柜管理">
-        <li style="padding: 6px;"><a href="${proPath}/show.jsp" title="自提柜"
+        <li style="padding: 6px;"><a href="${proPath}/base/goURL/jsp/cabinetList" title="自提柜"
                                      style="text-decoration: none;display: block;font-weight:bold;">查看自提柜信息</a>
         </li>
 

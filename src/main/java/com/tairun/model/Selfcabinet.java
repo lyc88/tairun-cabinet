@@ -12,15 +12,15 @@ public class Selfcabinet {
 
     private Byte update;
 
-    /*private String Isupdate;
+    private String updateStr;
 
-    public String getIsupdate() {
-        return Isupdate;
+    public String getUpdateStr() {
+        return updateStr;
     }
 
-    public void setIsupdate(String isupdate) {
-       this.Isupdate = isupdate;
-    }*/
+    public void setUpdateStr(String updateStr) {
+        this.updateStr = updateStr;
+    }
 
     private Integer imgId;
 
@@ -82,6 +82,11 @@ public class Selfcabinet {
 
     public void setUpdate(Byte update) {
         this.update = update;
+        if(this.update==new Byte("0")){
+            this.setUpdateStr("否");
+        }else if(this.update==new Byte("1")){
+            this.setUpdateStr("是");
+        }
     }
 
     public Integer getImgId() {

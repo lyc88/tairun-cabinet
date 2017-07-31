@@ -32,7 +32,6 @@ public class Cabinet {
 
     public void setCreateDateStr(String createDateStr) {
         this.createDateStr = createDateStr;
-
     }
 
     public String getBeginDateStr() {

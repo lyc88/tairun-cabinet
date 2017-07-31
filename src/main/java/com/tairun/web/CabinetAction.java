@@ -11,20 +11,20 @@ import com.tairun.serviceimpl.CabinetService;
 /**
  * Created by cyt on 2017/7/18.
  */
-@Controller
+    @Controller
     @RequestMapping("cabinet")
-    public class CabinetAction extends BaseAction {
-        @Resource
+    public class CabinetAction {
+    @Resource
     private CabinetService cabinetService;
 
     /**
      * 查看所有柜子信息*/
     @RequestMapping("/showListAll")
     @ResponseBody
-    public EUDataGridResult selectAll(@RequestParam(value = "page", defaultValue = "1") int pageNum, @RequestParam(value = "rows", defaultValue = "5") int pageSize, @RequestParam Byte status, @RequestParam int id) {
+    public EUDataGridResult selectAll(@RequestParam(value = "page", defaultValue = "1") int pageNum, @RequestParam(value = "rows", defaultValue = "5") int pageSize,@RequestParam Byte status,@RequestParam int code) {
         EUDataGridResult euDataGridResult = null;
         try {
-            euDataGridResult = cabinetService.selectAll(pageNum, pageSize, status, id);
+            euDataGridResult = cabinetService.selectAll(pageNum, pageSize,status,code);
         } catch (Exception e) {
             e.printStackTrace();
         }

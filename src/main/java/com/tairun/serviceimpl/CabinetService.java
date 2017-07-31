@@ -25,13 +25,13 @@ public class CabinetService  {
      * @return
      */
     public EUDataGridResult selectAll(int pageNum,int pageSize,Byte status,int id) {
-        /*CabinetExample cabinetExample = new CabinetExample();
+        CabinetExample cabinetExample = new CabinetExample();
         CabinetExample.Criteria criteria = cabinetExample.createCriteria();
         if (status >= 0) {
             criteria.andStatusEqualTo(status);
         } else if (status < 0) {
-        List<Cabinet> list = cabinetMapper.selectByExample(cabinetExample);
-    }*/
+        List<Cabinet> list = cabinetMapper.selectById(id);
+    }
         PageHelper.startPage(pageNum, pageSize);
         List<Cabinet> list = cabinetMapper.selectById(id);
         EUDataGridResult euDataGridResult = new EUDataGridResult();

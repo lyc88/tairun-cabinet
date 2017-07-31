@@ -27,13 +27,6 @@ public class SelfCabinetService {
         SelfcabinetExample.Criteria criteria = selfcabinetExample.createCriteria();
         PageHelper.startPage(pageNum, pageSize);
         List<Selfcabinet> list = selfcabinetMapper.selectByExample(selfcabinetExample);
-        /*for(int i=0;i<list.size();i++){
-            if(list.get(i).getUpdate()==0){
-                selfcabinet.setIsupdate("未使用");
-            }else if(list.get(i).getUpdate()==1){
-                selfcabinet.setIsupdate("已使用");
-            }
-        }*/
         EUDataGridResult euDataGridResult = new EUDataGridResult();
         euDataGridResult.setRows(list);
         PageInfo pageInfo = new PageInfo(list);

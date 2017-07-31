@@ -23,7 +23,7 @@ public class SelfcabinetAction {
     @ResponseBody
     public EUDataGridResult selectSelecabinet(@RequestParam(value="page", defaultValue="1")int pageNum, @RequestParam(value="rows", defaultValue="5")int pageSize){
         EUDataGridResult euDataGridResult = null;
-        try {
+            try {
             euDataGridResult = selfCabinetService.selectSelfcabinetAll(pageNum,pageSize);
         } catch (Exception e) {
             e.printStackTrace();
