@@ -11,10 +11,10 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class SessionManager {
 
-    /**
+    /*,
      * 在线会话
      */
-    private static final ConcurrentHashMap<String, Session> onlineSessions = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<String, Session> onlineSessions = new ConcurrentHashMap<String, Session>();
 
     /**
      * 加入
