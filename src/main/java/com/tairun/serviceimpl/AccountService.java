@@ -43,7 +43,7 @@ public class AccountService {
         List list = accountMapper.selectByExample(accountExample);
         euDataGridResult.setRows(list);
         //取记录总条数
-        PageInfo<Account> pageInfo = new PageInfo<>(list);
+        PageInfo<Account> pageInfo = new PageInfo<Account>(list);
         euDataGridResult.setTotal(pageInfo.getTotal());
         return euDataGridResult;
     }
@@ -68,6 +68,23 @@ public class AccountService {
         //查询条件
         AccountExample.Criteria criteria = accountExample.createCriteria();
         criteria.andTelephoneLike(telephone);
+        List<Account> list = accountMapper.selectByExample(accountExample);
+        if(null != list && list.size()>0){
+            return list.get(0);
+        }else{
+            return null;
+        }
+    }
+    /**
+     * 查询快递员账户密码是否存在
+     * @return
+     */
+    public Account findByTelephoneandpassword(double account,String password){
+        AccountExample accountExample = new AccountExample();
+        //查询条件
+        AccountExample.Criteria criteria = accountExample.createCriteria();
+        criteria.andAccountEqualTo(account);
+        criteria.andPasswordEqualTo(password);
         List<Account> list = accountMapper.selectByExample(accountExample);
         if(null != list && list.size()>0){
             return list.get(0);
