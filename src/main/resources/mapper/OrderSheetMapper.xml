@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tairun.dao.OrderSheetMapper" >
+  <resultMap id="BaseResultMap" type="com.tairun.model.ordersheet" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="identifier" property="identifier" jdbcType="VARCHAR" />
+    <result column="order_type" property="orderType" jdbcType="VARCHAR" />
+    <result column="waybill_number" property="waybillNumber" jdbcType="VARCHAR" />
+    <result column="box_password" property="boxPassword" jdbcType="VARCHAR" />
+    <result column="customer_number" property="customerNumber" jdbcType="VARCHAR" />
+    <result column="account" property="account" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, identifier, order_type, waybill_number, box_password, customer_number, account, 
+    create_date
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tairun.model.ordersheetExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ordersheet
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ordersheet
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ordersheet
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tairun.model.ordersheetExample" >
+    delete from ordersheet
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tairun.model.ordersheet" >
+    insert into ordersheet (id, identifier, order_type, 
+      waybill_number, box_password, customer_number, 
+      account, create_date)
+    values (#{id,jdbcType=INTEGER}, #{identifier,jdbcType=VARCHAR}, #{orderType,jdbcType=VARCHAR}, 
+      #{waybillNumber,jdbcType=VARCHAR}, #{boxPassword,jdbcType=VARCHAR}, #{customerNumber,jdbcType=VARCHAR}, 
+      #{account,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tairun.model.ordersheet" >
+    insert into ordersheet
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="identifier != null" >
+        identifier,
+      </if>
+      <if test="orderType != null" >
+        order_type,
+      </if>
+      <if test="waybillNumber != null" >
+        waybill_number,
+      </if>
+      <if test="boxPassword != null" >
+        box_password,
+      </if>
+      <if test="customerNumber != null" >
+        customer_number,
+      </if>
+      <if test="account != null" >
+        account,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="identifier != null" >
+        #{identifier,jdbcType=VARCHAR},
+      </if>
+      <if test="orderType != null" >
+        #{orderType,jdbcType=VARCHAR},
+      </if>
+      <if test="waybillNumber != null" >
+        #{waybillNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="boxPassword != null" >
+        #{boxPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="customerNumber != null" >
+        #{customerNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="account != null" >
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tairun.model.ordersheetExample" resultType="java.lang.Integer" >
+    select count(*) from ordersheet
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ordersheet
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.identifier != null" >
+        identifier = #{record.identifier,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderType != null" >
+        order_type = #{record.orderType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.waybillNumber != null" >
+        waybill_number = #{record.waybillNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.boxPassword != null" >
+        box_password = #{record.boxPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerNumber != null" >
+        customer_number = #{record.customerNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.account != null" >
+        account = #{record.account,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ordersheet
+    set id = #{record.id,jdbcType=INTEGER},
+      identifier = #{record.identifier,jdbcType=VARCHAR},
+      order_type = #{record.orderType,jdbcType=VARCHAR},
+      waybill_number = #{record.waybillNumber,jdbcType=VARCHAR},
+      box_password = #{record.boxPassword,jdbcType=VARCHAR},
+      customer_number = #{record.customerNumber,jdbcType=VARCHAR},
+      account = #{record.account,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tairun.model.ordersheet" >
+    update ordersheet
+    <set >
+      <if test="identifier != null" >
+        identifier = #{identifier,jdbcType=VARCHAR},
+      </if>
+      <if test="orderType != null" >
+        order_type = #{orderType,jdbcType=VARCHAR},
+      </if>
+      <if test="waybillNumber != null" >
+        waybill_number = #{waybillNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="boxPassword != null" >
+        box_password = #{boxPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="customerNumber != null" >
+        customer_number = #{customerNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="account != null" >
+        account = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tairun.model.ordersheet" >
+    update ordersheet
+    set identifier = #{identifier,jdbcType=VARCHAR},
+      order_type = #{orderType,jdbcType=VARCHAR},
+      waybill_number = #{waybillNumber,jdbcType=VARCHAR},
+      box_password = #{boxPassword,jdbcType=VARCHAR},
+      customer_number = #{customerNumber,jdbcType=VARCHAR},
+      account = #{account,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
