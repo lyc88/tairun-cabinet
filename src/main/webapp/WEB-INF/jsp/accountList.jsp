@@ -24,17 +24,16 @@
                 pagination:true,
                 pageSize:10,
                 pageList:[10,15,20],
-
                 queryParams: {
                     name: '%%',
                     telephone:'%%'
                 },
                 toolbar: [{
                     text:"账号：<input type='text' id='name' name='name'/>",
-                         }
+                }
                     ,'-',{
-                    text:"电话：<input type='text' id='telephone' name='telephone'/>",
-                }],
+                        text:"电话：<input type='text' id='telephone' name='telephone'/>",
+                    }],
 
                 columns : [ [{
                     checkbox:true,
