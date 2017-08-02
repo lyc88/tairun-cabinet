@@ -34,6 +34,17 @@ public class Selfcabinet {
 
     private String updateDateStr;
 
+    private String find ;
+    private String upImg = "onclick=upImg();";
+
+    public String getFind() {
+        return this.find;
+    }
+
+    public String getUpImg() {
+        return this.upImg;
+    }
+
     public String getCreateDateStr() {
         return createDateStr;
     }
@@ -58,6 +69,9 @@ public class Selfcabinet {
 
     public void setId(Integer id) {
         this.id = id;
+        if(id != null){
+            this.find = "<a onclick=find("+code+");>查看</a>";
+        }
     }
 
     public String getCode() {

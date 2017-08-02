@@ -16,6 +16,8 @@ public interface FilesMapper {
 
     int insertSelective(Files record);
 
+    List<Files> selectByImgid(int imgid);
+
     List<Files> selectByExample(FilesExample example);
 
     Files selectByPrimaryKey(Integer id);
