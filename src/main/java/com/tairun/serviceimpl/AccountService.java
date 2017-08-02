@@ -1,5 +1,6 @@
 package com.tairun.serviceimpl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.tairun.dao.AccountMapper;
@@ -75,21 +76,40 @@ public class AccountService {
             return null;
         }
     }
+    //根据账户查询余额
+    public List<Account> findByTelephonetwo(String telephone){
+        AccountExample accountExample = new AccountExample();
+        //查询条件
+        AccountExample.Criteria criteria = accountExample.createCriteria();
+        criteria.andTelephoneLike(telephone);
+        List<Account> list = accountMapper.selectByExample(accountExample);
+        if(null != list && list.size()>0){
+            return list;
+        }else{
+            return null;
+        }
+    }
     /**
      * 查询快递员账户密码是否存在
      * @return
      */
-    public Account findByTelephoneandpassword(double account,String password){
+    public List<Account> findByTelephoneandpassword(String account,String password){
         AccountExample accountExample = new AccountExample();
         //查询条件
         AccountExample.Criteria criteria = accountExample.createCriteria();
-        criteria.andAccountEqualTo(account);
+        criteria.andTelephoneEqualTo(account);
         criteria.andPasswordEqualTo(password);
         List<Account> list = accountMapper.selectByExample(accountExample);
         if(null != list && list.size()>0){
-            return list.get(0);
+            System.out.println(JSONObject.toJSONString(list));
+            return list;
         }else{
             return null;
         }
+    }
+    public int updateaccount(int id,double account){
+        accountMapper.updateByid(id,account);
+
+        return 1;
     }
 }

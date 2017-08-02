@@ -1,6 +1,6 @@
 package com.tairun.server;
 
-import com.tairun.business.Operaction;
+import com.tairun.action.Operaction;
 import com.tairun.server.session.Session;
 import com.tairun.server.session.SessionImpl;
 import com.tairun.server.session.SessionManager;
