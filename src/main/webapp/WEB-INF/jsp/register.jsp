@@ -85,11 +85,19 @@
     function register(){
         var usename = $("input[name=telephone]").val();
         var password = $("input[name=password]").val();
-        if(!usename || !password){
+        var telephone = $("input[name=telephone]").val();
+        if(!usename || !password || !telephone){
             $("#error").removeClass("hide");
-            $("#msg").text("用户名或者密码不能为空");
+            $("#msg").text("手机号或用户名或者密码不能为空");
             return false;
         }
+        if(!(/^1[3|5][0-9]\d{4,8}$/.test(telephone))){
+           // alert("不是完整的11位手机号或者正确的手机号前七位");
+            $("#error").removeClass("hide");
+            $("#msg").text("手机号不合法");
+            return false;
+        }
+
         $("#login").submit();
     }
 
