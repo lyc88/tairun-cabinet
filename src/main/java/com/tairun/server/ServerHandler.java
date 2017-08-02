@@ -1,23 +1,24 @@
 package com.tairun.server;
 
+import com.tairun.business.Operaction;
 import com.tairun.server.session.Session;
 import com.tairun.server.session.SessionImpl;
 import com.tairun.server.session.SessionManager;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by lyc on 2017/7/25.
  */
 public class ServerHandler extends SimpleChannelInboundHandler {
-
-
+    Logger logger = LoggerFactory.getLogger(ServerHandler.class);
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        System.out.println(" server channel active... ");
+        logger.info(" server channel active... ");
     }
-
     /**
      * 消息接收
      * @param channelHandlerContext
@@ -26,14 +27,13 @@ public class ServerHandler extends SimpleChannelInboundHandler {
      */
     @Override
     protected void messageReceived(ChannelHandlerContext channelHandlerContext, Object msg) throws Exception {
-        String request = (String)msg;
+            String request = (String)msg;
         System.out.println("Server :" + msg);
-        String response = "服务器响应：" + msg ;
+        //这个msg是我们传过去的，怎么改成返回的那个？
         //ctx.writeAndFlush(Unpooled.copiedBuffer(response.getBytes()));
+        String msg1 = handlerMessage(new SessionImpl(channelHandlerContext.channel()), request,channelHandlerContext);
+        String response = "服务器响应：" + msg1 ;
         channelHandlerContext.writeAndFlush(Unpooled.copiedBuffer(response.getBytes()));
-
-        handlerMessage(new SessionImpl(channelHandlerContext.channel()), request);
-
 
     }
 
@@ -54,11 +54,28 @@ public class ServerHandler extends SimpleChannelInboundHandler {
      * i.  不是泰润商城的订单，使用一个柜子收费0.5元
      * ii.将运单号、联系人号码、柜子的编号、柜子的开箱码发送到服务器，服务器通过短信接口发送开箱码给收货人
      */
-    private void handlerMessage(Session session,String msg){
+    private String handlerMessage(Session session,String msg,ChannelHandlerContext channelHandlerContext){
         //根据消息类型 判断是否是新的客户端
-        SessionManager.putSession("code12",session);
-        System.out.println(SessionManager.getOnlinePlayers().size());
+        String[] args = msg.split("@");
+        int args2= Integer.valueOf(args[2]);
+        String code=null;
+        if(msg.indexOf("@")!=-1){
+            if(args[0].equals("##")){
+                if(args[3].length()==args2){
+                    /*SessionManager.putSession("code12",session);
+                   System.out.println(SessionManager.getOnlinePlayers().size());*/
+                    Operaction operaction = new Operaction();
+                    code =operaction.event(session,msg);
+                    /*System.out.println(code);*/
+                   SessionManager.sendMessage("code12",code);
+                }
+            }else{
 
-        SessionManager.sendMessage("code12","私发：helloword");
+            }
+        }else{
+
+        }
+
+        return code;
     }
 }
