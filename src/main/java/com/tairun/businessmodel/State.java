@@ -1,4 +1,4 @@
-package com.tairun.business;
+package com.tairun.businessmodel;
 
 /**
  * Created by THINK on 2017/7/31.

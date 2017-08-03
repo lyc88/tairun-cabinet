@@ -2,7 +2,9 @@ package com.tairun.action;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.tairun.business.State;
+import com.tairun.businessmodel.Depositb;
+import com.tairun.businessmodel.Loginkuaib;
+import com.tairun.businessmodel.Pickupb;
 import com.tairun.model.Account;
 import com.tairun.model.Log;
 import com.tairun.server.utils.JsonUtil;
@@ -11,29 +13,39 @@ import com.tairun.service.LogService;
 import com.tairun.serviceimpl.AccountService;
 
 import java.util.Calendar;
+import java.util.List;
 import java.util.Map;
 
 /**
  * Created by THINK on 2017/7/31.
  * 逻辑
  */
-
 public class GoodsPickup {
-
     private AccountService accountService = SpringUtil.getBean(AccountService.class);
     private LogService logService = SpringUtil.getBean(LogService.class);
-
     /*
     *用户取货的信息
     */
     public String Pickup(String msg){
         String[] json = msg.split("@");
         Map<String,Object> map = JsonUtil.convertJsonStrToMap(json[3]);
+        // 取出数据
         String identifier = JSONObject.toJSONString(map.get("identifier"));
-        String action = JSONObject.toJSONString(map.get("action"));
+        String action = (String)map.get("action");
         String boxNumbe = JSONObject.toJSONString(map.get("boxNumbe"));
-        String state = JSONObject.toJSONString(map.get("state"));
-        String response=fuzhi();
+        String state = (String)map.get("state");
+        Pickupb pickupb = new Pickupb();
+        pickupb.setIdentifier(identifier);
+        pickupb.setAction("快递员取件");
+        pickupb.setResult(0);
+        int num= JSON.toJSONString(pickupb).length();
+        String response = "##@1@"+num+"@"+ JSON.toJSONString(pickupb);
+
+        // 构造日志信息
+        Log log = new Log();
+        log.setCreateDate(Calendar.getInstance().getTime());
+        log.setInfo(response);
+        logService.insert(log);
         return response;
     }
     /*
@@ -43,22 +55,31 @@ public class GoodsPickup {
         String[] json = msg.split("@");
         Map<String,Object> map = JsonUtil.convertJsonStrToMap(json[3]);
         // 取出数据
+        String action = (String)map.get("action");
         String identifier = JSONObject.toJSONString(map.get("identifier"));
-        String action = JSONObject.toJSONString(map.get("action"));
-        //String account = JSONObject.toJSONString(map.get("account"));
         String account = (String)map.get("account");
-        String password = JSONObject.toJSONString(map.get("password"));
-        //AccountService accountService = new AccountService();
-        /*Account account1=accountService.findByTelephoneandpassword(account,password);
-        if(account1!=null){
-            String response=fuzhi();
-           *//* channelHandlerContext.writeAndFlush(Unpooled.copiedBuffer(response.getBytes()));*//*
+        String password = (String)map.get("password");
+        double account2=0;
+        List<Account> list=accountService.findByTelephoneandpassword(account,password);
+        if(list!=null){
+            for(Account account1:list){
+                account2=account1.getAccount();
+            }
+            Loginkuaib loginkuai= new Loginkuaib();
+            loginkuai.setIdentifier(identifier);
+            loginkuai.setAccount(account);
+            loginkuai.setBalance(account2);
+            loginkuai.setAction(action);
+            loginkuai.setResult(0);//0表示操作成功
+            int num= JSON.toJSONString(loginkuai).length();
+            String response = "##@1@"+num+"@"+ JSON.toJSONString(loginkuai);
+           /* channelHandlerContext.writeAndFlush(Unpooled.copiedBuffer(response.getBytes()));*/
             return response;
         }else{
-            String ms="找不到该快递员";
+            String ms="没有该快递员账户";
             return ms;
-        }*/
-       return "";
+        }
+
 
     }
     /*
@@ -74,23 +95,61 @@ public class GoodsPickup {
         String[] json = msg.split("@");
         Map<String,Object> map = JsonUtil.convertJsonStrToMap(json[3]);
         String identifier = JSONObject.toJSONString(map.get("identifier"));
-        String action = JSONObject.toJSONString(map.get("action"));
-        String account = JSONObject.toJSONString(map.get("account"));
-        String password = JSONObject.toJSONString(map.get("password"));
-        String waybill_number = JSONObject.toJSONString(map.get("waybill_number"));
-        String customerPhone = JSONObject.toJSONString(map.get("customerPhone"));
+        String action = (String) map.get("action");
+        String account = (String) map.get("account");
+        String order_type = (String) map.get("order_type");
+        String waybill_number = (String) map.get("waybill_number");
+        String customerPhone = (String) map.get("customerPhone");
         String box_number = JSONObject.toJSONString(map.get("box_number"));
         String box_password = JSONObject.toJSONString(map.get("box_password"));
         String box_type = JSONObject.toJSONString(map.get("box_type"));
-        String response=fuzhi();
+        Depositb deposit = new Depositb();
+        int id=0;
+        if(order_type.equals("0")){
+            deposit.setResult(0);
+            deposit.setIdentifier(identifier);
+            deposit.setOperation_information("存件成功");
+            deposit.setAction("快递员存件");
+            int num= JSON.toJSONString(deposit).length();
+            String response = "##@1@"+num+"@"+ JSON.toJSONString(deposit);
+            // 构造日志信息
+            Log log = new Log();
+            log.setCreateDate(Calendar.getInstance().getTime());
+            log.setInfo(response);
+            logService.insert(log);
+            return response;
+        }else if(order_type.equals("1")){
+            //根据运单号查询到账户，余额减0.5，修余额，返回开箱码到联系人手机
+            List<Account> list=accountService.findByTelephonetwo(account);
+            String response=null;
+            double account2=0;
+            if(list!=null) {
+                for (Account account1 : list) {
+                    account2 = account1.getAccount();
+                    id=account1.getId();
+                }
+            }
+            double account3=account2-0.5;
 
-        // 构造日志信息
-        Log log = new Log();
-        log.setCreateDate(Calendar.getInstance().getTime());
-        log.setInfo(response);
-        logService.insert(log);
-
-        return response;
+            int n=accountService.updateaccount(id,account3);
+            if(n>0){
+                deposit.setResult(0);
+                deposit.setIdentifier(identifier);
+                deposit.setOperation_information("存件成功");
+                deposit.setAction("快递员存件");
+                int num= JSON.toJSONString(deposit).length();
+                response = "##@1@"+num+"@"+ JSON.toJSONString(deposit);
+                // 构造日志信息
+                Log log = new Log();
+                log.setCreateDate(Calendar.getInstance().getTime());
+                log.setInfo(response);
+                logService.insert(log);
+            }else{
+            }
+            return response;
+        }else{
+            return null;
+        }
     }
     /*
    *管理员登录
@@ -107,7 +166,7 @@ public class GoodsPickup {
     /*
    *定时执行的任务
    */
-    public String timing(String msg){
+    public String Timing(String msg){
         return msg;
     }
     /*
@@ -116,18 +175,4 @@ public class GoodsPickup {
     public String Downloadupdate(String msg){
         return msg;
     }
-    //赋值方法
-    public String fuzhi(){
-        State state = new State();
-        state.setBoxNumber(1);
-        state.setState("normal");
-        state.setCustomerPhone("15278199288");
-        state.setAction("courier_login");
-        state.setBalance(13213);
-        state.setIdentifier("123456");
-        state.setResult("false");
-        String response = "##@1@140@"+ JSON.toJSONString(state);
-        return response;
-    }
-
 }

@@ -2,8 +2,9 @@ package com.tairun.dao;
 
 import com.tairun.model.Account;
 import com.tairun.model.AccountExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface AccountMapper {
     int countByExample(AccountExample example);
@@ -27,4 +28,6 @@ public interface AccountMapper {
     int updateByPrimaryKeySelective(Account record);
 
     int updateByPrimaryKey(Account record);
+
+    int updateByid(int id,double account);
 }
