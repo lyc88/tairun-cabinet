@@ -33,5 +33,4 @@ public class SelfCabinetService {
         euDataGridResult.setTotal(pageInfo.getTotal());
         return euDataGridResult;
     }
-
 }

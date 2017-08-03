@@ -12,6 +12,16 @@ public class Cabinet {
 
     private Byte status;
 
+    private String statusStr;
+
+    public String getStatusStr() {
+        return statusStr;
+    }
+
+    public void setStatusStr(String statusStr) {
+        this.statusStr = statusStr;
+    }
+
     private String courierTelephone;
 
     private Date createDate;
@@ -83,6 +93,11 @@ public class Cabinet {
 
     public void setStatus(Byte status) {
         this.status = status;
+        if(this.status==0){
+           this.setStatusStr("否");
+        }else if(this.status==1){
+            this.setStatusStr("是");
+        }
     }
 
     public String getCourierTelephone() {

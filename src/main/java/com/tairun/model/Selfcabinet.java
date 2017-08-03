@@ -26,6 +26,16 @@ public class Selfcabinet {
 
     private Integer imgUpdate;
 
+    private String imgUpdateStr;
+
+    public String getImgUpdateStr() {
+        return imgUpdateStr;
+    }
+
+    public void setImgUpdateStr(String imgUpdateStr) {
+        this.imgUpdateStr = imgUpdateStr;
+    }
+
     private Date createDate;
 
     private Date updateDate;
@@ -35,7 +45,7 @@ public class Selfcabinet {
     private String updateDateStr;
 
     private String find ;
-    private String upImg = "onclick=upImg();";
+    private String upImg;
 
     public String getFind() {
         return this.find;
@@ -70,8 +80,8 @@ public class Selfcabinet {
     public void setId(Integer id) {
         this.id = id;
         if(id != null){
-            this.find = "<a onclick=find("+code+");>查看</a>";
-        }
+            this.find = "<a onclick=find("+id+");>查看</a>";
+    }
     }
 
     public String getCode() {
@@ -96,9 +106,9 @@ public class Selfcabinet {
 
     public void setUpdate(Byte update) {
         this.update = update;
-        if(this.update==new Byte("0")){
+        if(this.update==0){
             this.setUpdateStr("否");
-        }else if(this.update==new Byte("1")){
+        }else if(this.update==1){
             this.setUpdateStr("是");
         }
     }
@@ -109,6 +119,9 @@ public class Selfcabinet {
 
     public void setImgId(Integer imgId) {
         this.imgId = imgId;
+        if(imgId != null){
+            this.upImg = "<a onclick=upImg("+imgId+");>图片编辑</a>";
+        }
     }
 
     public Integer getImgUpdate() {
@@ -117,6 +130,11 @@ public class Selfcabinet {
 
     public void setImgUpdate(Integer imgUpdate) {
         this.imgUpdate = imgUpdate;
+        if(this.imgUpdate==0){
+            this.setImgUpdateStr("否");
+        }else if(this.imgUpdate==1){
+            this.setImgUpdateStr("是");
+        }
     }
 
     public Date getCreateDate() {

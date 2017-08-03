@@ -13,6 +13,8 @@ public interface CabinetMapper {
      */
     List<Cabinet> selectById(Integer id);
 
+    List<Cabinet> selectByStatus(Byte status);
+
     int countByExample(CabinetExample example);
 
     int deleteByExample(CabinetExample example);

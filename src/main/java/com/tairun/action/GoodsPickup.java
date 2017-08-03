@@ -49,16 +49,16 @@ public class GoodsPickup {
         String account = (String)map.get("account");
         String password = JSONObject.toJSONString(map.get("password"));
         //AccountService accountService = new AccountService();
-        Account account1=accountService.findByTelephoneandpassword(account,password);
+        /*Account account1=accountService.findByTelephoneandpassword(account,password);
         if(account1!=null){
             String response=fuzhi();
-           /* channelHandlerContext.writeAndFlush(Unpooled.copiedBuffer(response.getBytes()));*/
+           *//* channelHandlerContext.writeAndFlush(Unpooled.copiedBuffer(response.getBytes()));*//*
             return response;
         }else{
             String ms="找不到该快递员";
             return ms;
-        }
-
+        }*/
+       return "";
 
     }
     /*
