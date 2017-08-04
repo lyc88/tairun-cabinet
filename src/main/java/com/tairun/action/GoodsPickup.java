@@ -75,7 +75,7 @@ public class GoodsPickup {
         String account = (String)map.get("account");
         String password = (String)map.get("password");
         double account2=0;
-        List<Account> list=accountService.findByTelephoneandpassword(account,password);
+        List<Account> list=  accountService.findByTelephoneandpassword(account,password);
         if(list!=null){
             for(Account account1:list){
                 account2=account1.getAccount();
