@@ -6,7 +6,7 @@
     <result column="code" property="code" jdbcType="VARCHAR" />
     <result column="info" property="info" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="TINYINT" />
-    <result column="update" property="update" jdbcType="TINYINT" />
+    <result column="is_update" property="isUpdate" jdbcType="TINYINT" />
     <result column="img_id" property="imgId" jdbcType="INTEGER" />
     <result column="img_update" property="imgUpdate" jdbcType="INTEGER" />
     <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
@@ -72,11 +72,11 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, code, info, status, update, img_id, img_update, create_date, update_date, name
+    id, code, info, status, is_update, img_id, img_update, create_date, update_date, 
+    name
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tairun.model.SelfcabinetExample" >
-     select * from selfcabinet
-    <!-- select
+    select
     <if test="distinct" >
       distinct
     </if>
@@ -87,7 +87,7 @@
     </if>
     <if test="orderByClause != null" >
       order by ${orderByClause}
-    </if>-->
+    </if>
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -107,11 +107,11 @@
   </delete>
   <insert id="insert" parameterType="com.tairun.model.Selfcabinet" >
     insert into selfcabinet (id, code, info, 
-      status, update, img_id, 
+      status, is_update, img_id, 
       img_update, create_date, update_date, 
       name)
     values (#{id,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, #{info,jdbcType=VARCHAR}, 
-      #{status,jdbcType=TINYINT}, #{update,jdbcType=TINYINT}, #{imgId,jdbcType=INTEGER}, 
+      #{status,jdbcType=TINYINT}, #{isUpdate,jdbcType=TINYINT}, #{imgId,jdbcType=INTEGER}, 
       #{imgUpdate,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, 
       #{name,jdbcType=VARCHAR})
   </insert>
@@ -130,8 +130,8 @@
       <if test="status != null" >
         status,
       </if>
-      <if test="update != null" >
-        update,
+      <if test="isUpdate != null" >
+        is_update,
       </if>
       <if test="imgId != null" >
         img_id,
@@ -162,8 +162,8 @@
       <if test="status != null" >
         #{status,jdbcType=TINYINT},
       </if>
-      <if test="update != null" >
-        #{update,jdbcType=TINYINT},
+      <if test="isUpdate != null" >
+        #{isUpdate,jdbcType=TINYINT},
       </if>
       <if test="imgId != null" >
         #{imgId,jdbcType=INTEGER},
@@ -203,8 +203,8 @@
       <if test="record.status != null" >
         status = #{record.status,jdbcType=TINYINT},
       </if>
-      <if test="record.update != null" >
-        update = #{record.update,jdbcType=TINYINT},
+      <if test="record.isUpdate != null" >
+        is_update = #{record.isUpdate,jdbcType=TINYINT},
       </if>
       <if test="record.imgId != null" >
         img_id = #{record.imgId,jdbcType=INTEGER},
@@ -232,7 +232,7 @@
       code = #{record.code,jdbcType=VARCHAR},
       info = #{record.info,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=TINYINT},
-      update = #{record.update,jdbcType=TINYINT},
+      is_update = #{record.isUpdate,jdbcType=TINYINT},
       img_id = #{record.imgId,jdbcType=INTEGER},
       img_update = #{record.imgUpdate,jdbcType=INTEGER},
       create_date = #{record.createDate,jdbcType=TIMESTAMP},
@@ -254,8 +254,8 @@
       <if test="status != null" >
         status = #{status,jdbcType=TINYINT},
       </if>
-      <if test="update != null" >
-        update = #{update,jdbcType=TINYINT},
+      <if test="isUpdate != null" >
+        is_update = #{isUpdate,jdbcType=TINYINT},
       </if>
       <if test="imgId != null" >
         img_id = #{imgId,jdbcType=INTEGER},
@@ -280,7 +280,7 @@
     set code = #{code,jdbcType=VARCHAR},
       info = #{info,jdbcType=VARCHAR},
       status = #{status,jdbcType=TINYINT},
-      update = #{update,jdbcType=TINYINT},
+      is_update = #{isUpdate,jdbcType=TINYINT},
       img_id = #{imgId,jdbcType=INTEGER},
       img_update = #{imgUpdate,jdbcType=INTEGER},
       create_date = #{createDate,jdbcType=TIMESTAMP},

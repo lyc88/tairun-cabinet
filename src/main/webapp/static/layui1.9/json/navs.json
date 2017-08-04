@@ -1,0 +1,17 @@
+[{
+	"title" : "后台首页",
+	"icon" : "icon-computer",
+	"href" : "/static/layui1.9/page/main.html",
+	"spread" : false
+},{
+	"title" : "快递员管理",
+	"icon" : "&#xe612",
+	"href" : "/base/goURL/views/courierList",
+	"spread" : false
+},{
+	"title" : "自提柜管理",
+	"icon" : "&#xe61d;",
+	"href" : "/base/goURL/views/cabinetList",
+	"spread" : false
+}
+]

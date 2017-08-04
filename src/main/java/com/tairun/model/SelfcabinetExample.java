@@ -365,63 +365,63 @@ public class SelfcabinetExample {
             return (Criteria) this;
         }
 
-        public Criteria andUpdateIsNull() {
-            addCriterion("update is null");
+        public Criteria andIsUpdateIsNull() {
+            addCriterion("is_update is null");
             return (Criteria) this;
         }
 
-        public Criteria andUpdateIsNotNull() {
-            addCriterion("update is not null");
+        public Criteria andIsUpdateIsNotNull() {
+            addCriterion("is_update is not null");
             return (Criteria) this;
         }
 
-        public Criteria andUpdateEqualTo(Byte value) {
-            addCriterion("update =", value, "update");
+        public Criteria andIsUpdateEqualTo(Byte value) {
+            addCriterion("is_update =", value, "isUpdate");
             return (Criteria) this;
         }
 
-        public Criteria andUpdateNotEqualTo(Byte value) {
-            addCriterion("update <>", value, "update");
+        public Criteria andIsUpdateNotEqualTo(Byte value) {
+            addCriterion("is_update <>", value, "isUpdate");
             return (Criteria) this;
         }
 
-        public Criteria andUpdateGreaterThan(Byte value) {
-            addCriterion("update >", value, "update");
+        public Criteria andIsUpdateGreaterThan(Byte value) {
+            addCriterion("is_update >", value, "isUpdate");
             return (Criteria) this;
         }
 
-        public Criteria andUpdateGreaterThanOrEqualTo(Byte value) {
-            addCriterion("update >=", value, "update");
+        public Criteria andIsUpdateGreaterThanOrEqualTo(Byte value) {
+            addCriterion("is_update >=", value, "isUpdate");
             return (Criteria) this;
         }
 
-        public Criteria andUpdateLessThan(Byte value) {
-            addCriterion("update <", value, "update");
+        public Criteria andIsUpdateLessThan(Byte value) {
+            addCriterion("is_update <", value, "isUpdate");
             return (Criteria) this;
         }
 
-        public Criteria andUpdateLessThanOrEqualTo(Byte value) {
-            addCriterion("update <=", value, "update");
+        public Criteria andIsUpdateLessThanOrEqualTo(Byte value) {
+            addCriterion("is_update <=", value, "isUpdate");
             return (Criteria) this;
         }
 
-        public Criteria andUpdateIn(List<Byte> values) {
-            addCriterion("update in", values, "update");
+        public Criteria andIsUpdateIn(List<Byte> values) {
+            addCriterion("is_update in", values, "isUpdate");
             return (Criteria) this;
         }
 
-        public Criteria andUpdateNotIn(List<Byte> values) {
-            addCriterion("update not in", values, "update");
+        public Criteria andIsUpdateNotIn(List<Byte> values) {
+            addCriterion("is_update not in", values, "isUpdate");
             return (Criteria) this;
         }
 
-        public Criteria andUpdateBetween(Byte value1, Byte value2) {
-            addCriterion("update between", value1, value2, "update");
+        public Criteria andIsUpdateBetween(Byte value1, Byte value2) {
+            addCriterion("is_update between", value1, value2, "isUpdate");
             return (Criteria) this;
         }
 
-        public Criteria andUpdateNotBetween(Byte value1, Byte value2) {
-            addCriterion("update not between", value1, value2, "update");
+        public Criteria andIsUpdateNotBetween(Byte value1, Byte value2) {
+            addCriterion("is_update not between", value1, value2, "isUpdate");
             return (Criteria) this;
         }
 

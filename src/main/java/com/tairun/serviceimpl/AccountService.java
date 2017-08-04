@@ -35,10 +35,10 @@ public class AccountService {
         //查询条件
         AccountExample.Criteria criteria = accountExample.createCriteria();
         if(StringUtils.isNotBlank(telephone)){
-            criteria.andTelephoneLike(telephone);
+            criteria.andTelephoneLike(telephone+"%");
         }
         if(StringUtils.isNotBlank(name)){
-            criteria.andNameLike(name);
+            criteria.andNameLike(name+"%");
         }
         List list = accountMapper.selectByExample(accountExample);
         euDataGridResult.setRows(list);
@@ -79,11 +79,11 @@ public class AccountService {
      * 查询快递员账户密码是否存在
      * @return
      */
-    public Account findByTelephoneandpassword(double account,String password){
+    public Account findByTelephoneandpassword(String account,String password){
         AccountExample accountExample = new AccountExample();
         //查询条件
         AccountExample.Criteria criteria = accountExample.createCriteria();
-        criteria.andAccountEqualTo(account);
+        criteria.andTelephoneLike(account);
         criteria.andPasswordEqualTo(password);
         List<Account> list = accountMapper.selectByExample(accountExample);
         if(null != list && list.size()>0){
