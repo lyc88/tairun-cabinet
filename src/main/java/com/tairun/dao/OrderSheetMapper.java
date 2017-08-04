@@ -1,31 +1,30 @@
 package com.tairun.dao;
 
-import com.tairun.model.ordersheet;
-import com.tairun.model.ordersheetExample;
+import com.tairun.model.OrderSheet;
+import com.tairun.model.OrderSheetExample;
+import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.List;
-
 public interface OrderSheetMapper {
-    int countByExample(ordersheetExample example);
+    int countByExample(OrderSheetExample example);
 
-    int deleteByExample(ordersheetExample example);
+    int deleteByExample(OrderSheetExample example);
 
     int deleteByPrimaryKey(Integer id);
 
-    int insert(ordersheet record);
+    int insert(OrderSheet record);
 
-    int insertSelective(ordersheet record);
+    int insertSelective(OrderSheet record);
 
-    List<ordersheet> selectByExample(ordersheetExample example);
+    List<OrderSheet> selectByExample(OrderSheetExample example);
 
-    ordersheet selectByPrimaryKey(Integer id);
+    OrderSheet selectByPrimaryKey(Integer id);
 
-    int updateByExampleSelective(@Param("record") ordersheet record, @Param("example") ordersheetExample example);
+    int updateByExampleSelective(@Param("record") OrderSheet record, @Param("example") OrderSheetExample example);
 
-    int updateByExample(@Param("record") ordersheet record, @Param("example") ordersheetExample example);
+    int updateByExample(@Param("record") OrderSheet record, @Param("example") OrderSheetExample example);
 
-    int updateByPrimaryKeySelective(ordersheet record);
+    int updateByPrimaryKeySelective(OrderSheet record);
 
-    int updateByPrimaryKey(ordersheet record);
+    int updateByPrimaryKey(OrderSheet record);
 }

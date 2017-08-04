@@ -107,9 +107,9 @@ public class AccountService {
             return null;
         }
     }
-    public int updateaccount(int id,double account){
-        accountMapper.updateByid(id,account);
+    public int updateaccount(Account account1){
+        int num=accountMapper.updateByPrimaryKey(account1);
 
-        return 1;
+        return num;
     }
 }

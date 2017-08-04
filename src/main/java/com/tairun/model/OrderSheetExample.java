@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class ordersheetExample {
+public class OrderSheetExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public ordersheetExample() {
+    public OrderSheetExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -642,6 +642,126 @@ public class ordersheetExample {
 
         public Criteria andCreateDateNotBetween(Date value1, Date value2) {
             addCriterion("create_date not between", value1, value2, "createDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andBoxNumberIsNull() {
+            addCriterion("box_number is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBoxNumberIsNotNull() {
+            addCriterion("box_number is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBoxNumberEqualTo(Integer value) {
+            addCriterion("box_number =", value, "boxNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andBoxNumberNotEqualTo(Integer value) {
+            addCriterion("box_number <>", value, "boxNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andBoxNumberGreaterThan(Integer value) {
+            addCriterion("box_number >", value, "boxNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andBoxNumberGreaterThanOrEqualTo(Integer value) {
+            addCriterion("box_number >=", value, "boxNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andBoxNumberLessThan(Integer value) {
+            addCriterion("box_number <", value, "boxNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andBoxNumberLessThanOrEqualTo(Integer value) {
+            addCriterion("box_number <=", value, "boxNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andBoxNumberIn(List<Integer> values) {
+            addCriterion("box_number in", values, "boxNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andBoxNumberNotIn(List<Integer> values) {
+            addCriterion("box_number not in", values, "boxNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andBoxNumberBetween(Integer value1, Integer value2) {
+            addCriterion("box_number between", value1, value2, "boxNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andBoxNumberNotBetween(Integer value1, Integer value2) {
+            addCriterion("box_number not between", value1, value2, "boxNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andChargeIsNull() {
+            addCriterion("charge is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andChargeIsNotNull() {
+            addCriterion("charge is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andChargeEqualTo(Double value) {
+            addCriterion("charge =", value, "charge");
+            return (Criteria) this;
+        }
+
+        public Criteria andChargeNotEqualTo(Double value) {
+            addCriterion("charge <>", value, "charge");
+            return (Criteria) this;
+        }
+
+        public Criteria andChargeGreaterThan(Double value) {
+            addCriterion("charge >", value, "charge");
+            return (Criteria) this;
+        }
+
+        public Criteria andChargeGreaterThanOrEqualTo(Double value) {
+            addCriterion("charge >=", value, "charge");
+            return (Criteria) this;
+        }
+
+        public Criteria andChargeLessThan(Double value) {
+            addCriterion("charge <", value, "charge");
+            return (Criteria) this;
+        }
+
+        public Criteria andChargeLessThanOrEqualTo(Double value) {
+            addCriterion("charge <=", value, "charge");
+            return (Criteria) this;
+        }
+
+        public Criteria andChargeIn(List<Double> values) {
+            addCriterion("charge in", values, "charge");
+            return (Criteria) this;
+        }
+
+        public Criteria andChargeNotIn(List<Double> values) {
+            addCriterion("charge not in", values, "charge");
+            return (Criteria) this;
+        }
+
+        public Criteria andChargeBetween(Double value1, Double value2) {
+            addCriterion("charge between", value1, value2, "charge");
+            return (Criteria) this;
+        }
+
+        public Criteria andChargeNotBetween(Double value1, Double value2) {
+            addCriterion("charge not between", value1, value2, "charge");
             return (Criteria) this;
         }
     }

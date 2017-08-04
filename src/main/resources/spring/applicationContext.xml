@@ -74,4 +74,8 @@
        <!-- <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />-->
         <property name="basePackage" value="com.tairun.dao"></property>
     </bean>
+
+    <!-- 配置SpringUtil类 -->
+    <bean id="springUtil" class="com.tairun.server.utils.SpringUtil"/>
+
 </beans>

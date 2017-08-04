@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.tairun.dao.OrderSheetMapper" >
-  <resultMap id="BaseResultMap" type="com.tairun.model.ordersheet" >
+  <resultMap id="BaseResultMap" type="com.tairun.model.OrderSheet" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="identifier" property="identifier" jdbcType="VARCHAR" />
     <result column="order_type" property="orderType" jdbcType="VARCHAR" />
@@ -10,6 +10,8 @@
     <result column="customer_number" property="customerNumber" jdbcType="VARCHAR" />
     <result column="account" property="account" jdbcType="VARCHAR" />
     <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="box_number" property="boxNumber" jdbcType="INTEGER" />
+    <result column="charge" property="charge" jdbcType="DOUBLE" />
   </resultMap>
   <sql id="Example_Where_Clause" >
   <where >
@@ -71,9 +73,9 @@
   </sql>
   <sql id="Base_Column_List" >
     id, identifier, order_type, waybill_number, box_password, customer_number, account, 
-    create_date
+    create_date, box_number, charge
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tairun.model.ordersheetExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tairun.model.OrderSheetExample" >
     select
     <if test="distinct" >
       distinct
@@ -97,21 +99,23 @@
     delete from ordersheet
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.tairun.model.ordersheetExample" >
+  <delete id="deleteByExample" parameterType="com.tairun.model.OrderSheetExample" >
     delete from ordersheet
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.tairun.model.ordersheet" >
+  <insert id="insert" parameterType="com.tairun.model.OrderSheet" >
     insert into ordersheet (id, identifier, order_type, 
       waybill_number, box_password, customer_number, 
-      account, create_date)
+      account, create_date, box_number, 
+      charge)
     values (#{id,jdbcType=INTEGER}, #{identifier,jdbcType=VARCHAR}, #{orderType,jdbcType=VARCHAR}, 
       #{waybillNumber,jdbcType=VARCHAR}, #{boxPassword,jdbcType=VARCHAR}, #{customerNumber,jdbcType=VARCHAR}, 
-      #{account,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP})
+      #{account,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{boxNumber,jdbcType=INTEGER}, 
+      #{charge,jdbcType=DOUBLE})
   </insert>
-  <insert id="insertSelective" parameterType="com.tairun.model.ordersheet" >
+  <insert id="insertSelective" parameterType="com.tairun.model.OrderSheet" >
     insert into ordersheet
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -137,6 +141,12 @@
       </if>
       <if test="createDate != null" >
         create_date,
+      </if>
+      <if test="boxNumber != null" >
+        box_number,
+      </if>
+      <if test="charge != null" >
+        charge,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -164,9 +174,15 @@
       <if test="createDate != null" >
         #{createDate,jdbcType=TIMESTAMP},
       </if>
+      <if test="boxNumber != null" >
+        #{boxNumber,jdbcType=INTEGER},
+      </if>
+      <if test="charge != null" >
+        #{charge,jdbcType=DOUBLE},
+      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.tairun.model.ordersheetExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.tairun.model.OrderSheetExample" resultType="java.lang.Integer" >
     select count(*) from ordersheet
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -199,6 +215,12 @@
       <if test="record.createDate != null" >
         create_date = #{record.createDate,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.boxNumber != null" >
+        box_number = #{record.boxNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.charge != null" >
+        charge = #{record.charge,jdbcType=DOUBLE},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -213,12 +235,14 @@
       box_password = #{record.boxPassword,jdbcType=VARCHAR},
       customer_number = #{record.customerNumber,jdbcType=VARCHAR},
       account = #{record.account,jdbcType=VARCHAR},
-      create_date = #{record.createDate,jdbcType=TIMESTAMP}
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      box_number = #{record.boxNumber,jdbcType=INTEGER},
+      charge = #{record.charge,jdbcType=DOUBLE}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tairun.model.ordersheet" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.tairun.model.OrderSheet" >
     update ordersheet
     <set >
       <if test="identifier != null" >
@@ -242,10 +266,16 @@
       <if test="createDate != null" >
         create_date = #{createDate,jdbcType=TIMESTAMP},
       </if>
+      <if test="boxNumber != null" >
+        box_number = #{boxNumber,jdbcType=INTEGER},
+      </if>
+      <if test="charge != null" >
+        charge = #{charge,jdbcType=DOUBLE},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.tairun.model.ordersheet" >
+  <update id="updateByPrimaryKey" parameterType="com.tairun.model.OrderSheet" >
     update ordersheet
     set identifier = #{identifier,jdbcType=VARCHAR},
       order_type = #{orderType,jdbcType=VARCHAR},
@@ -253,7 +283,9 @@
       box_password = #{boxPassword,jdbcType=VARCHAR},
       customer_number = #{customerNumber,jdbcType=VARCHAR},
       account = #{account,jdbcType=VARCHAR},
-      create_date = #{createDate,jdbcType=TIMESTAMP}
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      box_number = #{boxNumber,jdbcType=INTEGER},
+      charge = #{charge,jdbcType=DOUBLE}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

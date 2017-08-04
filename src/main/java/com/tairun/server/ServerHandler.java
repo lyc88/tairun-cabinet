@@ -59,6 +59,7 @@ public class ServerHandler extends SimpleChannelInboundHandler {
         String[] args = msg.split("@");
         int args2= Integer.valueOf(args[2]);
         String code=null;
+        System.out.println(args[3].length());
         if(msg.indexOf("@")!=-1){
             if(args[0].equals("##")){
                 if(args[3].length()==args2){
