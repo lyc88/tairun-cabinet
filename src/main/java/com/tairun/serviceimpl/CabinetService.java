@@ -24,16 +24,22 @@ public class CabinetService  {
      * 查询自提柜信息
      * @return
      */
-    public EUDataGridResult selectAll(int pageNum,int pageSize,Byte status,int id) {
-        CabinetExample cabinetExample = new CabinetExample();
-        CabinetExample.Criteria criteria = cabinetExample.createCriteria();
-        if (status >= 0) {
-            criteria.andStatusEqualTo(status);
-        } else if (status < 0) {
-        List<Cabinet> list = cabinetMapper.selectById(id);
-    }
+    public EUDataGridResult selectAll(int pageNum,int pageSize,int status,int id) {
         PageHelper.startPage(pageNum, pageSize);
         List<Cabinet> list = cabinetMapper.selectById(id);
+        EUDataGridResult euDataGridResult = new EUDataGridResult();
+        euDataGridResult.setRows(list);
+        PageInfo pageInfo = new PageInfo(list);
+        euDataGridResult.setTotal(pageInfo.getTotal());
+        return euDataGridResult;
+    }
+    /**
+     * 根据状态查询自提柜信息
+     * @return
+     */
+    public EUDataGridResult selectByStatus(int pageNum, int pageSize, Byte status) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Cabinet> list = cabinetMapper.selectByStatus(status);
         EUDataGridResult euDataGridResult = new EUDataGridResult();
         euDataGridResult.setRows(list);
         PageInfo pageInfo = new PageInfo(list);

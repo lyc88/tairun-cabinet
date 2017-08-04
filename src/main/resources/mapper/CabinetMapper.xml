@@ -79,6 +79,11 @@
      select * from cabinet where number=#{number}
   </select>
 
+  <!--根据状态查询自提柜信息-->
+  <select id="selectByStatus" resultMap="BaseResultMap">
+    select * from cabinet where status=#{status}
+  </select>
+
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tairun.model.CabinetExample" >
     select
     <if test="distinct" >

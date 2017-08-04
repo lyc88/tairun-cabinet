@@ -26,20 +26,20 @@ public class SelfCabinetService {
 
         SelfcabinetExample selfcabinetExample = new SelfcabinetExample();
         SelfcabinetExample.Criteria criteria = selfcabinetExample.createCriteria();
-        //æ¡ä»¶
+        //Ìõ¼ş
         if(StringUtils.isNotBlank(name)){
             criteria.andNameLike("%"+name+"%");
         }
         if (StringUtils.isNotBlank(code)){
             criteria.andCodeLike("%"+code+"%");
         }
-        //åˆ†é¡µ
+        //·ÖÒ³
         PageHelper.startPage(pageNum, pageSize);
         List<Selfcabinet> list = selfcabinetMapper.selectByExample(selfcabinetExample);
 
         EUDataGridResult euDataGridResult = new EUDataGridResult();
         euDataGridResult.setRows(list);
-        //å–è®°å½•æ€»æ¡æ•°
+        //È¡¼ÇÂ¼×ÜÌõÊı
         PageInfo<Selfcabinet> pageInfo = new PageInfo<>(list);
         euDataGridResult.setTotal(pageInfo.getTotal());
         return euDataGridResult;
@@ -47,7 +47,7 @@ public class SelfCabinetService {
     }
 
     /**
-     * ä¿å­˜è‡ªææŸœä¿¡æ¯
+     * ±£´æ×ÔÌá¹ñĞÅÏ¢
      * @param selfcabinet
      * @return
      */
