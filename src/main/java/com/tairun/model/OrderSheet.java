@@ -2,7 +2,7 @@ package com.tairun.model;
 
 import java.util.Date;
 
-public class ordersheet {
+public class OrderSheet {
     private Integer id;
 
     private String identifier;
@@ -18,6 +18,10 @@ public class ordersheet {
     private String account;
 
     private Date createDate;
+
+    private Integer boxNumber;
+
+    private Double charge;
 
     public Integer getId() {
         return id;
@@ -81,5 +85,21 @@ public class ordersheet {
 
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+    }
+
+    public Integer getBoxNumber() {
+        return boxNumber;
+    }
+
+    public void setBoxNumber(Integer boxNumber) {
+        this.boxNumber = boxNumber;
+    }
+
+    public Double getCharge() {
+        return charge;
+    }
+
+    public void setCharge(Double charge) {
+        this.charge = charge;
     }
 }
