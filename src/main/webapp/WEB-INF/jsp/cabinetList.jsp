@@ -35,7 +35,7 @@ To change this template use File | Settings | File Templates.
                         ]]
         });
         });
-        function showCabinet(index, filed,value) {
+        function showCabinet(index,filed,value) {
             if(filed =="find" ){
                 var row = $(this).datagrid("getRows")[index].code;
                 $('#windatagrid').datagrid({
@@ -47,9 +47,9 @@ To change this template use File | Settings | File Templates.
                     nowrapL: true,
                     toolbar: [{
                         text: "自提柜状态：<select name='status' id='zstatus'>" +
-                        "<option value='0'>未使用</option>" +
-                        "<option value='1'>已使用</option>" +
-                        "</select>"
+                    "<option value='0'>未使用</option>" +
+                    "<option value='1'>已使用</option>" +
+                    "</select>"
                     }, {
                     text: "<input type='submit' value='查询' onclick='doSearch()'/>"
                 }],
@@ -97,7 +97,7 @@ To change this template use File | Settings | File Templates.
     <div id="win" style="width: 1000px;height:400px">
         <table id="windatagrid"></table>
     </div>
-    <div id="upload" style="width: 1000px;height:600px;display: none">
+    <div id="upload" style="width: 1000px;height:600px;">
         <jsp:include page="fileUp.jsp"></jsp:include>
     </div>
 </div>

@@ -15,35 +15,33 @@
 <head>
     <title>Title</title>
     <script>
-        /*$(document).ready(function(){
-            $("#upload").uploadify({
-                swf:"${proPath}/static/Uploadtify/uploadify.swf",
-                uploader:"${proPath}/file/fileUp",
-                fileObjName:"uploadFile",  // 控制器中参数名称
-                auto:true,
-                fileSizeLimit:"1024KB",
-                fileTypeExts:"*.jpg;*.gif;*.png;",
-                onUploadSuccess:function(file, result, response) {
-                    if(result){
-                        // 设置图片路径
-                        $("#img").attr("src",result);
+    function clicked(){
+            $("#upload").uploadify(
+                {
+                    swf: "${proPath}/static/Uploadtify/uploadify.swf",
+                    url: "${proPath}/file/fileUp",
+                    fileObjName: "uploadFile",  // 控制器中参数名称
+                    //auto: true,
+                    multi: true,
+                    fileSizeLimit: "1024KB",
+                    fileTypeExts: "*.jpg;*.gif;*.png;",
+                    onUploadSuccess: function (file, result, response) {
+                        if (result) {
+                           // 设置图片路径
+                           $("#img").attr("src", result);
+                          }
                     }
-                    // 上传失败
-                }
-            });
-
-        });*/
+                });
+               };
     </script>
 </head>
 <body>
-<div class="container">
-    <form action="${proPath}/file/fileUp" method="post">
+    <div class="container">
         <div id="fileQueue"></div>
         <input type="file" name="uploadify" id="upload"/>
         <div id="fileList">
         </div>
-        <input type="submit" value="上传"/>
-        </div>
-    </form>
+        <button id="btn" onclick="clicked()" value="upload">upload</button>
+    </div>
 </body>
 </html>
