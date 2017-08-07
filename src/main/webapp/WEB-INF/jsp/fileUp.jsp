@@ -27,9 +27,9 @@
                     fileTypeExts: "*.jpg;*.gif;*.png;",
                     onUploadSuccess: function (file, result, response) {
                         if (result) {
-                           // 设置图片路径
-                           $("#img").attr("src", result);
-                          }
+                            // 设置图片路径
+                            $("#img").attr("src", result);
+                        }
                     }
                 });
                };
