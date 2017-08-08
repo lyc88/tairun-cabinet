@@ -21,10 +21,10 @@ public class SelfcabinetAction {
      * 查看所有柜子信息*/
     @RequestMapping("/showSelfcabinetList")
     @ResponseBody
-    public EUDataGridResult selectSelecabinet(@RequestParam(value="page", defaultValue="1")int pageNum, @RequestParam(value="rows", defaultValue="5")int pageSize){
+    public EUDataGridResult selectSelecabinet(@RequestParam(value="page", defaultValue="1")int pageNum, @RequestParam(value="rows", defaultValue="10")int pageSize,String name,String code){
         EUDataGridResult euDataGridResult = null;
             try {
-            euDataGridResult = selfCabinetService.selectSelfcabinetAll(pageNum,pageSize);
+            euDataGridResult = selfCabinetService.selectSelfcabinetAll(pageNum,pageSize,name,code);
         } catch (Exception e) {
             e.printStackTrace();
         }

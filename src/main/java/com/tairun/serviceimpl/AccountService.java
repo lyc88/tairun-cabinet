@@ -36,10 +36,10 @@ public class AccountService {
         //查询条件
         AccountExample.Criteria criteria = accountExample.createCriteria();
         if(StringUtils.isNotBlank(telephone)){
-            criteria.andTelephoneLike(telephone);
+            criteria.andTelephoneLike(telephone+"%");
         }
         if(StringUtils.isNotBlank(name)){
-            criteria.andNameLike(name);
+            criteria.andNameLike(name+"%");
         }
         List list = accountMapper.selectByExample(accountExample);
         euDataGridResult.setRows(list);
@@ -76,6 +76,7 @@ public class AccountService {
             return null;
         }
     }
+
     //根据账户查询余额
     public List<Account> findByTelephonetwo(String telephone){
         AccountExample accountExample = new AccountExample();
