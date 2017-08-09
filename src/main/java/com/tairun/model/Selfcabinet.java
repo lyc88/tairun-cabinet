@@ -1,6 +1,7 @@
 package com.tairun.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class Selfcabinet {
     private Integer id;
@@ -22,6 +23,8 @@ public class Selfcabinet {
     private Date updateDate;
 
     private String name;
+
+    private List<Files> files;
 
     public Integer getId() {
         return id;
@@ -101,5 +104,13 @@ public class Selfcabinet {
 
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
+    }
+
+    public List<Files> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<Files> files) {
+        this.files = files;
     }
 }

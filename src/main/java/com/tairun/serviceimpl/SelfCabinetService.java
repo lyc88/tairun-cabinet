@@ -1,14 +1,17 @@
 package com.tairun.serviceimpl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.tairun.dao.FilesMapper;
 import com.tairun.dao.SelfcabinetMapper;
-import com.tairun.model.Cabinet;
-import com.tairun.model.CabinetExample;
+import com.tairun.model.Files;
 import com.tairun.model.Selfcabinet;
 import com.tairun.model.SelfcabinetExample;
 import com.tairun.server.utils.EUDataGridResult;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -22,32 +25,41 @@ public class SelfCabinetService {
     @Resource
     private SelfcabinetMapper selfcabinetMapper;
 
+    @Autowired
+    private FilesMapper filesMapper;
+
     public EUDataGridResult selectSelfcabinetAll(int pageNum, int pageSize,String name,String code) {
 
         SelfcabinetExample selfcabinetExample = new SelfcabinetExample();
         SelfcabinetExample.Criteria criteria = selfcabinetExample.createCriteria();
-        //Ìõ¼ş
+        //
         if(StringUtils.isNotBlank(name)){
             criteria.andNameLike("%"+name+"%");
         }
         if (StringUtils.isNotBlank(code)){
             criteria.andCodeLike("%"+code+"%");
         }
-        //·ÖÒ³
+        //
         PageHelper.startPage(pageNum, pageSize);
         List<Selfcabinet> list = selfcabinetMapper.selectByExample(selfcabinetExample);
 
+        for(Selfcabinet selfcabinet : list){
+            List<Files> fileList = filesMapper.selectByImgid(Integer.parseInt(selfcabinet.getCode()));
+            selfcabinet.setFiles(fileList);
+        }
         EUDataGridResult euDataGridResult = new EUDataGridResult();
         euDataGridResult.setRows(list);
-        //È¡¼ÇÂ¼×ÜÌõÊı
+        //È¡ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         PageInfo<Selfcabinet> pageInfo = new PageInfo<>(list);
         euDataGridResult.setTotal(pageInfo.getTotal());
+
+        System.out.println(JSON.toJSONString(euDataGridResult));
         return euDataGridResult;
 
     }
 
     /**
-     * ±£´æ×ÔÌá¹ñĞÅÏ¢
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
      * @param selfcabinet
      * @return
      */
@@ -55,4 +67,30 @@ public class SelfCabinetService {
         int i = selfcabinetMapper.insertSelective(selfcabinet);
         return i;
     }
+    /**
+     * æ ¹æ®è‡ªææŸœç¼–å·æŸ¥è¯¢
+     * @return
+     */
+    public List<Selfcabinet> findBycode(String identifier){
+        SelfcabinetExample selfCabinetExample = new SelfcabinetExample();
+        //æŸ¥è¯¢æ¡ä»¶
+        SelfcabinetExample.Criteria criteria = selfCabinetExample.createCriteria();
+        criteria.andCodeEqualTo(identifier);
+        List<Selfcabinet> list = selfcabinetMapper.selectByExample(selfCabinetExample);
+        if(null != list && list.size()>0){
+            System.out.println(JSONObject.toJSONString(list));
+            return list;
+        }else{
+            return null;
+        }
+    }
+    public int updateself(Selfcabinet selfcabinet){
+        int num=selfcabinetMapper.updateByPrimaryKey(selfcabinet);
+        return num;
+    }
+
+    public void updateSel(Selfcabinet selfcabinet){
+        selfcabinetMapper.updateByPrimaryKeySelective(selfcabinet);
+    }
+
 }

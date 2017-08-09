@@ -29,7 +29,6 @@ public class ServerHandler extends SimpleChannelInboundHandler {
     protected void messageReceived(ChannelHandlerContext channelHandlerContext, Object msg) throws Exception {
             String request = (String)msg;
         System.out.println("Server :" + msg);
-        //这个msg是我们传过去的，怎么改成返回的那个？
         //ctx.writeAndFlush(Unpooled.copiedBuffer(response.getBytes()));
         String msg1 = handlerMessage(new SessionImpl(channelHandlerContext.channel()), request,channelHandlerContext);
         String response = "服务器响应：" + msg1 ;

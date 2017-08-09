@@ -111,7 +111,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.tairun.model.Files" >
+  <insert id="insert" parameterType="com.tairun.model.Files" useGeneratedKeys="true" keyProperty="id">
     insert into files (id, file_name, file_path, 
       file_alias, sort, create_date, 
       update_date, img_id)

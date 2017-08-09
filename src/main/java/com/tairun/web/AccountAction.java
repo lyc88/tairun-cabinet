@@ -1,7 +1,6 @@
 package com.tairun.web;
 
 import com.tairun.model.Account;
-import com.tairun.model.User;
 import com.tairun.server.utils.EUDataGridResult;
 import com.tairun.serviceimpl.AccountService;
 import org.apache.commons.lang3.StringUtils;
@@ -40,6 +39,14 @@ public class AccountAction {
     }
 
     /**
+     * 支付页面
+     * @return
+     */
+    @RequestMapping("toRecharge")
+    public String recharge(){
+        return "recharge";
+    }
+    /**
      * 注册页面
      * @return
      */
@@ -47,7 +54,6 @@ public class AccountAction {
     public String register(){
         return "register";
     }
-
     /**
      * 快递员注册
      * @param telephone

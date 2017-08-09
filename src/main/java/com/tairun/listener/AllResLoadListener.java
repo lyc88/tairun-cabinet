@@ -20,9 +20,9 @@ public class AllResLoadListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         //启动服务器
         ServletContext sc = servletContextEvent.getServletContext();
-        /*ctx = WebApplicationContextUtils.getWebApplicationContext(sc);
+        ctx = WebApplicationContextUtils.getWebApplicationContext(sc);
         server = (Server) ctx.getBean("server");
-        server.start();*/
+        server.start();
     }
 
     @Override

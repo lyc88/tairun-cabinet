@@ -1,13 +1,13 @@
 package com.tairun.web;
-import com.fasterxml.jackson.databind.deser.Deserializers;
 import com.tairun.model.Cabinet;
 import com.tairun.server.utils.EUDataGridResult;
+import com.tairun.serviceimpl.CabinetService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import javax.annotation.Resource;
-import com.tairun.serviceimpl.CabinetService;
 /**
  * Created by cyt on 2017/7/18.
  */
@@ -50,7 +50,7 @@ import com.tairun.serviceimpl.CabinetService;
     /*清空柜子*/
     @RequestMapping("/updateCab")
     public String updateCab(@RequestParam int cid,@RequestParam Byte status,@RequestParam Cabinet cabinet) {
-        int num = cabinetService.updateCabinet(cabinet);
+        int num = cabinetService.updatecabinet(cabinet);
         return "index";
     }
 

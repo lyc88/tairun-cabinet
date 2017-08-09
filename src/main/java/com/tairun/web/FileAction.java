@@ -1,17 +1,15 @@
 package com.tairun.web;
-import com.tairun.model.Files;
 import com.tairun.serviceimpl.FileService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
-import java.util.*;
 /**
  * Created by cyt on 2017/7/31.
  */
@@ -27,7 +25,9 @@ public class FileAction {
      * @return
      */
     @RequestMapping("/fileUp")
-    public String uploadImg(MultipartFile uploadFile, HttpServletRequest request, HttpServletResponse response) {
+    @ResponseBody
+    public String uploadImg(@RequestParam("cabinetId")String cabinetId, MultipartFile uploadFile, HttpServletRequest request, HttpServletResponse response) {
+        System.out.println(cabinetId    );
         File targetFile;
         // 存储路径
         String msgUrl = "";

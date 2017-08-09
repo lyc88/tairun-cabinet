@@ -6,7 +6,7 @@ import com.tairun.server.utils.JsonUtil;
 import java.util.Map;
 
 /**
- * Created by THINK on 2017/7/31.
+ * Created by LKH on 2017/7/31.
  */
 public class Operaction {
 
@@ -46,11 +46,15 @@ public class Operaction {
             }
             //定时任务
             else if("timing_task".equals(action)){
-                result = goodsPickup.Timing(msg);
+               result = goodsPickup.Timing(msg);
             }
-            //下载更新
-            else if("updata".equals(action)){
+            //8.恢复出厂设置
+            else if("fresh_init".equals(action)){
                 result = goodsPickup.Downloadupdate(msg);
+            }
+            //9.远程更新、下载的执行状态状态
+            else if("remote_update_state".equals(action)){
+                result = goodsPickup.remoteupdatestate(msg);
             }
         }
         return result;
