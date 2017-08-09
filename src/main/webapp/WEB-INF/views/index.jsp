@@ -88,9 +88,9 @@
                 </li>--%>
                 <li class="layui-nav-item" pc>
                     <a href="javascript:;">
-                        <img src="${ctx}/static/layui1.9/images/face.jpg" class="layui-circle" width="35" height="35">
-                        <cite>管理员</cite>
-                    </a>
+                    <img src="${ctx}/static/layui1.9/images/face.jpg" class="layui-circle" width="35" height="35">
+                    <cite>管理员</cite>
+                </a>
                     <dl class="layui-nav-child">
                         <%--<dd><a href="javascript:;" data-url="${ctx}/static/layui1.9/pagepage/user/userInfo.html"><i class="iconfont icon-zhanghu" data-icon="icon-zhanghu"></i><cite>个人资料</cite></a></dd>
                         <dd><a href="javascript:;" data-url="${ctx}/static/layui1.9/page/user/changePwd.html"><i class="iconfont icon-shezhi1" data-icon="icon-shezhi1"></i><cite>修改密码</cite></a></dd>--%>
