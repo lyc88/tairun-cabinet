@@ -17,6 +17,14 @@ import org.slf4j.LoggerFactory;
  */
 public class ServerHandler extends SimpleChannelInboundHandler {
     Logger logger = LoggerFactory.getLogger(ServerHandler.class);
+
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        logger.error(cause.getMessage());
+        ctx.channel().close();
+        super.exceptionCaught(ctx, cause);
+    }
+
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         logger.info(" server channel active... ");

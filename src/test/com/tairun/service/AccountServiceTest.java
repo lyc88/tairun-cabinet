@@ -11,6 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -61,5 +66,39 @@ public class AccountServiceTest {
 
         EUDataGridResult euDataGridResult = selfCabinetService.selectSelfcabinetAll(1,10,"","");
         System.out.println(euDataGridResult.getTotal());
+    }
+
+    /**
+     * 测试客户端
+     */
+    @Test
+    public void testClient() throws IOException {
+        List<String> list = new ArrayList<>();
+        for (int i=0;i<2000;i++) {
+            Socket socket = new Socket("112.74.54.67", 10102);
+            System.out.println("客户端启动成功");
+            // 2、获取输出流，向服务器端发送信息
+            String msg = "##@1@88@{\n" +
+                    "\t\"identifier\":\t\"123456\",\n" +
+                    "\t\"action\":\t\"admin_login\",\n" +
+                    "\t\"account\":\t\"1\",\n" +
+                    "\t\"password\":\t\"1\"\n" +
+                    "}$_";
+            OutputStream outputStream = socket.getOutputStream();
+            outputStream.write(msg.getBytes());
+            socket.shutdownOutput();
+            // 由Socket对象得到输入流，并构造相应的BufferedReader对象
+            InputStream inputStream = socket.getInputStream();
+            byte[] b = new byte[1024];
+            String resp = "";
+            while (inputStream.read(b) > -1) {
+                resp += new String(b);
+            }
+
+            System.out.println("response:===="+i+"======" + resp);
+            list.add(resp);
+            socket.close();
+        }
+        System.out.println("================================="+list.size());
     }
 }
