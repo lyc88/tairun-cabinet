@@ -50,12 +50,12 @@ public class ServerHandler extends SimpleChannelInboundHandler {
 
     }
 
-    @Override
+    /*@Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         logger.error(cause.getMessage());
         ctx.channel().close();
         super.exceptionCaught(ctx, cause);
-    }
+    }*/
 
     /**
      *
