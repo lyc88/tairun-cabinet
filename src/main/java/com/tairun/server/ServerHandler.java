@@ -5,8 +5,12 @@ import com.tairun.server.session.Session;
 import com.tairun.server.session.SessionImpl;
 import com.tairun.server.session.SessionManager;
 import io.netty.buffer.Unpooled;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.handler.timeout.IdleState;
+import io.netty.handler.timeout.IdleStateEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,9 +22,10 @@ public class ServerHandler extends SimpleChannelInboundHandler {
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        cause.printStackTrace();
         logger.error(cause.getMessage());
-        ctx.channel().close();
-        super.exceptionCaught(ctx, cause);
+        ctx.close();
+        //super.exceptionCaught(ctx, cause);
     }
 
     @Override
@@ -42,6 +47,28 @@ public class ServerHandler extends SimpleChannelInboundHandler {
         String response = "服务器响应：" + msg1 ;
         channelHandlerContext.writeAndFlush(Unpooled.copiedBuffer(response.getBytes()));
 
+    }
+
+    @Override
+    public void userEventTriggered(final ChannelHandlerContext ctx, Object evt) throws Exception {
+        if(evt instanceof IdleStateEvent){
+            IdleStateEvent event = (IdleStateEvent)evt;
+            if(event.state() == IdleState.ALL_IDLE){
+                ctx.close();
+               /* //清除超时会话
+                ChannelFuture writeAndFlush = ctx.writeAndFlush("you will close");
+
+                writeAndFlush.addListener(new ChannelFutureListener() {
+
+                    @Override
+                    public void operationComplete(ChannelFuture future) throws Exception {
+                        ctx.channel().close();
+                    }
+                });*/
+            }
+        }else{
+            super.userEventTriggered(ctx, evt);
+        }
     }
 
 
