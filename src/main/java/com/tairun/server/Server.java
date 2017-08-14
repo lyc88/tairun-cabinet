@@ -12,6 +12,7 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.DelimiterBasedFrameDecoder;
 import io.netty.handler.codec.string.StringDecoder;
+import io.netty.handler.timeout.IdleStateHandler;
 import org.springframework.stereotype.Component;
 
 /**
@@ -44,7 +45,9 @@ public class Server {
                    // ch.pipeline().addLast(new RequestDecoder());
                   //  ch.pipeline().addLast(new ResponseEncoder());
                     ByteBuf buf = Unpooled.copiedBuffer("$_".getBytes());
+                    sc.pipeline().addLast(new IdleStateHandler(5, 5, 16));
                     sc.pipeline().addLast(new DelimiterBasedFrameDecoder(1024, buf));
+                    //sc.pipeline().addLast()
                     sc.pipeline().addLast(new StringDecoder());
 
                     sc.pipeline().addLast(new ServerHandler());
