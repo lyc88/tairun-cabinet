@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.tairun.action.Operaction;
 import com.tairun.businessmodel.OpenCabinetb;
 import com.tairun.server.session.Session;
+import com.tairun.server.session.SessionImpl;
 import com.tairun.server.session.SessionManager;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
@@ -31,8 +32,9 @@ public class ServerHandler extends SimpleChannelInboundHandler {
             String request = (String)msg;
         System.out.println("Server :" + msg);
         //ctx.writeAndFlush(Unpooled.copiedBuffer(response.getBytes()));
-        String msg1 = "##@1@140@{\"identifier\":123456,\"action\":\"goods_pickup\",\"boxNumber\":1,\"state\":\"normal\",\"result\":\"success\",\"customerPhone\":\"15278199288\",\"balance\":12.9}";
-       // String msg1 = handlerMessage(new SessionImpl(channelHandlerContext.channel()), request,channelHandlerContext);
+
+        //String msg1 = "##@1@140@{\"identifier\":123456,\"action\":\"goods_pickup\",\"boxNumber\":1,\"state\":\"normal\",\"result\":\"success\",\"customerPhone\":\"15278199288\",\"balance\":12.9}";
+       String msg1 = handlerMessage(new SessionImpl(channelHandlerContext.channel()), request,channelHandlerContext);
 
 
         String response = msg1;
