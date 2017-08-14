@@ -13,5 +13,15 @@
 	"icon" : "&#xe61d;",
 	"href" : "/base/goURL/views/cabinetList",
 	"spread" : false
+},{
+	"title" : "日志管理",
+	"icon" : "&#xe60a;",
+	"href" : "/base/goURL/views/logsManagement",
+	"spread" : false
+},{
+	"title" : "开箱码查询",
+	"icon" : "&#xe631;",
+	"href" : "/base/goURL/views/boxCodeInquire",
+	"spread" : false
 }
 ]

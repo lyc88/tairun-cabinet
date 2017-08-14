@@ -95,4 +95,8 @@ public class CabinetService  {
         int num=cabinetMapper.updateByPrimaryKey(cabinet);
         return num;
     }
+    public int insertcabinet(Cabinet cabinet){
+        int num=cabinetMapper.insert(cabinet);
+        return num;
+    }
 }

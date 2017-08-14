@@ -27,7 +27,7 @@ public class Operaction {
             }else if("courier_login".equals(action)){
                 result =goodsPickup.LoginKuai(msg);
             }
-            //查询订单的联系人号码
+            //根据运单号码获取对应的客户联系方式
             else if("goods_info".equals(action)){
                 result = goodsPickup.WaybillNumber(msg);
                 return result;
@@ -51,10 +51,6 @@ public class Operaction {
             //8.恢复出厂设置
             else if("fresh_init".equals(action)){
                 result = goodsPickup.Downloadupdate(msg);
-            }
-            //9.远程更新、下载的执行状态状态
-            else if("remote_update_state".equals(action)){
-                result = goodsPickup.remoteupdatestate(msg);
             }
         }
         return result;

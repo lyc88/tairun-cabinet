@@ -4,13 +4,13 @@ package com.tairun.businessmodel;
  * Created by THINK on 2017/8/2.
  */
 public class OpenCabinetb extends IdenAction{
-    public int result;
+    public String result;
 
-    public int getResult() {
+    public String getResult() {
         return result;
     }
 
-    public void setResult(int result) {
+    public void setResult(String result) {
         this.result = result;
     }
 }

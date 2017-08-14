@@ -20,15 +20,15 @@ public class Loginkuaib extends IdenAction{
         this.balance = balance;
     }
 
-    public int getResult() {
+    public String getResult() {
         return result;
     }
 
-    public void setResult(int result) {
+    public void setResult(String result) {
         this.result = result;
     }
 
     public String account;
     public double balance;
-    public int result;
+    public String result;
 }

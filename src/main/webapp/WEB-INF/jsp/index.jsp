@@ -65,7 +65,17 @@
                                      style="text-decoration: none;display: block;font-weight:bold;">查看自提柜信息</a>
         </li>
 
-        <!-- list-style: none去左边的点；text-decoration: none：去超链接下划线,title用来区分后继定位这里的超链接 -->
+    </div>
+    <div title="日志管理">
+        <li style="padding: 6px;"><a href="${proPath}/base/goURL/jsp/logsManagement" title="日志"
+                                     style="text-decoration: none;display: block;font-weight:bold;">查看日志信息</a>
+        </li>
+
+    </div>
+    <div title="开箱码查询">
+        <li style="padding: 6px;"><a href="${proPath}/base/goURL/jsp/boxCodeInquire" title="开箱码"
+                                     style="text-decoration: none;display: block;font-weight:bold;">查看开箱码信息</a>
+        </li>
 
     </div>
 </div>

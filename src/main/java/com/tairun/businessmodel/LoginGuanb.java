@@ -5,7 +5,7 @@ package com.tairun.businessmodel;
  */
 public class LoginGuanb extends IdenAction{
     public String account;
-    public int result;
+    public String result;
 
     public String getAccount() {
         return account;
@@ -15,11 +15,11 @@ public class LoginGuanb extends IdenAction{
         this.account = account;
     }
 
-    public int getResult() {
+    public String getResult() {
         return result;
     }
 
-    public void setResult(int result) {
+    public void setResult(String result) {
         this.result = result;
     }
 }

@@ -6,6 +6,24 @@ package com.tairun.businessmodel;
 public class WaybillNumberb extends IdenAction{
     public String waybill_number;
     public String customer_number;
+    public String account;
+    public String password;
+
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public String getWaybill_number() {
         return waybill_number;
@@ -23,13 +41,13 @@ public class WaybillNumberb extends IdenAction{
         this.customer_number = customer_number;
     }
 
-    public int getResult() {
+    public String getResult() {
         return result;
     }
 
-    public void setResult(int result) {
+    public void setResult(String result) {
         this.result = result;
     }
 
-    public int result;
+    public String result;
 }
