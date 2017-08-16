@@ -73,7 +73,7 @@ public class AccountServiceTest {
     @Test
     public void testClient() throws IOException {
         List<String> list = new ArrayList<>();
-        for (int i=0;i<10;i++) {
+        for (int i=0;i<50;i++) {
             Socket socket = new Socket("112.74.54.67", 10102);
             System.out.println("客户端启动成功");
             // 2、获取输出流，向服务器端发送信息

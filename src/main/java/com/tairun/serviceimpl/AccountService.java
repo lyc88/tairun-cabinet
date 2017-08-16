@@ -1,6 +1,5 @@
 package com.tairun.serviceimpl;
 
-import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.tairun.dao.AccountMapper;
@@ -98,11 +97,14 @@ public class AccountService {
         AccountExample accountExample = new AccountExample();
         //查询条件
         AccountExample.Criteria criteria = accountExample.createCriteria();
-        criteria.andTelephoneEqualTo(account);
-        criteria.andPasswordEqualTo(password);
+        if(StringUtils.isNoneBlank(account)) {
+            criteria.andTelephoneEqualTo(account);
+        }
+        if(StringUtils.isNoneBlank(password)) {
+            criteria.andPasswordEqualTo(password);
+        }
         List<Account> list = accountMapper.selectByExample(accountExample);
         if(null != list && list.size()>0){
-            System.out.println(JSONObject.toJSONString(list));
             return list;
         }else{
             return null;

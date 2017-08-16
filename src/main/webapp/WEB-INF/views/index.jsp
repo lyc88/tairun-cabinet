@@ -126,7 +126,7 @@
             </ul>
             <div class="layui-tab-content clildFrame">
                 <div class="layui-tab-item layui-show">
-                    <iframe src="${ctx}/static/layui1.9/page/main.html"></iframe>
+                    <img style="height: 100%; width:100%;" src="${ctx}/static/layui1.9/images/timg2.jpg">
                 </div>
             </div>
         </div>

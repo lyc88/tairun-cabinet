@@ -34,12 +34,11 @@ public class GoodsPickup {
         byte number=0;
         int cabinedid=0;
         String response=null;
-        String[] json = msg.split("@");
-        Map<String,Object> map = JsonUtil.convertJsonStrToMap(json[3]);
+        Map<String,Object> map = JsonUtil.convertJsonStrToMap(msg);
         // 取出数据
         String identifier = (String)map.get("identifier");
         String action = (String)map.get("action");
-        String boxNumber = JSONObject.toJSONString(map.get("box_number"));
+        String boxNumber = JSONObject.toJSONString(map.get("boxNumber"));
         int boxNumber1= Integer.parseInt(boxNumber);
         String state = (String)map.get("state");
         List<OrderSheet> list=orderSheetService.findByBoxIdent(identifier,boxNumber1);
@@ -68,7 +67,8 @@ public class GoodsPickup {
                         int num= JSON.toJSONString(pickupb).length();
                         response = "##@1@"+num+"@"+ JSON.toJSONString(pickupb);
                         // 构造日志信息
-                        log(response);
+                        String test=identifier+"自提柜中的"+boxNumber+"号柜子东西取走了";
+                        log(test);
                     }else{
                         response=qufan(identifier,action);
                     }
@@ -86,8 +86,8 @@ public class GoodsPickup {
     *快递员登录
     */
     public String LoginKuai(String msg){
-        String[] json = msg.split("@");
-        Map<String,Object> map = JsonUtil.convertJsonStrToMap(json[3]);
+
+        Map<String,Object> map = JsonUtil.convertJsonStrToMap(msg);
         // 取出数据
         String action = (String)map.get("action");
         String identifier = (String)map.get("identifier");
@@ -96,16 +96,14 @@ public class GoodsPickup {
         double account2=0;
         List<Account> list=  accountService.findByTelephoneandpassword(account,password);
         if(list!=null){
-            for(Account account1:list){
-                account2=account1.getAccount();
-            }
+            account2 = list.get(0).getAccount();
             Loginkuaib loginkuai= new Loginkuaib();
             loginkuai.setIdentifier(identifier);
             loginkuai.setAccount(account);
             loginkuai.setBalance(account2);
             loginkuai.setAction(action);
             loginkuai.setResult("success");//0表示操作成功
-            int num= JSON.toJSONString(loginkuai).length();
+            int num= JSON.toJSONString(loginkuai).getBytes().length;
             String response="##@1@"+num+"@"+ JSON.toJSONString(loginkuai);
             return response;
         }else{
@@ -114,7 +112,7 @@ public class GoodsPickup {
             loginkuai.setAccount(account);;
             loginkuai.setAction(action);
             loginkuai.setResult("false");
-            int num= JSON.toJSONString(loginkuai).length();
+            int num= JSON.toJSONString(loginkuai).getBytes().length;
             String response="##@1@"+num+"@"+ JSON.toJSONString(loginkuai);
             return response;
         }
@@ -125,55 +123,61 @@ public class GoodsPickup {
     public String WaybillNumber(String msg){
         String customernumber=null;
         String response=null;
-        String[] json = msg.split("@");
-        Map<String,Object> map = JsonUtil.convertJsonStrToMap(json[3]);
+
+        Map<String,Object> map = JsonUtil.convertJsonStrToMap(msg);
         String identifier = (String)map.get("identifier");
         String action = (String) map.get("action");
-        String waybill_number = (String) map.get("waybill_number");
-        String account = (String) map.get("action");
-        String password = (String) map.get("waybill_number");
-        List<OrderSheet> list=orderSheetService.findBywaybillnumber(waybill_number);
-        if(null!=list){
-            for(OrderSheet orderSheet:list){
-                customernumber=orderSheet.getCustomerNumber();
+        String waybill_number = (String) map.get("waybillNumber");
+        String account = (String) map.get("account");
+        String password = (String) map.get("password");
+        WaybillNumberb waybillNumberb = new WaybillNumberb();
+        List<Account> list1=  accountService.findByTelephoneandpassword(account,password);
+        if(null!=list1){
+            List<OrderSheet> list=orderSheetService.findBywaybillnumber(waybill_number);
+            if(null!=list){
+                for(OrderSheet orderSheet:list){
+                    customernumber=orderSheet.getCustomerNumber();
+                }
+                waybillNumberb.setIdentifier(identifier);
+                waybillNumberb.setCustomer_number(customernumber);
+                waybillNumberb.setAction(action);
+                waybillNumberb.setAccount(account);
+                waybillNumberb.setPassword(password);
+                waybillNumberb.setResult("success");
+                waybillNumberb.setWaybill_number(waybill_number);
+                int num= JSON.toJSONString(waybillNumberb).length();
+                response = "##@1@"+num+"@"+ JSON.toJSONString(waybillNumberb);
+            }else{
+                waybillNumberb.setIdentifier(identifier);
+                waybillNumberb.setAction(action);
+                waybillNumberb.setResult("flase");
+                int num= JSON.toJSONString(waybillNumberb).length();
+                response = "##@1@"+num+"@"+ JSON.toJSONString(waybillNumberb);
             }
-            WaybillNumberb waybillNumberb = new WaybillNumberb();
-            waybillNumberb.setIdentifier(identifier);
-            waybillNumberb.setCustomer_number(customernumber);
-            waybillNumberb.setAction(action);
-            waybillNumberb.setAccount(account);
-            waybillNumberb.setPassword(password);
-            waybillNumberb.setResult("success");
-            waybillNumberb.setWaybill_number(waybill_number);
-            int num= JSON.toJSONString(waybillNumberb).length();
-            response = "##@1@"+num+"@"+ JSON.toJSONString(waybillNumberb);
         }else{
-            WaybillNumberb waybillNumberb = new WaybillNumberb();
-            waybillNumberb.setIdentifier(identifier);
-            waybillNumberb.setAction(action);
             waybillNumberb.setResult("flase");
             int num= JSON.toJSONString(waybillNumberb).length();
             response = "##@1@"+num+"@"+ JSON.toJSONString(waybillNumberb);
         }
+
         return response;
     }
     /**
     *快递员存件
     */
     public String Deposit(String msg) {
-        String[] json = msg.split("@");
-        Map<String, Object> map = JsonUtil.convertJsonStrToMap(json[3]);
+        Map<String, Object> map = JsonUtil.convertJsonStrToMap(msg);
         String identifier = (String) map.get("identifier");
         String action = (String) map.get("action");
         String account = (String) map.get("account");
         String waybillType = JSONObject.toJSONString(map.get("waybillType"));
         String password = (String) map.get("password");
-        String waybill_number = (String) map.get("waybill_number");
+        String waybill_number = (String) map.get("waybillNumber");
         String customerPhone = (String) map.get("customerPhone");
-        String box_number = JSONObject.toJSONString(map.get("box_number"));
+        String box_number = JSONObject.toJSONString(map.get("boxNumber"));
         int box_number1 = Integer.parseInt(box_number);
-        String box_password = JSONObject.toJSONString(map.get("box_password"));
-        String box_type = JSONObject.toJSONString(map.get("box_type"));
+        String box_password = JSONObject.toJSONString(map.get("boxNassword"));
+        String box_type = JSONObject.toJSONString(map.get("boxType"));
         Depositb deposit = new Depositb();
         String response=null;
         int id = 0;
@@ -198,7 +202,8 @@ public class GoodsPickup {
             if (n > 0) {
                 response=fansuccess(identifier,action,password,waybill_number,box_type,customerPhone,account);
                 // 构造日志信息
-                log(response);
+                String test=account+"存件在"+identifier+"自提柜的"+box_number+"号柜子中,此订单为泰润商城订单，运单号为"+waybill_number;
+                log(test);
             } else {
                 response=fan(identifier,action,password,waybill_number,box_type,customerPhone,account);
                 return response;
@@ -240,7 +245,8 @@ public class GoodsPickup {
                         int n = accountService.updateaccount(account1);
                         if (n > 0) {
                             response=fansuccess(identifier,action,password,waybill_number,box_type,customerPhone,account);
-                            log(response);
+                            String test=account+"存件在"+identifier+"自提柜的"+box_number+"号柜子中,此订单不是泰润商城订单，运单号为"+waybill_number;
+                            log(test);
                         } else {
                             response=fan(identifier,action,password,waybill_number,box_type,customerPhone,account);
                         }
@@ -263,20 +269,19 @@ public class GoodsPickup {
    */
     public String LoginGuan(String msg){
         String response=null;
-        String[] json = msg.split("@");
-        Map<String,Object> map = JsonUtil.convertJsonStrToMap(json[3]);
+        Map<String,Object> map = JsonUtil.convertJsonStrToMap(msg);
         String identifier = (String)map.get("identifier");
         String action = (String)map.get("action");
         String account = (String)map.get("account");
         String password = (String)map.get("password");
-        List<User> list=userService.findByusernameandpassword(account,password);
+        List<User> list = userService.findByusernameandpassword(account,password);
         if(null!=list){
             LoginGuanb loginGuanb = new LoginGuanb();
             loginGuanb.setIdentifier(identifier);
             loginGuanb.setAction(action);
             loginGuanb.setAccount(account);
             loginGuanb.setResult("success");
-            int num1= JSON.toJSONString(loginGuanb).length();
+            int num1= JSON.toJSONString(loginGuanb).getBytes().length;
             response = "##@1@"+num1+"@"+ JSON.toJSONString(loginGuanb);
         }else{
             LoginGuanb loginGuanb = new LoginGuanb();
@@ -284,7 +289,7 @@ public class GoodsPickup {
             loginGuanb.setAction(action);
             loginGuanb.setAccount(account);
             loginGuanb.setResult("false");
-            int num1= JSON.toJSONString(loginGuanb).length();
+            int num1= JSON.toJSONString(loginGuanb).getBytes().length;
             response = "##@1@"+num1+"@"+ JSON.toJSONString(loginGuanb);
         }
         return response;
@@ -293,8 +298,7 @@ public class GoodsPickup {
    *管理员开柜
    */
     public String OpenCabinet(String msg){
-        String[] json = msg.split("@");
-        Map<String,Object> map = JsonUtil.convertJsonStrToMap(json[3]);
+        Map<String,Object> map = JsonUtil.convertJsonStrToMap(msg);
         String identifier = (String)map.get("identifier");
         String action = (String)map.get("action");
         String account = (String)map.get("account");
@@ -330,11 +334,10 @@ public class GoodsPickup {
     public String Timing(String msg){
         String response=null,NewPicUrl=null,NewVersionUrl;
         int getupdate=0,getimgupdate=0,imgid=0;
-        String[] json = msg.split("@");
-        Map<String,Object> map = JsonUtil.convertJsonStrToMap(json[3]);
+        Map<String,Object> map = JsonUtil.convertJsonStrToMap(msg);
         String identifier = (String)map.get("identifier");
         String action = (String)map.get("action");
-        String temperature = (String)map.get("temperature");
+        String temperature = JSONObject.toJSONString(map.get("temperature"));
         List<Selfcabinet> list=selfCabinetService.findBycode(identifier);
         if(null!=list){
             for(Selfcabinet selfcabinet:list){
@@ -414,12 +417,11 @@ public class GoodsPickup {
    *恢复出厂设置
    */
     public String Downloadupdate(String msg){
-        String[] json = msg.split("@");
-        Map<String,Object> map = JsonUtil.convertJsonStrToMap(json[3]);
+        Map<String,Object> map = JsonUtil.convertJsonStrToMap(msg);
         String identifier = (String)map.get("identifier");
         int ident=Integer.parseInt(identifier);
         String action = (String)map.get("action");
-        String boxTotalNum1 = JSONObject.toJSONString(map.get("boxTotalNum1"));
+        String boxTotalNum1 = JSONObject.toJSONString(map.get("boxTotalNum"));
         int boxTotalNum = Integer.parseInt(boxTotalNum1);
         List<Cabinet> list=cabinetService.findBycode(identifier);
         String response=null;
@@ -485,6 +487,49 @@ public class GoodsPickup {
         }
         return response;
     }
+    //充值业务
+    public String couriercharge(String msg){
+        Map<String,Object> map = JsonUtil.convertJsonStrToMap(msg);
+        String account = (String)map.get("account");
+        String telephone = (String)map.get("telephone");
+        Double money=Double.parseDouble(account);
+        String action = (String)map.get("action");
+        String password = (String)map.get("password");
+        String response=null;
+        CourierChargeb courierChargeb = new CourierChargeb();
+        List<Account> list=accountService.findByTelephoneandpassword(telephone,password);
+        if(null!=list){
+            Double moneyold= list.get(0).getAccount();
+            Double moneynew=moneyold+money;
+            Account account1= new Account();
+            account1.setId(list.get(0).getId());
+            account1.setName(list.get(0).getName());
+            account1.setAccount(moneynew);
+            account1.setPassword(list.get(0).getPassword());
+            account1.setTelephone(list.get(0).getTelephone());
+            account1.setCreateDate(list.get(0).getCreateDate());
+            int num=accountService.updateaccount(account1);
+            if(num>0){
+                courierChargeb.setTelephone(telephone);
+                courierChargeb.setResult("success");
+                courierChargeb.setMoney(moneynew);
+                int num1= JSON.toJSONString(courierChargeb).length();
+                response = "##@1@"+num1+"@"+ JSON.toJSONString(courierChargeb);
+            }else{
+                courierChargeb.setTelephone(telephone);
+                courierChargeb.setResult("false");
+                courierChargeb.setMoney(moneynew);
+                int num1= JSON.toJSONString(courierChargeb).length();
+                response = "##@1@"+num1+"@"+ JSON.toJSONString(courierChargeb);
+            }
+        }else{
+            courierChargeb.setResult("false");
+            int num1= JSON.toJSONString(courierChargeb).length();
+            response = "##@1@"+num1+"@"+ JSON.toJSONString(courierChargeb);
+        }
+
+        return response;
+    }
     /**
      *构造日志
      */
@@ -537,7 +582,7 @@ public class GoodsPickup {
         Pickupb pickupb = new Pickupb();
         pickupb.setIdentifier(identifier);
         pickupb.setAction(action);
-        pickupb.setResult("success");
+        pickupb.setResult("false");
         int num1 = JSON.toJSONString(pickupb).length();
         String response = "##@1@" + num1 + "@" + JSON.toJSONString(pickupb);
         return response;

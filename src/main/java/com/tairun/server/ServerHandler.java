@@ -5,10 +5,7 @@ import com.tairun.action.Operaction;
 import com.tairun.businessmodel.OpenCabinetb;
 import com.tairun.server.session.Session;
 import com.tairun.server.session.SessionImpl;
-import com.tairun.server.session.SessionManager;
 import io.netty.buffer.Unpooled;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.timeout.IdleState;
@@ -21,7 +18,7 @@ import org.slf4j.LoggerFactory;
  */
 public class ServerHandler extends SimpleChannelInboundHandler {
     Logger logger = LoggerFactory.getLogger(ServerHandler.class);
-
+    private static Operaction operaction = new Operaction();
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         cause.printStackTrace();
@@ -47,7 +44,7 @@ public class ServerHandler extends SimpleChannelInboundHandler {
         //ctx.writeAndFlush(Unpooled.copiedBuffer(response.getBytes()));
 
         //String msg1 = "##@1@140@{\"identifier\":123456,\"action\":\"goods_pickup\",\"boxNumber\":1,\"state\":\"normal\",\"result\":\"success\",\"customerPhone\":\"15278199288\",\"balance\":12.9}";
-       String msg1 = handlerMessage(new SessionImpl(channelHandlerContext.channel()), request,channelHandlerContext);
+        String msg1 = handlerMessage(new SessionImpl(channelHandlerContext.channel()), request,channelHandlerContext);
 
 
         String response = msg1;
@@ -58,6 +55,7 @@ public class ServerHandler extends SimpleChannelInboundHandler {
 
     @Override
     public void userEventTriggered(final ChannelHandlerContext ctx, Object evt) throws Exception {
+        logger.info("超时了-==========================================");
         if(evt instanceof IdleStateEvent){
             IdleStateEvent event = (IdleStateEvent)evt;
             if(event.state() == IdleState.ALL_IDLE){
@@ -98,28 +96,29 @@ public class ServerHandler extends SimpleChannelInboundHandler {
     private String handlerMessage(Session session,String msg,ChannelHandlerContext channelHandlerContext){
 
         logger.info("请求数据报文为：{}",msg);
+        String  code = "";
         //根据消息类型 判断是否是新的客户端
-        String[] args = msg.split("@");
-        int args2= Integer.valueOf(args[2]);
-        String code=null;
-        System.out.println(args[3].length());
-        if(msg.indexOf("@")!=-1){
-            if(args[0].equals("##")){
-                if(args[3].length()==args2){
-                    /*SessionManager.putSession("code12",session);
-                   System.out.println(SessionManager.getOnlinePlayers().size());*/
-                    Operaction operaction = new Operaction();
-                    code =operaction.event(session,msg);
-                    /*System.out.println(code);*/
-                   SessionManager.sendMessage("code12",code);
-                }else{
-                    code=fan();
+        if(msg.indexOf("@")!=-1) {
+            String[] args = msg.split("@");
+            if (null != args && args.length > 3) {
+                int args2 = Integer.valueOf(args[2]);
+                //包头
+                if (args[0].equals("##")) {
+                    //长度和内容一样，不一样可能数据丢失
+                    System.out.println(args[3].length()+"========================================");
+                    if (args[3].length() == args2) {
+                        code = operaction.event(session, args[3]);
+                    } else {
+                       return fan();
+                    }
+                }else {
+                    return fan();
                 }
-            }else{
-                code=fan();
+            } else {
+                return fan();
             }
         }else{
-            code=fan();
+            return fan();
         }
         logger.info("请求返回数据报文为：{}", JSON.toJSON(code));
         return code;
