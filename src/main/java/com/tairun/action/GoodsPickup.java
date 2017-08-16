@@ -39,13 +39,9 @@ public class GoodsPickup {
         // 取出数据
         String identifier = (String)map.get("identifier");
         String action = (String)map.get("action");
-        String boxNumber = JSONObject.toJSONString(map.get("boxNumber"));
+        String boxNumber = JSONObject.toJSONString(map.get("box_number"));
         int boxNumber1= Integer.parseInt(boxNumber);
         String state = (String)map.get("state");
-        Pickupb pickupb = new Pickupb();
-        pickupb.setIdentifier(identifier);
-        pickupb.setAction("快递员取件");
-        pickupb.setResult(0);
         List<OrderSheet> list=orderSheetService.findByBoxIdent(identifier,boxNumber1);
         if(null!=list){
             for(OrderSheet orderSheet:list){
@@ -65,20 +61,23 @@ public class GoodsPickup {
                     cabinet.setId(cabinedid);
                     int m=cabinetService.updatecabinet(cabinet);
                     if(m>0){
+                        Pickupb pickupb = new Pickupb();
+                        pickupb.setIdentifier(identifier);
+                        pickupb.setAction(action);
+                        pickupb.setResult("success");
                         int num= JSON.toJSONString(pickupb).length();
                         response = "##@1@"+num+"@"+ JSON.toJSONString(pickupb);
                         // 构造日志信息
                         log(response);
                     }else{
-                        response="柜子清空失败";
+                        response=qufan(identifier,action);
                     }
                 }
-
             }else{
-                response="连接超时，请重发";
+                response=qufan(identifier,action);
             }
         }else{
-            response="没有该箱子";
+            response=qufan(identifier,action);
         }
 
         return response;
@@ -105,14 +104,19 @@ public class GoodsPickup {
             loginkuai.setAccount(account);
             loginkuai.setBalance(account2);
             loginkuai.setAction(action);
-            loginkuai.setResult(0);//0表示操作成功
+            loginkuai.setResult("success");//0表示操作成功
             int num= JSON.toJSONString(loginkuai).length();
-            String response = "##@1@"+num+"@"+ JSON.toJSONString(loginkuai);
-           /* channelHandlerContext.writeAndFlush(Unpooled.copiedBuffer(response.getBytes()));*/
+            String response="##@1@"+num+"@"+ JSON.toJSONString(loginkuai);
             return response;
         }else{
-            String ms="没有该快递员账户";
-            return ms;
+            Loginkuaib loginkuai= new Loginkuaib();
+            loginkuai.setIdentifier(identifier);
+            loginkuai.setAccount(account);;
+            loginkuai.setAction(action);
+            loginkuai.setResult("false");
+            int num= JSON.toJSONString(loginkuai).length();
+            String response="##@1@"+num+"@"+ JSON.toJSONString(loginkuai);
+            return response;
         }
     }
     /**
@@ -126,6 +130,8 @@ public class GoodsPickup {
         String identifier = (String)map.get("identifier");
         String action = (String) map.get("action");
         String waybill_number = (String) map.get("waybill_number");
+        String account = (String) map.get("action");
+        String password = (String) map.get("waybill_number");
         List<OrderSheet> list=orderSheetService.findBywaybillnumber(waybill_number);
         if(null!=list){
             for(OrderSheet orderSheet:list){
@@ -135,42 +141,49 @@ public class GoodsPickup {
             waybillNumberb.setIdentifier(identifier);
             waybillNumberb.setCustomer_number(customernumber);
             waybillNumberb.setAction(action);
-            waybillNumberb.setResult(0);
+            waybillNumberb.setAccount(account);
+            waybillNumberb.setPassword(password);
+            waybillNumberb.setResult("success");
             waybillNumberb.setWaybill_number(waybill_number);
             int num= JSON.toJSONString(waybillNumberb).length();
             response = "##@1@"+num+"@"+ JSON.toJSONString(waybillNumberb);
         }else{
-            response="没有该运单号";
+            WaybillNumberb waybillNumberb = new WaybillNumberb();
+            waybillNumberb.setIdentifier(identifier);
+            waybillNumberb.setAction(action);
+            waybillNumberb.setResult("flase");
+            int num= JSON.toJSONString(waybillNumberb).length();
+            response = "##@1@"+num+"@"+ JSON.toJSONString(waybillNumberb);
         }
         return response;
     }
     /**
     *快递员存件
     */
-    public String Deposit(String msg){
+    public String Deposit(String msg) {
         String[] json = msg.split("@");
-        Map<String,Object> map = JsonUtil.convertJsonStrToMap(json[3]);
-        String identifier = (String)map.get("identifier");
+        Map<String, Object> map = JsonUtil.convertJsonStrToMap(json[3]);
+        String identifier = (String) map.get("identifier");
         String action = (String) map.get("action");
         String account = (String) map.get("account");
-        String order_type = (String) map.get("order_type");
+        String waybillType = JSONObject.toJSONString(map.get("waybillType"));
+        String password = (String) map.get("password");
         String waybill_number = (String) map.get("waybill_number");
         String customerPhone = (String) map.get("customerPhone");
         String box_number = JSONObject.toJSONString(map.get("box_number"));
-        int box_number1= Integer.parseInt(box_number);
+        int box_number1 = Integer.parseInt(box_number);
         String box_password = JSONObject.toJSONString(map.get("box_password"));
         String box_type = JSONObject.toJSONString(map.get("box_type"));
         Depositb deposit = new Depositb();
-        String response;
-        int id=0;
+        String response=null;
+        int id = 0;
         double account3;
-        String name=null;
-        String telephone=null;
-        String password=null;
-        Date createdate=null;
-        Double charg=new Double(0.5);
-        if(order_type.equals("0")){//把条件改为运单号去泰润商城订单中查询时不为空，则为泰润商城订单，执行下面内容
-            OrderSheet orderSheet= new OrderSheet();
+        String name = null;
+        String telephone = null;
+        Date createdate = null;
+        Double charg = new Double(0.5);
+        if (waybillType.equals("0")) {//把条件改为运单号去泰润商城订单中查询时不为空，则为泰润商城订单，执行下面内容
+            OrderSheet orderSheet = new OrderSheet();
             orderSheet.setCreateDate(Calendar.getInstance().getTime());
             orderSheet.setAccount(account);
             orderSheet.setBoxPassword(box_password);
@@ -179,35 +192,32 @@ public class GoodsPickup {
             orderSheet.setOrderType("0");
             orderSheet.setWaybillNumber(waybill_number);
             orderSheet.setBoxNumber(box_number1);
+            orderSheet.setCustomerNumber(customerPhone);
             orderSheet.setCharge(0.0);
-            int n=orderSheetService.insertOrderSheet(orderSheet);
-            if(n>0){
-                deposit.setResult(0);
-                deposit.setIdentifier(identifier);
-                deposit.setOperation_information("存件成功");
-                deposit.setAction("快递员存件");
-                int num= JSON.toJSONString(deposit).length();
-                response = "##@1@"+num+"@"+ JSON.toJSONString(deposit);
+            int n = orderSheetService.insertOrderSheet(orderSheet);
+            if (n > 0) {
+                response=fansuccess(identifier,action,password,waybill_number,box_type,customerPhone,account);
                 // 构造日志信息
                 log(response);
-            }else{
-                response="连接超时，请重新发送请求";
+            } else {
+                response=fan(identifier,action,password,waybill_number,box_type,customerPhone,account);
+                return response;
             }
-        }else if(order_type.equals("1")){//把条件改为运单号去泰润商城订单中查询时为空，则不为泰润商城订单，执行下面内容
-            List<Account> list=accountService.findByTelephonetwo(account);
-            Double account2=new Double(0.5);
-            charg=0.5;
-            if( list!=null) {
+        } else if (waybillType.equals("1")) {//把条件改为运单号去泰润商城订单中查询时为空，则不为泰润商城订单，执行下面内容
+            List<Account> list = accountService.findByTelephonetwo(account);
+            Double account2 = new Double(0.5);
+            charg = 0.5;
+            if (list != null) {
                 for (Account account1 : list) {
-                    telephone=account1.getTelephone();
-                    password=account1.getPassword();
+                    telephone = account1.getTelephone();
+                    password = account1.getPassword();
                     account2 = account1.getAccount();
-                    id=account1.getId();
-                    name=account1.getName();
-                    createdate=account1.getCreateDate();
+                    id = account1.getId();
+                    name = account1.getName();
+                    createdate = account1.getCreateDate();
                 }
-                if(account2>charg){
-                    OrderSheet orderSheet= new OrderSheet();
+                if (account2 > charg) {
+                    OrderSheet orderSheet = new OrderSheet();
                     orderSheet.setCreateDate(Calendar.getInstance().getTime());
                     orderSheet.setAccount(account);
                     orderSheet.setBoxPassword(box_password);
@@ -217,40 +227,34 @@ public class GoodsPickup {
                     orderSheet.setWaybillNumber(waybill_number);
                     orderSheet.setBoxNumber(box_number1);
                     orderSheet.setCharge(charg);
-                    int num=orderSheetService.insertOrderSheet(orderSheet);
-                    if(num>0){
-                        account3=account2-charg;
-                        Account account1= new Account();
+                    int num = orderSheetService.insertOrderSheet(orderSheet);
+                    if (num > 0) {
+                        account3 = account2 - charg;
+                        Account account1 = new Account();
                         account1.setTelephone(telephone);
                         account1.setPassword(password);
                         account1.setAccount(account3);
                         account1.setId(id);
                         account1.setName(name);
                         account1.setCreateDate(createdate);
-                        int n=accountService.updateaccount(account1);
-                        if(n>0){
-                            deposit.setResult(0);
-                            deposit.setIdentifier(identifier);
-                            deposit.setOperation_information("存件成功");
-                            deposit.setAction("快递员存件");
-                            int num1= JSON.toJSONString(deposit).length();
-                            response = "##@1@"+num1+"@"+ JSON.toJSONString(deposit);
+                        int n = accountService.updateaccount(account1);
+                        if (n > 0) {
+                            response=fansuccess(identifier,action,password,waybill_number,box_type,customerPhone,account);
                             log(response);
-                        }else{
-                            response= "存件失败";
+                        } else {
+                            response=fan(identifier,action,password,waybill_number,box_type,customerPhone,account);
                         }
-                    }else{
-                        response="连接超时，请重新发送请求";
+                    } else {
+                        response=fan(identifier,action,password,waybill_number,box_type,customerPhone,account);
                     }
-                }else{
-                    response="你的余额不足，请及时充值";
+                } else {
+                    response=fan(identifier,action,password,waybill_number,box_type,customerPhone,account);
                 }
-
-            }else{
-                response=null;
+            } else {
+                response=fan(identifier,action,password,waybill_number,box_type,customerPhone,account);
             }
         }else{
-            response=null;
+            response=fan(identifier,action,password,waybill_number,box_type,customerPhone,account);
         }
         return response;
     }
@@ -271,11 +275,17 @@ public class GoodsPickup {
             loginGuanb.setIdentifier(identifier);
             loginGuanb.setAction(action);
             loginGuanb.setAccount(account);
-            loginGuanb.setResult(0);
+            loginGuanb.setResult("success");
             int num1= JSON.toJSONString(loginGuanb).length();
             response = "##@1@"+num1+"@"+ JSON.toJSONString(loginGuanb);
         }else{
-            response="账户或密码错误，请重新登录";
+            LoginGuanb loginGuanb = new LoginGuanb();
+            loginGuanb.setIdentifier(identifier);
+            loginGuanb.setAction(action);
+            loginGuanb.setAccount(account);
+            loginGuanb.setResult("false");
+            int num1= JSON.toJSONString(loginGuanb).length();
+            response = "##@1@"+num1+"@"+ JSON.toJSONString(loginGuanb);
         }
         return response;
     }
@@ -290,14 +300,26 @@ public class GoodsPickup {
         String account = (String)map.get("account");
         String password = (String)map.get("password");
         String box_number = (String)map.get("box_number");
-        OpenCabinetb openCabinetb = new OpenCabinetb();
-        openCabinetb.setIdentifier(identifier);
-        openCabinetb.setAction(action);
-        openCabinetb.setResult(0);
-        int num1= JSON.toJSONString(openCabinetb).length();
-        String response = "##@1@"+num1+"@"+ JSON.toJSONString(openCabinetb);
-        String test= "自提柜号"+identifier+"管理员操作"+action+"管理员账户"+account+"自提柜对应的柜子号"+box_number;
-        log(test);
+        String response=null;
+        List<User> list=userService.findByusernameandpassword(account,password);
+        if(null!=list){
+            OpenCabinetb openCabinetb = new OpenCabinetb();
+            openCabinetb.setIdentifier(identifier);
+            openCabinetb.setAction(action);
+            openCabinetb.setResult("successs");
+            int num1= JSON.toJSONString(openCabinetb).length();
+            response = "##@1@"+num1+"@"+ JSON.toJSONString(openCabinetb);
+            String test= "自提柜号"+identifier+"管理员操作"+action+"管理员账户"+account+"自提柜对应的柜子号"+box_number;
+            log(test);
+        }else{
+            OpenCabinetb openCabinetb = new OpenCabinetb();
+            openCabinetb.setIdentifier(identifier);
+            openCabinetb.setAction(action);
+            openCabinetb.setResult("flase");
+            int num1= JSON.toJSONString(openCabinetb).length();
+            response = "##@1@"+num1+"@"+ JSON.toJSONString(openCabinetb);
+        }
+
         return response;
     }
     /**
@@ -307,13 +329,12 @@ public class GoodsPickup {
     String url;
     public String Timing(String msg){
         String response=null,NewPicUrl=null,NewVersionUrl;
-        String numpicurl[];
         int getupdate=0,getimgupdate=0,imgid=0;
         String[] json = msg.split("@");
         Map<String,Object> map = JsonUtil.convertJsonStrToMap(json[3]);
         String identifier = (String)map.get("identifier");
         String action = (String)map.get("action");
-        String box_temperature = (String)map.get("box_temperature");
+        String temperature = (String)map.get("temperature");
         List<Selfcabinet> list=selfCabinetService.findBycode(identifier);
         if(null!=list){
             for(Selfcabinet selfcabinet:list){
@@ -325,11 +346,23 @@ public class GoodsPickup {
             if(getimgupdate==0){
                 timingb.setIdentifier(identifier);
                 timingb.setAction(action);
-                timingb.setIsNewVersion(getupdate);
-                timingb.setIsNewAdPic(getimgupdate);
-                timingb.setResult("success");
-                int num1= JSON.toJSONString(timingb).length();
-                response = "##@1@"+num1+"@"+ JSON.toJSONString(timingb);
+                timingb.setIsNewAdPic("no");
+                if(getupdate==0){
+                    timingb.setIsNewVersion("no");
+                    timingb.setResult("success");
+                    int num1= JSON.toJSONString(timingb).length();
+                    response = "##@1@"+num1+"@"+ JSON.toJSONString(timingb);
+                }else if(getupdate==1){
+                    timingb.setIsNewVersion("yes");
+                    timingb.setResult("success");
+                    int num1= JSON.toJSONString(timingb).length();
+                    response = "##@1@"+num1+"@"+ JSON.toJSONString(timingb);
+                }else{
+                    timingb.setIsNewVersion("yes");
+                    timingb.setResult("false");
+                    int num1= JSON.toJSONString(timingb).length();
+                    response = "##@1@"+num1+"@"+ JSON.toJSONString(timingb);
+                }
             }else if(getimgupdate==1){
                 List<Files> list1=fileService.selectByImgid(imgid);
                 for(Files files : list1){
@@ -344,14 +377,35 @@ public class GoodsPickup {
                 url=prop.getProperty("url");
                 timingb.setIdentifier(identifier);
                 timingb.setAction(action);
-                timingb.setIsNewVersion(getupdate);
-                timingb.setIsNewAdPic(getimgupdate);
-                timingb.setNewPicUrl(NewPicUrl);
-                timingb.setNewVersionUrl(url);
-                timingb.setResult("success");
-                int num1= JSON.toJSONString(timingb).length();
-                response = "##@1@"+num1+"@"+ JSON.toJSONString(timingb);
+                timingb.setIsNewAdPic("yes");
+                if(getupdate==0){
+                    timingb.setIsNewVersion("no");
+                    timingb.setNewPicUrl(NewPicUrl);
+                    timingb.setNewVersionUrl(url);
+                    timingb.setResult("success");
+                    int num1= JSON.toJSONString(timingb).length();
+                    response = "##@1@"+num1+"@"+ JSON.toJSONString(timingb);
+                }else if(getupdate==1){
+                    timingb.setIsNewVersion("yes");
+                    timingb.setNewPicUrl(NewPicUrl);
+                    timingb.setNewVersionUrl(url);
+                    timingb.setResult("success");
+                    int num1= JSON.toJSONString(timingb).length();
+                    response = "##@1@"+num1+"@"+ JSON.toJSONString(timingb);
+                }else{
+                    timingb.setIsNewVersion("no");
+                    timingb.setNewPicUrl(NewPicUrl);
+                    timingb.setNewVersionUrl(url);
+                    timingb.setResult("false");
+                    int num1= JSON.toJSONString(timingb).length();
+                    response = "##@1@"+num1+"@"+ JSON.toJSONString(timingb);
+                }
             }
+        }else{
+            Timingb timingb= new Timingb();
+            timingb.setResult("false");
+            int num1= JSON.toJSONString(timingb).length();
+            response = "##@1@"+num1+"@"+ JSON.toJSONString(timingb);
         }
 
         return response;
@@ -363,8 +417,10 @@ public class GoodsPickup {
         String[] json = msg.split("@");
         Map<String,Object> map = JsonUtil.convertJsonStrToMap(json[3]);
         String identifier = (String)map.get("identifier");
+        int ident=Integer.parseInt(identifier);
         String action = (String)map.get("action");
-        String boxTotalNum = (String)map.get("boxTotalNum");
+        String boxTotalNum1 = JSONObject.toJSONString(map.get("boxTotalNum1"));
+        int boxTotalNum = Integer.parseInt(boxTotalNum1);
         List<Cabinet> list=cabinetService.findBycode(identifier);
         String response=null;
         if(null!=list){
@@ -397,55 +453,34 @@ public class GoodsPickup {
                 selfcabinet.setImgUpdate(0);
                 selfcabinet.setIsUpdate(new Byte("0"));
                 selfcabinet.setStatus(new Byte("0"));
+                selfcabinet.setImgId(ident);
                 selfcabinet.setUpdateDate(Calendar.getInstance().getTime());
                 int n=selfCabinetService.updateself(selfcabinet);
                 if(n>0){
-                    Downloadupdateb downloadupdateb= new Downloadupdateb();
-                    downloadupdateb.setIdentifier(identifier);
-                    downloadupdateb.setAction(action);
-                    downloadupdateb.setBoxTotalNum(boxTotalNum);
-                    downloadupdateb.setResult(1);
-                    int num1= JSON.toJSONString(downloadupdateb).length();
-                    response = "##@1@"+num1+"@"+ JSON.toJSONString(downloadupdateb);
+                    response = Downfan(identifier,action);
                     String test=Calendar.getInstance().getTime()+"修改"+identifier+"柜子";
                     log(test);
                 }
-            }
-        }
-        return response;
-    }
-    /**
-     *远程更新、下载的执行状态状态
-     */
-    public String remoteupdatestate(String msg){
-        String[] json = msg.split("@");
-        Map<String,Object> map = JsonUtil.convertJsonStrToMap(json[3]);
-        String identifier = (String)map.get("identifier");
-        String action = (String)map.get("action");
-        String newVersionUpdata = (String)map.get("newVersionUpdata");
-        String newPicUpdata = (String)map.get("newPicUpdata");
-        int num=0;
-        String response=null;
-        if(newVersionUpdata.equals("success")&&newPicUpdata.equals("success")){
-            List<Selfcabinet> list=selfCabinetService.findBycode(identifier);
-            if(null!=list){
-                for(Selfcabinet selfcabinet : list){
-                    selfcabinet.setId(selfcabinet.getId());
-                    selfcabinet.setCode(selfcabinet.getCode());
-                    selfcabinet.setStatus(selfcabinet.getStatus());
-                    selfcabinet.setIsUpdate(selfcabinet.getIsUpdate());
-                    selfcabinet.setCreateDate(selfcabinet.getCreateDate());
-                    selfcabinet.setUpdateDate(selfcabinet.getUpdateDate());
-                    selfcabinet.setInfo(selfcabinet.getInfo());
-                    selfcabinet.setImgUpdate(0);
-                    selfcabinet.setImgId(selfcabinet.getImgId());
-                    num=selfCabinetService.updateself(selfcabinet);
-                    if(num>0){
-                        int num1= JSON.toJSONString(selfcabinet).length();
-                        response = "##@1@"+num1+"@"+ JSON.toJSONString(selfcabinet);
-                        String test="收到";
-                    }
+                else{
+                    response=Downshifan(identifier,action);
                 }
+            }
+        }else{
+            int num=0;
+            for(int i=0;i<boxTotalNum;i++){
+                Cabinet cabinet = new Cabinet();
+                cabinet.setCode(identifier);
+                cabinet.setNumber(i+1);
+                cabinet.setCreateDate(Calendar.getInstance().getTime());
+                cabinet.setStatus(new Byte("0"));
+                num=cabinetService.insertcabinet(cabinet);
+            }
+            if(num>0){
+                response = Downfan(identifier,action);
+                String test=Calendar.getInstance().getTime()+"修改"+identifier+"柜子";
+                log(test);
+            }else{
+                response=Downshifan(identifier,action);
             }
         }
         return response;
@@ -458,5 +493,77 @@ public class GoodsPickup {
         log.setCreateDate(Calendar.getInstance().getTime());
         log.setInfo(response);
         logService.insert(log);
+    }
+    /**
+     * 存件失败后返回数据
+     */
+    public String  fan(String identifier,String action,String password,String waybill_number,String box_type,
+                       String customerPhone,String account){
+        Depositb depositb = new Depositb();
+        depositb.setResult("false");
+        depositb.setIdentifier(identifier);
+        depositb.setAction(action);
+        depositb.setPassword(password);
+        depositb.setWaybill_number(waybill_number);
+        depositb.setBox_type(box_type);
+        depositb.setCustomer_number(customerPhone);
+        depositb.setAccount(account);
+        int num1 = JSON.toJSONString(depositb).length();
+        String response = "##@1@" + num1 + "@" + JSON.toJSONString(depositb);
+        return response;
+    }
+    /**
+     * 存件成功后返回数据
+     */
+    public String  fansuccess(String identifier,String action,String password,String waybill_number,String box_type,
+                       String customerPhone,String account){
+        Depositb depositb = new Depositb();
+        depositb.setResult("success");
+        depositb.setIdentifier(identifier);
+        depositb.setAction(action);
+        depositb.setPassword(password);
+        depositb.setWaybill_number(waybill_number);
+        depositb.setBox_type(box_type);
+        depositb.setCustomer_number(customerPhone);
+        depositb.setAccount(account);
+        int num1 = JSON.toJSONString(depositb).length();
+        String response = "##@1@" + num1 + "@" + JSON.toJSONString(depositb);
+        return response;
+    }
+    /**
+     * 取件失败返回
+     */
+    public String  qufan(String identifier,String action){
+        Pickupb pickupb = new Pickupb();
+        pickupb.setIdentifier(identifier);
+        pickupb.setAction(action);
+        pickupb.setResult("success");
+        int num1 = JSON.toJSONString(pickupb).length();
+        String response = "##@1@" + num1 + "@" + JSON.toJSONString(pickupb);
+        return response;
+    }
+    /**
+     * 恢复出厂成功后返回
+     */
+    public String  Downfan(String identifier,String action){
+        Downloadupdateb downloadupdateb= new Downloadupdateb();
+        downloadupdateb.setIdentifier(identifier);
+        downloadupdateb.setAction(action);
+        downloadupdateb.setResult("success");
+        int num1= JSON.toJSONString(downloadupdateb).length();
+        String response = "##@1@"+num1+"@"+ JSON.toJSONString(downloadupdateb);
+        return response;
+    }
+    /**
+     * 恢复出厂失败后返回
+     */
+    public String  Downshifan(String identifier,String action){
+        Downloadupdateb downloadupdateb= new Downloadupdateb();
+        downloadupdateb.setIdentifier(identifier);
+        downloadupdateb.setAction(action);
+        downloadupdateb.setResult("false");
+        int num1= JSON.toJSONString(downloadupdateb).length();
+        String response = "##@1@"+num1+"@"+ JSON.toJSONString(downloadupdateb);
+        return response;
     }
 }

@@ -4,21 +4,30 @@ package com.tairun.businessmodel;
  * Created by THINK on 2017/8/2.
  */
 public class Timingb extends IdenAction{
-    int isNewVersion;
+    String isNewVersion;
+    int box_temperature;
 
-    public int getIsNewVersion() {
+    public int getBox_temperature() {
+        return box_temperature;
+    }
+
+    public void setBox_temperature(int box_temperature) {
+        this.box_temperature = box_temperature;
+    }
+
+    public String getIsNewVersion() {
         return isNewVersion;
     }
 
-    public void setIsNewVersion(int isNewVersion) {
+    public void setIsNewVersion(String isNewVersion) {
         this.isNewVersion = isNewVersion;
     }
 
-    public int getIsNewAdPic() {
+    public String getIsNewAdPic() {
         return isNewAdPic;
     }
 
-    public void setIsNewAdPic(int isNewAdPic) {
+    public void setIsNewAdPic(String isNewAdPic) {
         this.isNewAdPic = isNewAdPic;
     }
 
@@ -38,7 +47,7 @@ public class Timingb extends IdenAction{
         this.newPicUrl = newPicUrl;
     }
 
-    int isNewAdPic;
+    String isNewAdPic;
     String newVersionUrl;
     String newPicUrl;
     String result;

@@ -1,6 +1,8 @@
 package com.tairun.server;
 
+import com.alibaba.fastjson.JSON;
 import com.tairun.action.Operaction;
+import com.tairun.businessmodel.OpenCabinetb;
 import com.tairun.server.session.Session;
 import com.tairun.server.session.SessionImpl;
 import com.tairun.server.session.SessionManager;
@@ -43,11 +45,16 @@ public class ServerHandler extends SimpleChannelInboundHandler {
             String request = (String)msg;
         System.out.println("Server :" + msg);
         //ctx.writeAndFlush(Unpooled.copiedBuffer(response.getBytes()));
-        String msg1 = handlerMessage(new SessionImpl(channelHandlerContext.channel()), request,channelHandlerContext);
-        String response = "服务器响应：" + msg1 ;
-        channelHandlerContext.writeAndFlush(Unpooled.copiedBuffer(response.getBytes()));
+
+        //String msg1 = "##@1@140@{\"identifier\":123456,\"action\":\"goods_pickup\",\"boxNumber\":1,\"state\":\"normal\",\"result\":\"success\",\"customerPhone\":\"15278199288\",\"balance\":12.9}";
+       String msg1 = handlerMessage(new SessionImpl(channelHandlerContext.channel()), request,channelHandlerContext);
+
+
+        String response = msg1;
+        channelHandlerContext.writeAndFlush(Unpooled.copiedBuffer(response.getBytes("utf-8")));
 
     }
+
 
     @Override
     public void userEventTriggered(final ChannelHandlerContext ctx, Object evt) throws Exception {
@@ -89,6 +96,8 @@ public class ServerHandler extends SimpleChannelInboundHandler {
      * ii.将运单号、联系人号码、柜子的编号、柜子的开箱码发送到服务器，服务器通过短信接口发送开箱码给收货人
      */
     private String handlerMessage(Session session,String msg,ChannelHandlerContext channelHandlerContext){
+
+        logger.info("请求数据报文为：{}",msg);
         //根据消息类型 判断是否是新的客户端
         String[] args = msg.split("@");
         int args2= Integer.valueOf(args[2]);
@@ -103,14 +112,23 @@ public class ServerHandler extends SimpleChannelInboundHandler {
                     code =operaction.event(session,msg);
                     /*System.out.println(code);*/
                    SessionManager.sendMessage("code12",code);
+                }else{
+                    code=fan();
                 }
             }else{
-
+                code=fan();
             }
         }else{
-
+            code=fan();
         }
-
+        logger.info("请求返回数据报文为：{}", JSON.toJSON(code));
         return code;
+    }
+    public String fan(){
+        OpenCabinetb openCabinetb= new OpenCabinetb();
+        openCabinetb.setResult("false");
+        int num1 = JSON.toJSONString(openCabinetb).length();
+        String response = "##@1@" + num1 + "@" + JSON.toJSONString(openCabinetb);
+        return response;
     }
 }

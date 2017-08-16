@@ -39,7 +39,7 @@ public class Server {
             b.channel(NioServerSocketChannel.class);
 
             // 设置管道
-            b.childHandler(new ChannelInitializer<SocketChannel>() {
+            b.childHandler(new ChannelInitializer<SocketChannel>()   {
                 @Override
                 public void initChannel(SocketChannel sc) throws Exception {
                    // ch.pipeline().addLast(new RequestDecoder());

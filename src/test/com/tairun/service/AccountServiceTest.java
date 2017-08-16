@@ -1,7 +1,6 @@
 package com.tairun.service;
 
 import com.tairun.model.Account;
-import com.tairun.model.Selfcabinet;
 import com.tairun.server.utils.EUDataGridResult;
 import com.tairun.serviceimpl.AccountService;
 import com.tairun.serviceimpl.SelfCabinetService;
@@ -74,15 +73,16 @@ public class AccountServiceTest {
     @Test
     public void testClient() throws IOException {
         List<String> list = new ArrayList<>();
-        for (int i=0;i<2000;i++) {
+        for (int i=0;i<10;i++) {
             Socket socket = new Socket("112.74.54.67", 10102);
             System.out.println("客户端启动成功");
             // 2、获取输出流，向服务器端发送信息
-            String msg = "##@1@88@{\n" +
+            String msg = "##@1@105@{\n" +
                     "\t\"identifier\":\t\"123456\",\n" +
-                    "\t\"action\":\t\"admin_login\",\n" +
+                    "\t\"action\":\t\"admin_open_box\",\n" +
                     "\t\"account\":\t\"1\",\n" +
-                    "\t\"password\":\t\"1\"\n" +
+                    "\t\"password\":\t\"\",\n" +
+                    "\t\"boxNum\":\t12\n" +
                     "}$_";
             OutputStream outputStream = socket.getOutputStream();
             outputStream.write(msg.getBytes());
