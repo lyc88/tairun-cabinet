@@ -1,9 +1,9 @@
 package com.tairun.serviceimpl;
 
-import com.alibaba.fastjson.JSONObject;
 import com.tairun.dao.UserMapper;
 import com.tairun.model.User;
 import com.tairun.model.UserExample;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,11 +38,14 @@ public class UserService {
         UserExample userExample = new UserExample();
         //查询条件
         UserExample.Criteria criteria = userExample.createCriteria();
-        criteria.andUsernameEqualTo(account);
-        criteria.andPasswordEqualTo(password);
+        if(StringUtils.isNoneBlank(account)) {
+            criteria.andUsernameEqualTo(account);
+        }
+        if(StringUtils.isNoneBlank(password)) {
+            criteria.andPasswordEqualTo(password);
+        }
         List<User> list = userMapper.selectByExample(userExample);
         if(null != list && list.size()>0){
-            System.out.println(JSONObject.toJSONString(list));
             return list;
         }else{
             return null;

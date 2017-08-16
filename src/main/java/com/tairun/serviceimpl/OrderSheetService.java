@@ -38,9 +38,11 @@ public class OrderSheetService {
         //查询条件
         OrderSheetExample.Criteria criteria = orderSheetExample.createCriteria();
         criteria.andBoxNumberEqualTo(boxNumbe1);
+        System.out.println(boxNumbe1+"======______________________________");
         criteria.andIdentifierEqualTo(identifier);
         List<OrderSheet> list = orderSheetMapper.selectByExample(orderSheetExample);
         if(null != list && list.size()>0){
+            System.out.println("1111111111111111111111111111");
             return list;
         }else{
             return null;
