@@ -3,6 +3,7 @@ package com.tairun.web;
 import com.tairun.model.Account;
 import com.tairun.server.utils.EUDataGridResult;
 import com.tairun.serviceimpl.AccountService;
+import com.tairun.serviceimpl.OrderSheetService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * 快递员信息查询
@@ -20,6 +25,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class AccountAction {
     @Autowired
     private AccountService accountService;
+
+    @Autowired
+    private OrderSheetService orderSheetService;
 
     /**
      * 快递员信息列表
@@ -45,6 +53,14 @@ public class AccountAction {
     @RequestMapping("toRecharge")
     public String recharge(){
         return "recharge";
+    }
+    /**
+     * 选择金额页面
+     * @return
+     */
+    @RequestMapping("toPrepaid")
+    public String prepaid(){
+        return "prepaid";
     }
     /**
      * 注册页面
@@ -83,4 +99,46 @@ public class AccountAction {
         }
         return "forward:/WEB-INF/jsp/register.jsp";
     }
+    @RequestMapping("login")
+    public String login(String username,String password,HttpServletResponse response,HttpServletRequest request,Model model){
+        if(username!=null&&password!=null){
+            Account account = accountService.fintoaccountpassword(username,password);
+            if(null!=account) {
+                HttpSession session = request.getSession();
+                session.setAttribute("account", username);
+                Object a = session.getAttribute("account");
+                System.out.println(a+"---------------------------------------");
+                model.addAttribute("msg",username);
+                return "forward:/WEB-INF/views/courier/loginsuccess.jsp";
+            }else{
+                model.addAttribute("msg","用户名或密码不正确");
+                return "forward:/WEB-INF/views/courier/logincourier.jsp";
+            }
+        }else{
+            model.addAttribute("msg","用户名或密码不能为空");
+            return "forward:/WEB-INF/views/courier/logincourier.jsp";
+        }
+
+    }
+    @RequestMapping("towei")
+    @ResponseBody
+    public EUDataGridResult selectOrderSheet(@RequestParam(value="page", defaultValue="1")int pageNum, @RequestParam(value="rows", defaultValue="10")int pageSize){
+        EUDataGridResult euDataGridResult = null;
+        try {
+            euDataGridResult = orderSheetService.getOrderSheetPage(pageNum,pageSize);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return euDataGridResult;
+    }
+    @RequestMapping("loginyemian")
+    public String login(){
+        return "forward:/WEB-INF/views/courier/logincourier.jsp";
+    }
+
+    @RequestMapping("loginwei")
+    public String loginwei(){
+        return "forward:/WEB-INF/views/courier/weiqu.jsp";
+    }
+
 }

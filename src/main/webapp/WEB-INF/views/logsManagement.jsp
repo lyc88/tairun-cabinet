@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="${ctx}/static/layui1.9/layui/css/layui.css" media="all"/>
     <link rel="stylesheet" href="//at.alicdn.com/t/font_tnyc012u2rlwstt9.css" media="all"/>
     <link rel="stylesheet" href="${ctx}/static/layui1.9/css/news.css" media="all"/>
-    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 </head>
 <body class="childrenBody">
 <div class="layui-form news_list">
@@ -66,8 +65,6 @@
                     rows: nums     //每页显示四条数据
                 },
                 success: function (data) {
-                    console.log(data);
-                    console.log(data.rows);
                     $.each(data.rows, function (index, item) {
                         var createDate =new Date(item.createDate);
                         item.createDate = formatDate(createDate);
@@ -87,7 +84,7 @@
                         curr: curr || 1, //当前页
                         skip: true,
                         jump: function (obj, first) { //触发分页后的回调
-                            debugger;
+
                             if (!first) { //点击跳页触发函数自身，并传递当前页：obj.curr
                                 $(".content").text('');//先清空原先内容
                                 var tel = $("#code").val();

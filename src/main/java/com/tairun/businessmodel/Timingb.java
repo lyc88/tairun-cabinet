@@ -6,6 +6,15 @@ package com.tairun.businessmodel;
 public class Timingb extends IdenAction{
     String isNewVersion;
     int box_temperature;
+    String newVersionMD5;
+
+    public String getNewVersionMD5() {
+        return newVersionMD5;
+    }
+
+    public void setNewVersionMD5(String newVersionMD5) {
+        this.newVersionMD5 = newVersionMD5;
+    }
 
     public int getBox_temperature() {
         return box_temperature;

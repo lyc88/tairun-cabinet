@@ -291,4 +291,19 @@
       name = #{name,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <update id="updateByPrimaryKeyor" parameterType="com.tairun.model.Selfcabinet" >
+    update selfcabinet
+    set code = #{code,jdbcType=VARCHAR},
+    info = #{info,jdbcType=VARCHAR},
+    status = #{status,jdbcType=TINYINT},
+    is_update = #{isUpdate,jdbcType=TINYINT},
+    img_id = #{imgId,jdbcType=INTEGER},
+    img_update = #{imgUpdate,jdbcType=INTEGER},
+    create_date = #{createDate,jdbcType=TIMESTAMP},
+    update_date = #{updateDate,jdbcType=TIMESTAMP},
+    name = #{name,jdbcType=VARCHAR},
+    updateisorno = #{updateisorno,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
 </mapper>

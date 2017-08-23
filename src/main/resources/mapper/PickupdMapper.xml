@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tairun.dao.PickupdMapper" >
+  <resultMap id="BaseResultMap" type="com.tairun.model.Pickupd" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="ordertype" property="ordertype" jdbcType="VARCHAR" />
+    <result column="acount" property="acount" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="charge" property="charge" jdbcType="DOUBLE" />
+    <result column="createdate" property="createdate" jdbcType="DATE" />
+    <result column="customernumber" property="customernumber" jdbcType="VARCHAR" />
+    <result column="waybillnumbrer" property="waybillnumbrer" jdbcType="VARCHAR" />
+    <result column="boxnumber" property="boxnumber" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, ordertype, acount, code, charge, createdate, customernumber, waybillnumbrer, 
+    boxnumber, status
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tairun.model.PickupdExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from pickupd
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pickupd
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pickupd
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tairun.model.PickupdExample" >
+    delete from pickupd
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tairun.model.Pickupd" >
+    insert into pickupd (id, ordertype, acount, 
+      code, charge, createdate, 
+      customernumber, waybillnumbrer, boxnumber, 
+      status)
+    values (#{id,jdbcType=INTEGER}, #{ordertype,jdbcType=VARCHAR}, #{acount,jdbcType=VARCHAR}, 
+      #{code,jdbcType=VARCHAR}, #{charge,jdbcType=DOUBLE}, #{createdate,jdbcType=DATE}, 
+      #{customernumber,jdbcType=VARCHAR}, #{waybillnumbrer,jdbcType=VARCHAR}, #{boxnumber,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tairun.model.Pickupd" >
+    insert into pickupd
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="ordertype != null" >
+        ordertype,
+      </if>
+      <if test="acount != null" >
+        acount,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="charge != null" >
+        charge,
+      </if>
+      <if test="createdate != null" >
+        createdate,
+      </if>
+      <if test="customernumber != null" >
+        customernumber,
+      </if>
+      <if test="waybillnumbrer != null" >
+        waybillnumbrer,
+      </if>
+      <if test="boxnumber != null" >
+        boxnumber,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="ordertype != null" >
+        #{ordertype,jdbcType=VARCHAR},
+      </if>
+      <if test="acount != null" >
+        #{acount,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="charge != null" >
+        #{charge,jdbcType=DOUBLE},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=DATE},
+      </if>
+      <if test="customernumber != null" >
+        #{customernumber,jdbcType=VARCHAR},
+      </if>
+      <if test="waybillnumbrer != null" >
+        #{waybillnumbrer,jdbcType=VARCHAR},
+      </if>
+      <if test="boxnumber != null" >
+        #{boxnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tairun.model.PickupdExample" resultType="java.lang.Integer" >
+    select count(*) from pickupd
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update pickupd
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.ordertype != null" >
+        ordertype = #{record.ordertype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.acount != null" >
+        acount = #{record.acount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.code != null" >
+        code = #{record.code,jdbcType=VARCHAR},
+      </if>
+      <if test="record.charge != null" >
+        charge = #{record.charge,jdbcType=DOUBLE},
+      </if>
+      <if test="record.createdate != null" >
+        createdate = #{record.createdate,jdbcType=DATE},
+      </if>
+      <if test="record.customernumber != null" >
+        customernumber = #{record.customernumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.waybillnumbrer != null" >
+        waybillnumbrer = #{record.waybillnumbrer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.boxnumber != null" >
+        boxnumber = #{record.boxnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update pickupd
+    set id = #{record.id,jdbcType=INTEGER},
+      ordertype = #{record.ordertype,jdbcType=VARCHAR},
+      acount = #{record.acount,jdbcType=VARCHAR},
+      code = #{record.code,jdbcType=VARCHAR},
+      charge = #{record.charge,jdbcType=DOUBLE},
+      createdate = #{record.createdate,jdbcType=DATE},
+      customernumber = #{record.customernumber,jdbcType=VARCHAR},
+      waybillnumbrer = #{record.waybillnumbrer,jdbcType=VARCHAR},
+      boxnumber = #{record.boxnumber,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tairun.model.Pickupd" >
+    update pickupd
+    <set >
+      <if test="ordertype != null" >
+        ordertype = #{ordertype,jdbcType=VARCHAR},
+      </if>
+      <if test="acount != null" >
+        acount = #{acount,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="charge != null" >
+        charge = #{charge,jdbcType=DOUBLE},
+      </if>
+      <if test="createdate != null" >
+        createdate = #{createdate,jdbcType=DATE},
+      </if>
+      <if test="customernumber != null" >
+        customernumber = #{customernumber,jdbcType=VARCHAR},
+      </if>
+      <if test="waybillnumbrer != null" >
+        waybillnumbrer = #{waybillnumbrer,jdbcType=VARCHAR},
+      </if>
+      <if test="boxnumber != null" >
+        boxnumber = #{boxnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tairun.model.Pickupd" >
+    update pickupd
+    set ordertype = #{ordertype,jdbcType=VARCHAR},
+      acount = #{acount,jdbcType=VARCHAR},
+      code = #{code,jdbcType=VARCHAR},
+      charge = #{charge,jdbcType=DOUBLE},
+      createdate = #{createdate,jdbcType=DATE},
+      customernumber = #{customernumber,jdbcType=VARCHAR},
+      waybillnumbrer = #{waybillnumbrer,jdbcType=VARCHAR},
+      boxnumber = #{boxnumber,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

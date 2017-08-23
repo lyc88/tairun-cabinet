@@ -294,7 +294,7 @@
             </div>
             <div class="element">
                 <div class="etitle">付款金额:</div>
-                <div class="einput"><input type="text" name="WIDtotal_fee" value="0.01"></div>
+                <div class="einput"><input type="text" name="WIDtotal_fee" value="8.00"></div>
                 <br>
                 <div class="mark">注意：付款金额(total_fee)，必填(格式如：1.00,请精确到分)</div>
             </div>

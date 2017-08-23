@@ -24,7 +24,7 @@ public class FileService {
 
     public List<Files> selectByImgid(int imgid) {
         FilesExample filesExample = new FilesExample();
-        return filesMapper.selectByImgid(imgid);
+        return filesMapper.selectByImgidsore(imgid);
     }
 
     public void insterFile(Files files) {

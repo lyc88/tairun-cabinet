@@ -17,7 +17,6 @@ import java.util.List;
 public class UserService {
     @Autowired
     private UserMapper userMapper;
-
     public User login(String name,String password){
         UserExample userExample = new UserExample();
         UserExample.Criteria criteria = userExample.createCriteria();

@@ -2,8 +2,9 @@ package com.tairun.dao;
 
 import com.tairun.model.Selfcabinet;
 import com.tairun.model.SelfcabinetExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface SelfcabinetMapper {
     int countByExample(SelfcabinetExample example);
@@ -27,4 +28,6 @@ public interface SelfcabinetMapper {
     int updateByPrimaryKeySelective(Selfcabinet record);
 
     int updateByPrimaryKey(Selfcabinet record);
+
+    int updateByPrimaryKeyor(Selfcabinet selfcabinet);
 }

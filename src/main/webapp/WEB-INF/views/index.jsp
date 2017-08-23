@@ -143,9 +143,9 @@
 <div class="site-tree-mobile layui-hide"><i class="layui-icon">&#xe602;</i></div>
 <div class="site-mobile-shade"></div>
 
-<script type="text/javascript" src="${ctx}/static/layui1.9/layui/layui.js"></script>
-<script type="text/javascript" src="${ctx}/static/layui1.9/js/leftNav.js"></script>
-<script type="text/javascript" src="${ctx}/static/layui1.9/js/index.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/static/layui1.9/layui/layui.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/static/layui1.9/js/leftNav.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/static/layui1.9/js/index.js"></script>
 
 </body>
 </html>

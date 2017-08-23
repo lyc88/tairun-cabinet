@@ -24,6 +24,16 @@ public class Selfcabinet {
 
     private String name;
 
+    private String updateisorno;
+
+    public String getUpdateisorno() {
+        return updateisorno;
+    }
+
+    public void setUpdateisorno(String updateisorno) {
+        this.updateisorno = updateisorno;
+    }
+
     private List<Files> files;
 
     public Integer getId() {

@@ -67,7 +67,7 @@ public class AccountService {
         AccountExample accountExample = new AccountExample();
         //查询条件
         AccountExample.Criteria criteria = accountExample.createCriteria();
-        criteria.andTelephoneLike(telephone);
+        criteria.andTelephoneEqualTo(telephone);
         List<Account> list = accountMapper.selectByExample(accountExample);
         if(null != list && list.size()>0){
             return list.get(0);
@@ -81,7 +81,7 @@ public class AccountService {
         AccountExample accountExample = new AccountExample();
         //查询条件
         AccountExample.Criteria criteria = accountExample.createCriteria();
-        criteria.andTelephoneLike(telephone);
+        criteria.andTelephoneEqualTo(telephone);
         List<Account> list = accountMapper.selectByExample(accountExample);
         if(null != list && list.size()>0){
             return list;
@@ -114,5 +114,26 @@ public class AccountService {
         int num=accountMapper.updateByPrimaryKey(account1);
 
         return num;
+    }
+    /**
+     * 快递员登录
+     * @return
+     */
+    public Account fintoaccountpassword(String account,String password){
+        AccountExample accountExample = new AccountExample();
+        //查询条件
+        AccountExample.Criteria criteria = accountExample.createCriteria();
+        if(StringUtils.isNoneBlank(account)) {
+            criteria.andTelephoneEqualTo(account);
+        }
+        if(StringUtils.isNoneBlank(password)) {
+            criteria.andPasswordEqualTo(password);
+        }
+        List<Account> list = accountMapper.selectByExample(accountExample);
+        if(null != list && list.size()>0){
+            return list.get(0);
+        }else{
+            return null;
+        }
     }
 }

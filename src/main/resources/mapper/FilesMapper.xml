@@ -92,6 +92,14 @@
     select
     <include refid="Base_Column_List" />
     from files
+    where sort = 0 AND img_id = #{imgid,jdbcType=INTEGER}
+  </select>
+
+  <!--根据id查询图片信息-->
+  <select id="selectByImgidsore" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from files
     where img_id = #{imgid,jdbcType=INTEGER}
   </select>
 

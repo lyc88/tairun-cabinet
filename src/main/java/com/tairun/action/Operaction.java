@@ -49,9 +49,9 @@ public class Operaction {
         else if ("fresh_init".equals(action)) {
             result = goodsPickup.Downloadupdate(msg);
         }
-        //充值
-        else if("courier_recharge".equals(action)){
-            result = goodsPickup.couriercharge(msg);
+        //更新返回
+        else if("remote_update_state".equals(action)){
+            result = goodsPickup.updatstate(msg);
         }
         return result;
     }

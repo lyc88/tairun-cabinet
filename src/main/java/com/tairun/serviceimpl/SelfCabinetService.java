@@ -92,5 +92,7 @@ public class SelfCabinetService {
     public void updateSel(Selfcabinet selfcabinet){
         selfcabinetMapper.updateByPrimaryKeySelective(selfcabinet);
     }
-
+    public void updateisorno(Selfcabinet selfcabinet){
+        selfcabinetMapper.updateByPrimaryKeyor(selfcabinet);
+    }
 }
