@@ -6,6 +6,7 @@ import com.tairun.dao.OrderSheetMapper;
 import com.tairun.model.OrderSheet;
 import com.tairun.model.OrderSheetExample;
 import com.tairun.server.utils.EUDataGridResult;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -71,7 +72,7 @@ public class OrderSheetService {
     /**
      *查询所有订单带分页
      */
-    public EUDataGridResult getOrderSheetPage(int pageNum,int pageSize){
+    public EUDataGridResult getOrderSheetPage(int pageNum, int pageSize,String account){
         EUDataGridResult euDataGridResult = new EUDataGridResult();
         OrderSheetExample orderSheetExample = new OrderSheetExample();
         //分页查询
@@ -79,6 +80,9 @@ public class OrderSheetService {
 
         //查询条件
         OrderSheetExample.Criteria criteria = orderSheetExample.createCriteria();
+        if(StringUtils.isNotBlank(account)){
+            criteria.andAccountEqualTo(account);
+        }
         List list = orderSheetMapper.selectByExample(orderSheetExample);
         euDataGridResult.setRows(list);
         //取记录总条数
@@ -100,5 +104,12 @@ public class OrderSheetService {
         PageInfo<OrderSheet> pageInfo = new PageInfo<OrderSheet>(list);
         euDataGridResult.setTotal(pageInfo.getTotal());
         return list;
+    }
+    /**
+     * 修改
+     */
+    public int updateorder(OrderSheet orderSheet){
+        int num=orderSheetMapper.updateByPrimaryKey(orderSheet);
+        return num;
     }
 }

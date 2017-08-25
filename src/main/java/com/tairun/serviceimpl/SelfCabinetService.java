@@ -64,7 +64,7 @@ public class SelfCabinetService {
      * @return
      */
     public int save(Selfcabinet selfcabinet){
-        int i = selfcabinetMapper.insertSelective(selfcabinet);
+        int i = selfcabinetMapper.insert(selfcabinet);
         return i;
     }
     /**

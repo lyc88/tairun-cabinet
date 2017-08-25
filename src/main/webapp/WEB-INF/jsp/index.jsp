@@ -76,7 +76,11 @@
         <li style="padding: 6px;"><a href="${proPath}/base/goURL/jsp/boxCodeInquire" title="开箱码"
                                      style="text-decoration: none;display: block;font-weight:bold;">查看开箱码信息</a>
         </li>
-
+    </div>
+    <div title="充值菜单">
+        <li style="padding: 6px;"><a href="${proPath}/base/goURL/jsp/logsManagement" title="日志"
+                                     style="text-decoration: none;display: block;font-weight:bold;">查看充值信息</a>
+        </li>
     </div>
 </div>
 

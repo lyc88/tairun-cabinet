@@ -44,7 +44,10 @@ public class AdminAction {
         }
         return "login";
     }
-
+    @RequestMapping("loginli")
+    public String loginguan(){
+        return "login";
+    }
     /**
      * 管理员首页
      * @return

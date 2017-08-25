@@ -36,8 +36,8 @@ public class PickupdService {
         //查询条件
         PickupdExample.Criteria criteria = pickupdExample.createCriteria();
         if(StringUtils.isNotBlank(acount)){
-            criteria.andAcountLike(acount+"%");
-            criteria.andStatusLike("取件"+"%");
+            criteria.andAcountEqualTo(acount);
+            criteria.andStatusEqualTo("取件");
         }
         List list = pickupdMapper.selectByExample(pickupdExample);
         euDataGridResult.setRows(list);
@@ -59,8 +59,8 @@ public class PickupdService {
         //查询条件
         PickupdExample.Criteria criteria = pickupdExample.createCriteria();
         if(StringUtils.isNotBlank(acount)){
-            criteria.andAcountLike(acount+"%");
-            criteria.andStatusLike("存件"+"%");
+            criteria.andAcountEqualTo(acount);
+            criteria.andStatusEqualTo("存件");
         }
         List list = pickupdMapper.selectByExample(pickupdExample);
         euDataGridResult.setRows(list);

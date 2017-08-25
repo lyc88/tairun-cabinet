@@ -83,7 +83,7 @@ public class AccountAction {
             Account account = accountService.findByTelephone(telephone.trim());
             if(null != account){
                 model.addAttribute("msg","手机号已经被注册了");
-                return "forward:/WEB-INF/jsp/register.jsp";
+                return "forward:/WEB-INF/views/register.jsp";
             }
         }
 
@@ -93,11 +93,11 @@ public class AccountAction {
             account.setPassword(password);
             account.setName(name);
             accountService.save(account);
-            return "forward:/WEB-INF/jsp/success.jsp";
+            return "forward:/WEB-INF/views/success.jsp";
         }else{
             model.addAttribute("msg","手机号或用户名或密码不能为空");
         }
-        return "forward:/WEB-INF/jsp/register.jsp";
+        return "forward:/WEB-INF/views/register.jsp";
     }
     @RequestMapping("login")
     public String login(String username,String password,HttpServletResponse response,HttpServletRequest request,Model model){
@@ -107,9 +107,8 @@ public class AccountAction {
                 HttpSession session = request.getSession();
                 session.setAttribute("account", username);
                 Object a = session.getAttribute("account");
-                System.out.println(a+"---------------------------------------");
                 model.addAttribute("msg",username);
-                return "forward:/WEB-INF/views/courier/loginsuccess.jsp";
+                return "forward:/WEB-INF/views/guanindex.jsp";
             }else{
                 model.addAttribute("msg","用户名或密码不正确");
                 return "forward:/WEB-INF/views/courier/logincourier.jsp";
@@ -122,10 +121,13 @@ public class AccountAction {
     }
     @RequestMapping("towei")
     @ResponseBody
-    public EUDataGridResult selectOrderSheet(@RequestParam(value="page", defaultValue="1")int pageNum, @RequestParam(value="rows", defaultValue="10")int pageSize){
+    public EUDataGridResult selectOrderSheet(@RequestParam(value="page", defaultValue="1")int pageNum, @RequestParam(value="rows", defaultValue="10")int pageSize,HttpServletRequest httpServletRequest){
         EUDataGridResult euDataGridResult = null;
+        HttpSession session = httpServletRequest.getSession();
+        Object a = session.getAttribute("account");
+        String acount = (String)a;
         try {
-            euDataGridResult = orderSheetService.getOrderSheetPage(pageNum,pageSize);
+            euDataGridResult = orderSheetService.getOrderSheetPage(pageNum,pageSize,acount);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -140,5 +142,12 @@ public class AccountAction {
     public String loginwei(){
         return "forward:/WEB-INF/views/courier/weiqu.jsp";
     }
-
+    @RequestMapping("loginli")
+    public String loginguan(){
+        return "forward:/WEB-INF/views/register.jsp";
+    }
+    @RequestMapping("loginlu")
+    public String loginguanlu(){
+        return "forward:/WEB-INF/views/courier/logincourier.jsp";
+    }
 }

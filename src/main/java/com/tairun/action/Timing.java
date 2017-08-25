@@ -34,6 +34,8 @@ public class Timing {
                 getupdate=selfcabinet.getIsUpdate();
                 getimgupdate=selfcabinet.getImgUpdate();
                 imgid=selfcabinet.getImgId();
+                selfcabinet.setInfo(temperature);
+                selfCabinetService.updateisorno(selfcabinet);
             }
             Timingb timingb= new Timingb();
             //是否图片更新
@@ -109,6 +111,7 @@ public class Timing {
                 aa="";
                 aa=prop.getPropsAsString("IsNewAdPic");
                 imgname+=(aa+files.getFileName()+",");
+                System.out.println(imgname);
             }
         }
         Timingb timingb= new Timingb();

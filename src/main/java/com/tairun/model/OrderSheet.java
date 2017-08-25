@@ -23,6 +23,8 @@ public class OrderSheet {
 
     private Double charge;
 
+    private Integer isendorno;
+
     public Integer getId() {
         return id;
     }
@@ -101,5 +103,13 @@ public class OrderSheet {
 
     public void setCharge(Double charge) {
         this.charge = charge;
+    }
+
+    public Integer getIsendorno() {
+        return isendorno;
+    }
+
+    public void setIsendorno(Integer isendorno) {
+        this.isendorno = isendorno;
     }
 }

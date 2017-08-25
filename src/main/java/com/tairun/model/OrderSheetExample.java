@@ -764,6 +764,66 @@ public class OrderSheetExample {
             addCriterion("charge not between", value1, value2, "charge");
             return (Criteria) this;
         }
+
+        public Criteria andIsendornoIsNull() {
+            addCriterion("isendorno is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsendornoIsNotNull() {
+            addCriterion("isendorno is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsendornoEqualTo(Integer value) {
+            addCriterion("isendorno =", value, "isendorno");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsendornoNotEqualTo(Integer value) {
+            addCriterion("isendorno <>", value, "isendorno");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsendornoGreaterThan(Integer value) {
+            addCriterion("isendorno >", value, "isendorno");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsendornoGreaterThanOrEqualTo(Integer value) {
+            addCriterion("isendorno >=", value, "isendorno");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsendornoLessThan(Integer value) {
+            addCriterion("isendorno <", value, "isendorno");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsendornoLessThanOrEqualTo(Integer value) {
+            addCriterion("isendorno <=", value, "isendorno");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsendornoIn(List<Integer> values) {
+            addCriterion("isendorno in", values, "isendorno");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsendornoNotIn(List<Integer> values) {
+            addCriterion("isendorno not in", values, "isendorno");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsendornoBetween(Integer value1, Integer value2) {
+            addCriterion("isendorno between", value1, value2, "isendorno");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsendornoNotBetween(Integer value1, Integer value2) {
+            addCriterion("isendorno not between", value1, value2, "isendorno");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

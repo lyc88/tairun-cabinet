@@ -32,7 +32,6 @@
         <button class="layui-btn layui-btn-normal" style="width: 200px;height: 100px;" onclick="er()"><a style="font-size: 50px;">20元</a></button>
         <button class="layui-btn layui-btn-warm" style="width: 200px;height: 100px;" onclick="wu()"><a style="font-size: 50px;">50元</a></button>
         <button class="layui-btn layui-btn-danger" style="width: 200px;height: 100px;" onclick="bai()"><a style="font-size: 50px;">100元</a></button>
-        <button class="layui-btn layui-btn-danger" style="width: 200px;height: 100px;" onclick="ba()"><a style=font-size:50px;>10011元</a></button>
         <div class="element">
             <div class="einput"><input type="hidden" name="WIDout_trade_no" id="out_trade_no"></div>
         </div>

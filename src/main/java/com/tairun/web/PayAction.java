@@ -1,5 +1,6 @@
 package com.tairun.web;
 
+import com.tairun.model.Account;
 import com.tairun.model.Prepaid;
 import com.tairun.server.utils.AlipayConfig;
 import com.tairun.server.utils.AlipayNotify;
@@ -97,11 +98,10 @@ public class PayAction {
 
     @RequestMapping("return_url")
     public String callback(HttpServletRequest request){
-
         //获取支付宝GET过来反馈信息
         Map<String,String> params = new HashMap<String,String>();
         Map requestParams = request.getParameterMap();
-        int k=0;BigDecimal num=null;
+        int k=0;BigDecimal num=null;String liushuihao=null;
             for (Iterator iter = requestParams.keySet().iterator(); iter.hasNext();) {
                 k++;
                 String name = (String) iter.next();
@@ -115,6 +115,9 @@ public class PayAction {
                 //乱码解决，这段代码在出现乱码时使用。如果mysign和sign不相等也可以使用这段代码转化
                 valueStr = valueStr;
                 params.put(name, valueStr);
+                if(k==12){
+                    liushuihao=valueStr;
+                }
                 if(k==14){
                     num=new BigDecimal(valueStr);
                 }
@@ -134,25 +137,26 @@ public class PayAction {
             System.out.println(trade_status+"3");
             //获取支付宝的通知返回参数，可参考技术文档中页面跳转同步通知参数列表(以上仅供参考)//
             BigDecimal moyer=null;
-            Double momey=0.0;
-            HttpSession session = request.getSession();
-            Object a = session.getAttribute("account");
-            String name= (String)a;
             //计算得出通知验证结果
             boolean verify_result = AlipayNotify.verify(params);
-
+            String kname=null;
             if(verify_result){//验证成功
                 //请在这里加上商户的业务逻辑程序代码
                 List<Prepaid> list = prepaidService.findByorderid(out_trade_no);
                 for(Prepaid prepaid:list){
+                    kname=prepaid.getName();
                     prepaid.setStatus("支付成功");
                     moyer=prepaid.getNum();
+                    prepaid.setSerialnumber(liushuihao);
                     prepaidService.updateorderid(prepaid);
                 }
-                /*List<Account> list1=accountService.findByTelephonetwo(name);
+                Double aaaa=moyer.doubleValue();
+                System.out.println(kname);
+                List<Account> list1=accountService.findByTelephonetwo(kname);
                 for(Account account1 : list1){
-
-                }*/
+                    account1.setAccount(account1.getAccount()+aaaa);
+                    accountService.updateaccount(account1);
+                }
                 //——请根据您的业务逻辑来编写程序（以下代码仅作参考）——
                 if(trade_status.equals("TRADE_FINISHED") || trade_status.equals("TRADE_SUCCESS")){
                     //判断该笔订单是否在商户网站中已经做过处理
@@ -163,8 +167,7 @@ public class PayAction {
                 //该页面可做页面美工编辑
 
                 //——请根据您的业务逻辑来编写程序（以上代码仅作参考）——
-
-
+                return "successs";
             }else{
                 //该页面可做页面美工编辑
                 List<Prepaid> list = prepaidService.findByorderid(out_trade_no);
@@ -172,8 +175,8 @@ public class PayAction {
                     prepaid.setStatus("支付失败");
                     prepaidService.updateorderid(prepaid);
                 }
+                return "false";
             }
-        return "";
     }
 
 }

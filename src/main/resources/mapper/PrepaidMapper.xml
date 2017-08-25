@@ -8,6 +8,7 @@
     <result column="status" property="status" jdbcType="VARCHAR" />
     <result column="orderid" property="orderid" jdbcType="VARCHAR" />
     <result column="miaoshu" property="miaoshu" jdbcType="VARCHAR" />
+    <result column="serialnumber" property="serialnumber" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, num, name, status, orderid, miaoshu
+    id, num, name, status, orderid, miaoshu, serialnumber
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tairun.model.PrepaidExample" >
     select
@@ -102,11 +103,11 @@
   </delete>
   <insert id="insert" parameterType="com.tairun.model.Prepaid" >
     insert into prepaid (id, num, name, 
-      status, orderid, miaoshu
-      )
+      status, orderid, miaoshu, 
+      serialnumber)
     values (#{id,jdbcType=INTEGER}, #{num,jdbcType=DECIMAL}, #{name,jdbcType=VARCHAR}, 
-      #{status,jdbcType=VARCHAR}, #{orderid,jdbcType=VARCHAR}, #{miaoshu,jdbcType=VARCHAR}
-      )
+      #{status,jdbcType=VARCHAR}, #{orderid,jdbcType=VARCHAR}, #{miaoshu,jdbcType=VARCHAR}, 
+      #{serialnumber,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.tairun.model.Prepaid" >
     insert into prepaid
@@ -129,6 +130,9 @@
       <if test="miaoshu != null" >
         miaoshu,
       </if>
+      <if test="serialnumber != null" >
+        serialnumber,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -148,6 +152,9 @@
       </if>
       <if test="miaoshu != null" >
         #{miaoshu,jdbcType=VARCHAR},
+      </if>
+      <if test="serialnumber != null" >
+        #{serialnumber,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -178,6 +185,9 @@
       <if test="record.miaoshu != null" >
         miaoshu = #{record.miaoshu,jdbcType=VARCHAR},
       </if>
+      <if test="record.serialnumber != null" >
+        serialnumber = #{record.serialnumber,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -190,7 +200,8 @@
       name = #{record.name,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=VARCHAR},
       orderid = #{record.orderid,jdbcType=VARCHAR},
-      miaoshu = #{record.miaoshu,jdbcType=VARCHAR}
+      miaoshu = #{record.miaoshu,jdbcType=VARCHAR},
+      serialnumber = #{record.serialnumber,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -213,6 +224,9 @@
       <if test="miaoshu != null" >
         miaoshu = #{miaoshu,jdbcType=VARCHAR},
       </if>
+      <if test="serialnumber != null" >
+        serialnumber = #{serialnumber,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -222,7 +236,8 @@
       name = #{name,jdbcType=VARCHAR},
       status = #{status,jdbcType=VARCHAR},
       orderid = #{orderid,jdbcType=VARCHAR},
-      miaoshu = #{miaoshu,jdbcType=VARCHAR}
+      miaoshu = #{miaoshu,jdbcType=VARCHAR},
+      serialnumber = #{serialnumber,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

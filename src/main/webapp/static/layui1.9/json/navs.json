@@ -21,7 +21,12 @@
 },{
 	"title" : "开箱码查询",
 	"icon" : "&#xe631;",
-	"href" : "/base/goURL/views/boxCodeInquire",
+	"href" : "/base/goURL /views/boxCodeInquire",
+	"spread" : false
+},{
+	"title" : "充值菜单",
+	"icon" : "&#xe631;",
+	"href" : "/base/goURL/views/chargtel",
 	"spread" : false
 }
 ]

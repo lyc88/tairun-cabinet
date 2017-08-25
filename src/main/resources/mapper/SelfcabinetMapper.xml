@@ -111,12 +111,12 @@
   <insert id="insert" parameterType="com.tairun.model.Selfcabinet" >
     insert into selfcabinet (id, code, info, 
       status, is_update, img_id, 
-      img_update, create_date, update_date, 
+      img_update, create_date, update_date,updateisorno,
       name)
     values (#{id,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, #{info,jdbcType=VARCHAR}, 
       #{status,jdbcType=TINYINT}, #{isUpdate,jdbcType=TINYINT}, #{imgId,jdbcType=INTEGER}, 
       #{imgUpdate,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, 
-      #{name,jdbcType=VARCHAR})
+      #{updateisorno,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.tairun.model.Selfcabinet" >
     insert into selfcabinet

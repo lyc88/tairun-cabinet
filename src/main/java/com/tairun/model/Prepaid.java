@@ -15,6 +15,8 @@ public class Prepaid {
 
     private String miaoshu;
 
+    private String serialnumber;
+
     public Integer getId() {
         return id;
     }
@@ -61,5 +63,13 @@ public class Prepaid {
 
     public void setMiaoshu(String miaoshu) {
         this.miaoshu = miaoshu == null ? null : miaoshu.trim();
+    }
+
+    public String getSerialnumber() {
+        return serialnumber;
+    }
+
+    public void setSerialnumber(String serialnumber) {
+        this.serialnumber = serialnumber == null ? null : serialnumber.trim();
     }
 }
